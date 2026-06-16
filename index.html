@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Side Projects — Oshal</title>
+  <meta name="description" content="A collection of things I build for fun — tools, games, and experiments by Oshal." />
+  <meta property="og:title" content="Side Projects — Oshal" />
+  <meta property="og:description" content="Tools, games, and experiments I build on weekends." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0b0b;
+      --surface: #141414;
+      --surface-hover: #1a1a1a;
+      --border: #1f1f1f;
+      --border-hover: #2e2e2e;
+      --text-primary: #ededed;
+      --text-secondary: #888;
+      --text-muted: #555;
+      --accent: #c9f542;
+      --accent-dim: rgba(201, 245, 66, 0.08);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(11, 11, 11, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 400;
+      transition: color 0.2s;
+      letter-spacing: 0.1px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 160px 40px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(201, 245, 66, 0.2);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero-meta {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero-count {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-count span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-hover);
+    }
+
+    /* GRID */
+    .projects-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px 120px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      padding: 28px 28px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      cursor: default;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      background: var(--surface-hover);
+    }
+
+    .card:hover .card-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-emoji {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .card-number {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+    }
+
+    .card-arrow {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      color: var(--text-muted);
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card-title {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+
+    .card-meta p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border-hover);
+      padding: 3px 9px;
+      border-radius: 100px;
+      letter-spacing: 0.2px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--text-primary);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      nav { padding: 18px 24px; }
+      .hero { padding: 140px 24px 60px; }
+      .projects-section { padding: 0 24px 80px; }
+      footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    @media (max-width: 560px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 38px; letter-spacing: -1px; }
+      .nav-links { display: none; }
+      .hero-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .divider { display: none; }
+    }
+
+    /* FADE IN */
+    .card {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1)  { animation-delay: 0.05s; }
+    .card:nth-child(2)  { animation-delay: 0.10s; }
+    .card:nth-child(3)  { animation-delay: 0.15s; }
+    .card:nth-child(4)  { animation-delay: 0.20s; }
+    .card:nth-child(5)  { animation-delay: 0.25s; }
+    .card:nth-child(6)  { animation-delay: 0.30s; }
+    .card:nth-child(7)  { animation-delay: 0.35s; }
+    .card:nth-child(8)  { animation-delay: 0.40s; }
+    .card:nth-child(9)  { animation-delay: 0.45s; }
+    .card:nth-child(10) { animation-delay: 0.50s; }
+    .card:nth-child(11) { animation-delay: 0.55s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://oshal.webflow.io" class="nav-logo">Oshal</a>
+    <ul class="nav-links">
+      <li><a href="https://oshal.webflow.io">About</a></li>
+      <li><a href="https://oshal.webflow.io">Case Studies</a></li>
+      <li><a href="#" class="active">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Always shipping</div>
+    <h1>Things I build<br /><em>for fun.</em></h1>
+    <p>Side projects, weekend experiments, and tools I wished existed. No roadmaps, no stakeholders — just curiosity and a code editor.</p>
+    <div class="hero-meta">
+      <p class="hero-count"><span>11</span> projects</p>
+      <div class="divider"></div>
+      <p class="hero-count">Tools · Games · Experiments</p>
+    </div>
+  </section>
+
+  <!-- PROJECTS GRID -->
+  <section class="projects-section">
+    <div class="projects-grid">
+
+      <!-- 1 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🍅</span>
+          <span class="card-number">01</span>
+        </div>
+        <h2 class="card-title">Pixel Time Chef Pomodoro</h2>
+        <div class="card-meta">
+          <p>A pixel-art Pomodoro timer where a chef cooks while you focus.</p>
+          <p>Built to make deep work feel fun and delightfully visual.</p>
+          <p>Used by students and freelancers who want flavor in their flow.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Productivity</span>
+          <span class="tag">Pixel Art</span>
+          <span class="tag">Timer</span>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">📝</span>
+          <span class="card-number">02</span>
+        </div>
+        <h2 class="card-title">NewTab Scratch Pad</h2>
+        <div class="card-meta">
+          <p>Replace your new tab with a distraction-free scratch pad.</p>
+          <p>Jot thoughts, paste links, or brainstorm without switching apps.</p>
+          <p>Auto-saves locally — your ideas stay even when the tab closes.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Extension</span>
+          <span class="tag">Notes</span>
+          <span class="tag">Productivity</span>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🛰️</span>
+          <span class="card-number">03</span>
+        </div>
+        <h2 class="card-title">Orbit Satellite Tracker</h2>
+        <div class="card-meta">
+          <p>Visualize real-time satellite positions on an interactive globe.</p>
+          <p>Built for space nerds and curious minds who look up at the sky.</p>
+          <p>Pulls live TLE data to show exactly what's orbiting Earth right now.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Space</span>
+          <span class="tag">Data Viz</span>
+          <span class="tag">Real-time</span>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🔧</span>
+          <span class="card-number">04</span>
+        </div>
+        <h2 class="card-title">Spares</h2>
+        <div class="card-meta">
+          <p>A lightweight app to track and manage spare parts inventory.</p>
+          <p>Designed for repair shops, hobbyists, and hardware tinkerers.</p>
+          <p>Simple search and tagging keeps clutter out of your workflow.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Utility</span>
+          <span class="tag">Inventory</span>
+          <span class="tag">Tool</span>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🃏</span>
+          <span class="card-number">05</span>
+        </div>
+        <h2 class="card-title">Card Circle</h2>
+        <div class="card-meta">
+          <p>Digital business card exchange for small groups and events.</p>
+          <p>Share your circle, collect others — no paper, no friction.</p>
+          <p>Built for networking moments that feel human, not transactional.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Networking</span>
+          <span class="tag">Social</span>
+          <span class="tag">Events</span>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">☑️</span>
+          <span class="card-number">06</span>
+        </div>
+        <h2 class="card-title">Checkbox Game</h2>
+        <div class="card-meta">
+          <p>A tiny game hidden inside a row of humble checkboxes.</p>
+          <p>Proves that delight lives in the smallest UI interactions.</p>
+          <p>Built in a weekend as an experiment in micro-interaction design.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Game</span>
+          <span class="tag">Experiment</span>
+          <span class="tag">Micro-UI</span>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">♿</span>
+          <span class="card-number">07</span>
+        </div>
+        <h2 class="card-title">Accessibility Simulator</h2>
+        <div class="card-meta">
+          <p>Simulate color blindness and visual impairments on any webpage.</p>
+          <p>A tool for designers to build with empathy baked in from the start.</p>
+          <p>One-click overlays show how 1 in 12 people actually see your design.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">A11y</span>
+          <span class="tag">Design Tool</span>
+          <span class="tag">Extension</span>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🔖</span>
+          <span class="card-number">08</span>
+        </div>
+        <h2 class="card-title">Bookmark of the Day</h2>
+        <div class="card-meta">
+          <p>A browser extension that surfaces one saved bookmark every day.</p>
+          <p>Rediscover forgotten links you once thought were worth saving.</p>
+          <p>Turns your bookmark pile into a daily dose of serendipity.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Extension</span>
+          <span class="tag">Discovery</span>
+          <span class="tag">Habit</span>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🎨</span>
+          <span class="card-number">09</span>
+        </div>
+        <h2 class="card-title">UI Universe Comics</h2>
+        <div class="card-meta">
+          <p>Design concepts explained through illustrated comic-style panels.</p>
+          <p>Makes UX principles approachable for designers and non-designers alike.</p>
+          <p>An ongoing series mixing visual storytelling with systems thinking.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Education</span>
+          <span class="tag">Comics</span>
+          <span class="tag">UX</span>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">🎴</span>
+          <span class="card-number">10</span>
+        </div>
+        <h2 class="card-title">Cabo Online Game</h2>
+        <div class="card-meta">
+          <p>Cabo — the beloved card game — playable online with friends.</p>
+          <p>Built to keep game nights alive even when you're miles apart.</p>
+          <p>Multiplayer, real-time, and faithful to every rule of the original.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Game</span>
+          <span class="tag">Multiplayer</span>
+          <span class="tag">Real-time</span>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-top">
+          <span class="card-emoji">💸</span>
+          <span class="card-number">11</span>
+        </div>
+        <h2 class="card-title">Offline Money Tracker</h2>
+        <div class="card-meta">
+          <p>A personal finance tracker that works entirely offline.</p>
+          <p>Inbuilt AI categorizes spending and spots patterns over time.</p>
+          <p>No account needed — your financial data never leaves your device.</p>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Finance</span>
+          <span class="tag">AI</span>
+          <span class="tag">Privacy-first</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built with curiosity &amp; too many late nights.</p>
+    <a href="https://oshal.webflow.io">← Back to portfolio</a>
+  </footer>
+
+</body>
+</html>
