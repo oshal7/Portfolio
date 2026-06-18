@@ -1,37 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oshal — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oshal — Designer, Maker, Thinker</title>
+<meta name="description" content="Oshal — multidisciplinary designer crafting simple, elegant, user-centric digital experiences." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
 <style>
-  :root{
-    --bg:#080808; --txt-1:#f0ede8; --txt-2:#7a7673; --lime:#c8f135;
+  /* ─── RESET ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ─── TOKENS ─── */
+  :root {
+    --navy:        #11151c;
+    --navy-2:      #171c25;
+    --cream:       #f4efe6;
+    --cream-2:     #fbf8f2;
+    --card-border: #e2dcd0;
+    --tag-bg:      #ece5d8;
+    --tag-text:    #5a554d;
+    --txt-on-navy-1: #f4f1ec;
+    --txt-on-navy-2: #8b929c;
+    --txt-on-cream-1: #1c1b19;
+    --txt-on-cream-2: #6f6a62;
+    --peach:       #ddb78f;
+    --peach-text:  #1c1b19;
+    --dot:         #7bd389;
+    --r: 18px;
   }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; min-height:100vh; background:var(--bg); color:var(--txt-1);
-    font-family:'Inter',sans-serif; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; text-align:center; padding:24px;
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--txt-on-cream-1);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  h1{
-    font-family:'Playfair Display',serif; font-style:italic; font-weight:400;
-    font-size:clamp(2rem,6vw,3.2rem); margin:0 0 16px;
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 32px;
+    background: rgba(244,239,230,.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--card-border);
   }
-  p{color:var(--txt-2); font-size:1.05rem; margin:0 0 28px; max-width:480px; line-height:1.6;}
-  a.cta{
-    color:var(--bg); background:var(--lime); text-decoration:none; font-weight:600;
-    padding:12px 24px; border-radius:8px; transition:opacity .2s;
+  .nav-name {
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.25rem;
+    color: var(--txt-on-cream-1); text-decoration: none;
   }
-  a.cta:hover{opacity:.85;}
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: var(--txt-on-cream-2); text-decoration: none; font-size: .92rem; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover, .nav-links a.here { color: var(--txt-on-cream-1); }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--navy);
+    color: var(--txt-on-navy-1);
+    padding: 90px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 640px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    position: relative; z-index: 2;
+  }
+  .rings {
+    position: absolute; top: 50%; left: 50%;
+    width: 420px; height: 420px;
+    transform: translate(-50%, -54%);
+    z-index: 1;
+  }
+  .rings::before, .rings::after, .rings i {
+    content: ""; position: absolute; border-radius: 50%;
+    border: 1px solid rgba(244,241,236,.08);
+    top: 50%; left: 50%;
+  }
+  .rings::before { width: 420px; height: 420px; transform: translate(-50%,-50%); }
+  .rings::after  { width: 320px; height: 320px; transform: translate(-50%,-50%); }
+  .rings i        { width: 220px; height: 220px; transform: translate(-50%,-50%); display: block; }
+
+  .avatar {
+    width: 124px; height: 124px; border-radius: 50%;
+    background: linear-gradient(145deg, #dcb78f, #b98a63);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.6rem;
+    color: var(--navy);
+    border: 3px solid rgba(244,241,236,.12);
+    position: relative; z-index: 2;
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    font-size: .78rem; letter-spacing: .12em; font-weight: 600;
+    color: var(--txt-on-navy-2); text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3rem); line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .hero h1 em { font-style: italic; font-weight: 400; }
+
+  .hero p.lead {
+    color: var(--txt-on-navy-2); font-size: 1.05rem; line-height: 1.7;
+    max-width: 480px; margin-bottom: 30px;
+  }
+
+  .meta-block {
+    display: flex; flex-direction: column; gap: 10px;
+    border-top: 1px solid rgba(244,241,236,.1);
+    padding-top: 22px; margin-bottom: 22px; width: 100%; max-width: 480px;
+  }
+  .meta-row {
+    font-size: .8rem; letter-spacing: .04em; color: var(--txt-on-navy-2);
+    text-transform: uppercase; font-weight: 500;
+  }
+  .meta-row b { color: var(--txt-on-navy-1); font-weight: 600; }
+
+  .status {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: .88rem; color: var(--txt-on-navy-1); font-weight: 500;
+  }
+  .status .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--dot);
+    box-shadow: 0 0 0 4px rgba(123,211,137,.18);
+  }
+
+  /* ─── SECTIONS ─── */
+  section.panel { padding: 90px 0; }
+  .panel.cream { background: var(--cream); }
+  .panel.navy  { background: var(--navy); color: var(--txt-on-navy-1); }
+
+  .section-head { margin-bottom: 48px; max-width: 560px; }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif; font-weight: 400;
+    font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 12px;
+  }
+  .panel.cream .section-head h2 { color: var(--txt-on-cream-1); }
+  .panel.navy .section-head h2 { color: var(--txt-on-navy-1); }
+  .panel.cream .section-head p { color: var(--txt-on-cream-2); }
+  .panel.navy .section-head p { color: var(--txt-on-navy-2); }
+  .section-head p { font-size: 1rem; line-height: 1.6; }
+
+  /* ─── CARDS ─── */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+
+  .card {
+    background: var(--cream-2);
+    border: 1px solid var(--card-border);
+    border-radius: var(--r);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    color: var(--txt-on-cream-1);
+  }
+  .card-img {
+    height: 150px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.6rem;
+  }
+  .card-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .card-body h3 {
+    font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.08rem; line-height: 1.35;
+  }
+  .card-body p {
+    color: var(--txt-on-cream-2); font-size: .9rem; line-height: 1.6;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .tag {
+    font-size: .68rem; letter-spacing: .04em; font-weight: 600; text-transform: uppercase;
+    background: var(--tag-bg); color: var(--tag-text);
+    padding: 6px 11px; border-radius: 999px;
+  }
+  .checkout {
+    margin-top: auto; padding-top: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid var(--card-border); border-radius: 999px;
+    padding: 11px; font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--txt-on-cream-1);
+    text-decoration: none; transition: background .2s;
+  }
+  .checkout:hover { background: var(--tag-bg); }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    text-align: center; max-width: 560px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .contact .wave { font-size: 2.6rem; margin-bottom: 22px; }
+  .contact p {
+    color: var(--txt-on-navy-2); font-size: 1.05rem; line-height: 1.7; margin-bottom: 30px;
+  }
+  .contact p b { color: var(--txt-on-navy-1); }
+  .contact-actions { display: flex; gap: 14px; margin-bottom: 36px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    padding: 13px 26px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+    text-decoration: none; transition: opacity .2s, background .2s;
+  }
+  .btn.fill { background: var(--peach); color: var(--peach-text); }
+  .btn.fill:hover { opacity: .85; }
+  .btn.outline { border: 1px solid rgba(244,241,236,.25); color: var(--txt-on-navy-1); }
+  .btn.outline:hover { background: rgba(244,241,236,.06); }
+
+  .socials { display: flex; gap: 14px; margin-bottom: 28px; }
+  .socials a {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid rgba(244,241,236,.18);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--txt-on-navy-1); text-decoration: none; font-size: .85rem;
+    transition: background .2s;
+  }
+  .socials a:hover { background: rgba(244,241,236,.08); }
+
+  .copyright { color: var(--txt-on-navy-2); font-size: .8rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .wrap { padding: 0 20px; }
+    nav { padding: 18px 20px; }
+    .nav-links { gap: 16px; }
+    .hero { padding: 70px 20px 60px; }
+    section.panel { padding: 64px 0; }
+    .grid, .grid.cols-4 { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <h1>Hey, I'm Oshal.</h1>
-  <p>Portfolio homepage coming soon. In the meantime, check out the side projects I build for fun.</p>
-  <a class="cta" href="side-quests/">Side Quests →</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-name">Oshal</a>
+  <ul class="nav-links">
+    <li><a href="#hero">About</a></li>
+    <li><a href="#projects">Case Studies</a></li>
+    <li><a href="side-quests/">Side Quests</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <div class="rings"><i></i></div>
+  <div class="hero-inner">
+    <div class="avatar">O</div>
+    <div class="eyebrow">Designer &bull; Maker &bull; Thinker</div>
+    <h1><em>Hello,</em> I'm Oshal.</h1>
+    <p class="lead">Multidisciplinary designer with over 5 years of experience. I love crafting user-centric digital experiences that are simple, elegant, and easy to navigate.</p>
+    <div class="meta-block">
+      <div class="meta-row">Currently @ <b>Cohesity Inc.</b></div>
+      <div class="meta-row">Previously @ Axis Bank, Maximl, LTIMindtree, Sparklehood</div>
+    </div>
+    <div class="status"><span class="dot"></span> Open to collaboration on side projects</div>
+  </div>
+</header>
+
+<!-- SELECTED PROJECTS -->
+<section class="panel cream" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>selected projects&hellip;</h2>
+      <p>the result of hard work and dedication, with a sprinkle of tech magic.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#1f6f6b,#69c0ba);">🗄️</div>
+        <div class="card-body">
+          <h3>Simplifying Data Backup and Recovery for MongoDB Workloads</h3>
+          <p>Designed the UX to integrate MongoDB workloads via Ops Manager, enabling customers to use both physical and logical data protection options on the Cohesity platform for improved backup and recovery.</p>
+          <div class="tags">
+            <span class="tag">Data Backup</span>
+            <span class="tag">Data Recovery</span>
+            <span class="tag">Enterprise UX</span>
+          </div>
+          <a class="checkout" href="#">Checkout ↗</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#a32a55,#e0608f);">♿</div>
+        <div class="card-body">
+          <h3>Enhancing Digital Accessibility for Axis Bank Digital Platforms</h3>
+          <p>Worked extensively on improving Axis Bank's digital accessibility, involving thorough audits, alignment with business goals, and a strategic roadmap for implementation.</p>
+          <div class="tags">
+            <span class="tag">Thesis Project</span>
+            <span class="tag">Accessibility</span>
+            <span class="tag">Design System</span>
+          </div>
+          <a class="checkout" href="#">Checkout ↗</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#2c8c7a,#bfe3d0);">💬</div>
+        <div class="card-body">
+          <h3>Improving Job Search Experience with WhatsApp Chatbots</h3>
+          <p>Designed and developed a WhatsApp chatbot named TalentAI, empowering job seekers in India with personalized job recommendations, resume reviews, and career insights.</p>
+          <div class="tags">
+            <span class="tag">Conversation Design</span>
+            <span class="tag">UX Writing</span>
+            <span class="tag">CASUX Case Study</span>
+          </div>
+          <a class="checkout" href="#">Checkout ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIMENTS -->
+<section class="panel navy" id="experiments">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>experiments that I love&hellip;</h2>
+      <p>where I bring ideas to life and learn about product development.</p>
+    </div>
+    <div class="grid cols-4">
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#7b6fd1,#c9bff0);">🔖</div>
+        <div class="card-body">
+          <h3>Bookmark of the Day</h3>
+          <p>A Chrome extension that fetches you one bookmark every day and makes revisiting bookmarks a blissful experience.</p>
+          <div class="tags"><span class="tag">Chrome Extension</span><span class="tag">Side Project</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#1f8d83,#9ee3d6);">🗺️</div>
+        <div class="card-body">
+          <h3>City Maps Design for SAT Authority</h3>
+          <p>Designed A2-sized city guide maps for the Ministry of Saudi Arabia Tourism Department, blending design and functionality.</p>
+          <div class="tags"><span class="tag">Map Design</span><span class="tag">Cartography</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#2e9956,#9fe3ab);">🆘</div>
+        <div class="card-body">
+          <h3>Covid Nagpur SOS</h3>
+          <p>Engineered a COVID-fighting app for Nagpur using no-code tools, aggregating public resources to aid the community.</p>
+          <div class="tags"><span class="tag">No-Code</span><span class="tag">Community</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#161616,#3a3a3a);">🚀</div>
+        <div class="card-body">
+          <h3>Vyomanaut NFT</h3>
+          <p>Led product and design for an officially licensed ISRO NFT card game, shaping strategy and a VR museum experience.</p>
+          <div class="tags"><span class="tag">NFT</span><span class="tag">Game Design</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section class="panel cream" id="writing">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>stuff I write&hellip;</h2>
+      <p>my thoughts on the craft, expressing design concepts with the power of words.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#101820,#1d3b34);">🖥️</div>
+        <div class="card-body">
+          <h3>Designing for Textual User Interfaces</h3>
+          <p>Some secrets from my experience crafting friendly TUIs — the unique challenges and modern usability strategies for a seamless UX.</p>
+          <div class="tags"><span class="tag">TUI</span><span class="tag">Essay</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#f3c8d8,#ffffff);">🎛️</div>
+        <div class="card-body">
+          <h3>Designing the Perfect Slider Component</h3>
+          <p>Crafted for the Subzero design system, this slider component balances clarity and control in everyday interactions.</p>
+          <div class="tags"><span class="tag">Design System</span><span class="tag">Components</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#1a1a1a,#4a4a4a);">🎨</div>
+        <div class="card-body">
+          <h3>Whimsical Paperweights That Inspire</h3>
+          <p>An idea flourished from talcum powder's splash into character-filled paperweights, exhaling playfulness into mundane moments.</p>
+          <div class="tags"><span class="tag">Craft</span><span class="tag">Inspiration</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="panel navy" id="contact">
+  <div class="wrap contact">
+    <div class="wave">👋</div>
+    <p>Feel like chatting, collaborating, or just saying hi? Don't hesitate to reach out! Drop me a line at <b>oshalurade@gmail.com</b> or schedule a call on Calendly. I'm always up for a virtual handshake and a good conversation.</p>
+    <div class="contact-actions">
+      <a class="btn fill" href="#">Schedule a Call</a>
+      <a class="btn outline" href="mailto:oshalurade@gmail.com">Email Me</a>
+    </div>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Medium">M</a>
+      <a href="#" aria-label="X">X</a>
+    </div>
+    <div class="copyright">© Copyright 2026. All rights reserved.</div>
+  </div>
+</section>
+
 </body>
 </html>
