@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TalentAI — Oshal</title>
+<meta name="description" content="Case study: Improving Job Search with WhatsApp Chatbots — TalentAI." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#11151c; --navy-2:#0d1a14;
+    --cream:#f4efe6; --cream-2:#fbf8f2;
+    --card-border:#e2dcd0; --tag-bg:#ece5d8; --tag-text:#5a554d;
+    --n1:#f4f1ec; --n2:#8b929c;
+    --c1:#1c1b19; --c2:#6f6a62;
+    --accent:#1a7a46; --accent-light:#e6f5ec;
+    --wa:#25D366; --r:16px;
+  }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; background:var(--cream); color:var(--c1); }
+  .wrap { max-width:780px; margin:0 auto; padding:0 32px; }
+
+  nav { position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:20px 32px; background:rgba(244,239,230,.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--card-border); }
+  .nav-name { font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; color:var(--c1); text-decoration:none; }
+  .nav-links { display:flex; gap:24px; list-style:none; }
+  .nav-links a { color:var(--c2); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .2s; }
+  .nav-links a:hover { color:var(--c1); }
+
+  .hero { background:var(--navy); color:var(--n1); padding:80px 32px 70px; }
+  .hero-inner { max-width:780px; margin:0 auto; }
+  .back-link { display:inline-flex; align-items:center; gap:7px; color:var(--n2); text-decoration:none; font-size:.82rem; font-weight:500; margin-bottom:28px; transition:color .2s; }
+  .back-link:hover { color:var(--n1); }
+  .hero-label { font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--wa); font-weight:600; margin-bottom:14px; }
+  .hero h1 { font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(1.9rem,4.5vw,2.8rem); line-height:1.2; margin-bottom:16px; }
+  .hero-sub { color:var(--n2); font-size:1.05rem; line-height:1.65; max-width:600px; margin-bottom:28px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:36px; }
+  .tag { font-size:.7rem; letter-spacing:.05em; font-weight:600; text-transform:uppercase; background:rgba(244,241,236,.08); color:var(--n2); border:1px solid rgba(244,241,236,.14); padding:6px 13px; border-radius:999px; }
+  .meta-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(244,241,236,.1); border:1px solid rgba(244,241,236,.1); border-radius:12px; overflow:hidden; }
+  .meta-cell { padding:18px 20px; background:rgba(244,241,236,.04); }
+  .meta-cell .label { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--n2); font-weight:600; margin-bottom:6px; }
+  .meta-cell .val { font-size:.9rem; font-weight:500; color:var(--n1); line-height:1.4; }
+
+  .panel { padding:80px 0; }
+  .panel.cream { background:var(--cream); }
+  .panel.navy { background:var(--navy); color:var(--n1); }
+
+  .sec-label { font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:600; margin-bottom:14px; color:var(--accent); }
+  .panel.cream .sec-label { color:var(--accent); }
+  .panel.navy .sec-label { color:var(--wa); }
+  .panel.cream h2 { font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(1.5rem,3vw,2rem); color:var(--c1); margin-bottom:20px; line-height:1.25; }
+  .panel.navy h2 { font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(1.5rem,3vw,2rem); color:var(--n1); margin-bottom:20px; line-height:1.25; }
+  .panel.cream p { color:var(--c2); line-height:1.75; font-size:.97rem; margin-bottom:16px; }
+  .panel.navy p { color:var(--n2); line-height:1.75; font-size:.97rem; margin-bottom:16px; }
+
+  /* WHATSAPP MOCKUP */
+  .wa-phone { width:240px; margin:0 auto 0; border-radius:32px; overflow:hidden; border:2px solid rgba(255,255,255,.1); background:#111b21; box-shadow:0 24px 60px rgba(0,0,0,.5); }
+  .wa-status { background:#1f2c34; height:56px; display:flex; align-items:center; padding:0 14px; gap:10px; }
+  .wa-avatar { width:34px; height:34px; border-radius:50%; background:var(--wa); display:flex; align-items:center; justify-content:center; font-size:.75rem; color:#111b21; font-weight:700; }
+  .wa-meta { display:flex; flex-direction:column; gap:3px; }
+  .wa-name { height:10px; border-radius:3px; background:rgba(255,255,255,.8); width:70px; }
+  .wa-online { height:7px; border-radius:3px; background:var(--wa); width:40px; opacity:.7; }
+  .wa-chat { padding:12px 10px; background:#0b141a; min-height:340px; display:flex; flex-direction:column; gap:8px; }
+  .wa-msg { max-width:80%; padding:8px 12px; border-radius:12px; font-size:.72rem; line-height:1.4; }
+  .wa-msg.in { background:#202c33; color:rgba(255,255,255,.85); align-self:flex-start; border-bottom-left-radius:2px; }
+  .wa-msg.out { background:#005c4b; color:rgba(255,255,255,.9); align-self:flex-end; border-bottom-right-radius:2px; }
+  .wa-msg .wa-time { font-size:.6rem; color:rgba(255,255,255,.4); margin-top:3px; text-align:right; }
+  .wa-btn-row { display:flex; flex-direction:column; gap:5px; margin-top:4px; }
+  .wa-btn-chip { background:rgba(0,168,132,.15); border:1px solid rgba(0,168,132,.3); border-radius:8px; padding:6px 10px; font-size:.68rem; color:#4fd6b6; text-align:center; }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:36px 0; }
+  .stat-card { border-radius:var(--r); padding:28px 24px; }
+  .panel.navy .stat-card { background:rgba(244,241,236,.05); border:1px solid rgba(244,241,236,.1); }
+  .panel.cream .stat-card { background:var(--cream-2); border:1px solid var(--card-border); }
+  .stat-num { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:600; margin-bottom:6px; }
+  .panel.navy .stat-num { color:var(--wa); }
+  .panel.cream .stat-num { color:var(--accent); }
+  .stat-label { font-size:.82rem; font-weight:500; }
+  .panel.navy .stat-label { color:var(--n2); }
+  .panel.cream .stat-label { color:var(--c2); }
+
+  .insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:32px 0; }
+  .insight-card { border-radius:var(--r); padding:24px; }
+  .panel.cream .insight-card { background:var(--cream-2); border:1px solid var(--card-border); }
+  .panel.navy .insight-card { background:rgba(244,241,236,.05); border:1px solid rgba(244,241,236,.1); }
+  .insight-icon { font-size:1.5rem; margin-bottom:12px; }
+  .insight-title { font-weight:600; font-size:.92rem; margin-bottom:8px; }
+  .panel.cream .insight-title { color:var(--c1); }
+  .panel.navy .insight-title { color:var(--n1); }
+  .insight-body { font-size:.84rem; line-height:1.6; }
+  .panel.cream .insight-body { color:var(--c2); }
+  .panel.navy .insight-body { color:var(--n2); }
+
+  .pull-quote { border-left:3px solid var(--wa); padding:20px 24px; margin:32px 0; border-radius:0 12px 12px 0; }
+  .panel.cream .pull-quote { background:var(--accent-light); }
+  .panel.navy .pull-quote { background:rgba(37,211,102,.07); }
+  .pull-quote p { font-family:'Playfair Display',serif; font-style:italic; font-size:1.15rem; line-height:1.6; }
+  .panel.cream .pull-quote p { color:var(--c1) !important; margin:0; }
+  .panel.navy .pull-quote p { color:var(--n1) !important; margin:0; }
+
+  .step-list { display:flex; flex-direction:column; gap:20px; margin:28px 0; }
+  .step { display:flex; gap:20px; }
+  .step-num { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:600; color:var(--accent); width:36px; flex-shrink:0; line-height:1; padding-top:2px; }
+  .panel.navy .step-num { color:var(--wa); }
+  .step-content .step-title { font-weight:600; font-size:.95rem; margin-bottom:6px; }
+  .panel.cream .step-content .step-title { color:var(--c1); }
+  .panel.navy .step-content .step-title { color:var(--n1); }
+  .step-content p { margin:0; font-size:.88rem; }
+
+  /* CONVERSATION FLOW */
+  .flow-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0; }
+  .flow-step { background:var(--cream-2); border:1px solid var(--card-border); border-radius:14px; padding:20px; }
+  .flow-num { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:700; color:var(--accent); margin-bottom:8px; }
+  .flow-title { font-weight:600; font-size:.9rem; color:var(--c1); margin-bottom:6px; }
+  .flow-desc { font-size:.82rem; color:var(--c2); line-height:1.55; }
+
+  hr.dim-c { border:none; border-top:1px solid var(--card-border); margin:32px 0; }
+
+  .next-section { background:var(--navy); padding:60px 32px; text-align:center; }
+  .next-section p { color:var(--n2); font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; font-weight:600; margin-bottom:14px; }
+  .next-section a.next-link { display:inline-block; font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--n1); text-decoration:none; transition:color .2s; }
+  .next-section a.next-link:hover { color:var(--wa); }
+  .next-section .back { display:inline-block; margin-top:32px; color:var(--n2); text-decoration:none; font-size:.85rem; font-weight:500; transition:color .2s; }
+  .next-section .back:hover { color:var(--n1); }
+
+  @media(max-width:720px){
+    .meta-strip { grid-template-columns:repeat(2,1fr); }
+    .stat-grid, .insight-grid, .flow-grid { grid-template-columns:1fr; }
+    .wrap { padding:0 20px; }
+    nav { padding:16px 20px; }
+    .hero { padding:60px 20px 50px; }
+    .panel { padding:60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../" class="nav-name">Oshal</a>
+  <ul class="nav-links">
+    <li><a href="../../#projects">Case Studies</a></li>
+    <li><a href="../../side-quests/">Side Quests</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="back-link" href="../../#projects">← Back to projects</a>
+    <div class="hero-label">Conversation Design · WhatsApp · TalentAI</div>
+    <h1>Improving Job Search Experience with WhatsApp Chatbots</h1>
+    <p class="hero-sub">Bringing personalised career guidance to where India already lives — designed for first-time job seekers navigating an overwhelming market through a familiar interface.</p>
+    <div class="hero-tags">
+      <span class="tag">Conversation Design</span>
+      <span class="tag">UX Writing</span>
+      <span class="tag">CASUX Case Study</span>
+      <span class="tag">WhatsApp Design</span>
+    </div>
+    <div class="meta-strip">
+      <div class="meta-cell"><div class="label">Role</div><div class="val">Product Designer<br>&amp; Developer</div></div>
+      <div class="meta-cell"><div class="label">Timeline</div><div class="val">Jan – Apr 2022<br>(4 months)</div></div>
+      <div class="meta-cell"><div class="label">Tools</div><div class="val">Figma, WhatsApp API,<br>Dialogflow, Bubble</div></div>
+      <div class="meta-cell"><div class="label">Team</div><div class="val">2 Designers,<br>1 Developer</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section class="panel cream">
+  <div class="wrap">
+    <div class="sec-label">00 / Overview</div>
+    <h2>Job seeking in India is overwhelming — and lonely</h2>
+    <p>India has over 180 million active job seekers. Platforms like Naukri and LinkedIn are the defaults — but they're built for people who already understand how to navigate career systems. For a first-generation graduate or a worker switching industries for the first time, they're deeply intimidating.</p>
+    <p>TalentAI started as a simple question: what if job seekers could get personalised career guidance in the same app they use to talk to their family? WhatsApp, with 500 million users in India, became our interface of choice — zero learning curve, zero download friction, and deeply trusted.</p>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="panel navy">
+  <div class="wrap">
+    <div class="sec-label">01 / The Problem</div>
+    <h2>The guidance gap for first-generation job seekers</h2>
+    <p>Career counselling in India is expensive and geographically concentrated in metros. Online platforms offer job listings, but not guidance. Most first-time job seekers make career decisions based on advice from friends or family — often without access to industry salary benchmarks, skill gap analysis, or resume feedback.</p>
+    <p>Existing chatbot solutions were either too scripted (frustrating when you went "off-script") or too AI-heavy (users didn't trust the responses). We needed something in between: warm, conversational, and clearly purposeful.</p>
+
+    <div class="pull-quote">
+      <p>"How might we deliver personalised career guidance to first-generation Indian job seekers — in a medium they already trust, in a language that feels human?"</p>
+    </div>
+
+    <div class="wa-phone">
+      <div class="wa-status">
+        <div class="wa-avatar">T</div>
+        <div class="wa-meta">
+          <div class="wa-name"></div>
+          <div class="wa-online"></div>
+        </div>
+      </div>
+      <div class="wa-chat">
+        <div class="wa-msg in">Hi! 👋 I'm TalentAI. I'm here to help you find the right job and grow your career. What are you looking for today?<div class="wa-time">10:02 AM</div></div>
+        <div class="wa-msg out">I'm looking for software developer jobs in Bangalore<div class="wa-time">10:03 AM</div></div>
+        <div class="wa-msg in">
+          Great choice! 🚀 Here are 3 roles matching your profile right now:
+          <div class="wa-btn-row">
+            <div class="wa-btn-chip">Full Stack Developer — ₹8–12 LPA</div>
+            <div class="wa-btn-chip">Backend Engineer — ₹10–15 LPA</div>
+            <div class="wa-btn-chip">Frontend Developer — ₹6–10 LPA</div>
+          </div>
+          <div class="wa-time">10:03 AM</div>
+        </div>
+        <div class="wa-msg out">Tell me more about the Full Stack one<div class="wa-time">10:04 AM</div></div>
+        <div class="wa-msg in">Sure! The Full Stack role at Zeta requires React + Node. Based on your resume, you're 80% qualified — want me to suggest skills to close the gap? 💡<div class="wa-time">10:04 AM</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="panel cream">
+  <div class="wrap">
+    <div class="sec-label">02 / Research &amp; Discovery</div>
+    <h2>Talking to people who were actively struggling</h2>
+    <p>We conducted 32 interviews with job seekers aged 21–35 across Tier 1 and Tier 2 Indian cities. Sessions were informal, conducted over WhatsApp voice calls to stay true to the medium we were designing for. We also shadowed 6 participants through their current job search process in a one-week diary study.</p>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-icon">😰</div>
+        <div class="insight-title">Analysis paralysis is real</div>
+        <div class="insight-body">On average, participants browsed 40+ job listings per session but applied to fewer than 3. The volume of options — without filtering guidance — led to decision fatigue and inaction.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">📄</div>
+        <div class="insight-title">Resume anxiety is universal</div>
+        <div class="insight-body">"I don't know if my resume is good" was said in 27 of 32 interviews. Participants had never received professional feedback and were sending the same generic resume to every role.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon">💬</div>
+        <div class="insight-title">Trust lives in WhatsApp</div>
+        <div class="insight-body">"If a real person sent me this on WhatsApp, I'd trust it" — participants had high trust for information received on WhatsApp, significantly higher than on email or LinkedIn messages.</div>
+      </div>
+    </div>
+
+    <hr class="dim-c" />
+    <p><strong>Key design constraints:</strong> Messages had to work on 2G connections. Rich media (images/documents) was optional, not essential. Every interaction needed a clear exit path. The bot had to acknowledge when it didn't know something — users trusted honesty over bluffing.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="panel navy">
+  <div class="wrap">
+    <div class="sec-label">03 / Design Process</div>
+    <h2>Designing conversation like writing a good script</h2>
+    <p>Conversation design is different from screen design — there's no visual hierarchy, no whitespace, no hover states. The entire experience lives in word choice, pacing, and the order of questions. We wrote 8 versions of each core conversation flow before settling on the final ones.</p>
+
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-title">Persona &amp; Tone of Voice</div>
+          <p>TalentAI's persona: a knowledgeable friend who's been through the job search process themselves. Warm, direct, and never condescending. We defined 6 tone dimensions: Helpful, Honest, Human, Focused, Encouraging, Clear.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-title">Conversation Flow Mapping</div>
+          <p>We mapped 11 core conversation flows in FigJam: onboarding, job matching, resume review, skill gap analysis, interview prep, salary benchmarking, application tracking, and follow-up nudges.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-title">Rapid Prototyping via Live Bot</div>
+          <p>Unlike screen prototypes, we tested by building — deploying early versions on WhatsApp Business API and running live sessions with 10 participants per iteration cycle. Feedback was immediate and unambiguous.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-title">Failure State Design</div>
+          <p>We spent a full week designing "off-script" handling — what happens when users say something unexpected. Every error response was crafted to feel human ("I didn't quite get that — can you tell me more?") rather than robotic.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="panel cream">
+  <div class="wrap">
+    <div class="sec-label">04 / Final Solution</div>
+    <h2>Five flows that actually move people forward</h2>
+    <p>The final TalentAI product launched with five core conversation flows, each designed to solve a specific moment of friction in the job search process. The flows were modular — users could enter at any point and navigate fluidly between them.</p>
+
+    <div class="flow-grid">
+      <div class="flow-step">
+        <div class="flow-num">Flow 01</div>
+        <div class="flow-title">Job Matching</div>
+        <div class="flow-desc">Personalised job recommendations based on role, location, and experience — with a swipe-style quick-apply via a templated message.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Flow 02</div>
+        <div class="flow-title">Resume Review</div>
+        <div class="flow-desc">Upload your resume as a PDF and get actionable, section-by-section feedback within 24 hours from the TalentAI team + AI pre-screening.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Flow 03</div>
+        <div class="flow-title">Skill Gap Analysis</div>
+        <div class="flow-desc">Compare your current skills against the requirements of a target role and get a curated learning path with free resources.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Flow 04</div>
+        <div class="flow-title">Salary Benchmarking</div>
+        <div class="flow-desc">Understand what you should be earning based on role, city, and years of experience — with negotiation talking points built in.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">Flow 05</div>
+        <div class="flow-title">Interview Prep</div>
+        <div class="flow-desc">Role-specific mock interview questions delivered as a daily 10-minute practice session, with follow-up nudges if you go quiet.</div>
+      </div>
+      <div class="flow-step" style="background:var(--accent-light); border-color:rgba(26,122,70,.2);">
+        <div class="flow-num" style="color:var(--accent);">+ More</div>
+        <div class="flow-title">Application Tracker</div>
+        <div class="flow-desc">A lightweight pipeline for tracking where you've applied, follow-up reminders, and status check-ins — all within the chat.</div>
+      </div>
+    </div>
+
+    <p>The UX writing for each flow went through 4 rounds of A/B testing — comparing response rates, drop-off points, and re-engagement after 48 hours of inactivity. The final copy achieved a <strong>78% task completion rate</strong> across core flows in beta testing.</p>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="panel navy">
+  <div class="wrap">
+    <div class="sec-label">05 / Outcomes &amp; Impact</div>
+    <h2>Numbers that validated the approach</h2>
+    <p>TalentAI launched as a closed beta with 500 users recruited through college placement cells in Pune, Nagpur, and Chennai. Results from the first 8 weeks confirmed that conversation design, not app design, was the right medium for this problem.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">78%</div>
+        <div class="stat-label">task completion rate across core job search flows (vs. 34% industry average for chatbots)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4.2/5</div>
+        <div class="stat-label">average user satisfaction score across 500 beta users in exit surveys</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">more job applications submitted by TalentAI users vs. control group using Naukri alone</div>
+      </div>
+    </div>
+
+    <p>The project was featured as a CASUX case study and presented at the National Design Week 2022. One participant landed a ₹12 LPA offer at a startup in Bangalore within 3 weeks of using TalentAI's skill gap + resume review flow — our proudest outcome.</p>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section class="panel cream">
+  <div class="wrap">
+    <div class="sec-label">06 / Learnings</div>
+    <h2>What this project taught me</h2>
+
+    <div class="step-list">
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">Conversation design is product strategy disguised as writing</div>
+          <p>The decisions that mattered most weren't colours or layouts — they were: what do we ask first? What do we never ask? When do we push, and when do we wait? Conversation design forced me to think about user intent more precisely than any visual project has.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">The medium shapes the relationship</div>
+          <p>Users were kinder, more honest, and more forgiving when interacting over WhatsApp than they would be with an app. The familiar medium lowered defences. Designing for an existing, trusted context is fundamentally different from designing a new interface from scratch.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">→</div>
+        <div class="step-content">
+          <div class="step-title">Ship early, for real</div>
+          <p>Our most valuable iteration came from deploying a half-built bot and watching users navigate it live. No prototype — no matter how polished — would have surfaced the "off-script" failure patterns we discovered in the first week of real use.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="next-section">
+  <p>Back to the beginning</p>
+  <a class="next-link" href="../cohesity/">Cohesity — MongoDB Data Protection →</a>
+  <br>
+  <a class="back" href="../../#projects">← Back to all projects</a>
+</div>
+
+</body>
+</html>
