@@ -175,6 +175,11 @@ nav {
   font-size: .76rem; font-weight: 700; color: white; letter-spacing: -0.02em;
 }
 
+/* desktop shows the pre-rendered section image; mobile shows the HTML build */
+.scope-figure img { width: 100%; display: block; }
+@media (min-width: 861px) { .scope { display: none; } }
+@media (max-width: 860px) { .scope-figure { display: none; } }
+
 /* ---- ROLES ---- */
 .roles { padding: 130px 0 80px; }
 .roles-grid {
@@ -356,7 +361,12 @@ nav {
   </div>
 </section>
 
-<!-- SCOPE OF WORK (pink band with hand image bleeding out) -->
+<!-- SCOPE OF WORK — desktop: single pre-rendered image for pixel-exact match -->
+<section class="scope-figure">
+  <img src="assets/scope-section.webp" alt="Scope of work. The primary focus of my work in Axis Design Labs revolved around elevating the digital accessibility of Axis Bank's products for individuals with disabilities. This encompassed the development of a strategic roadmap, involving close collaboration with business units, the design team, and external stakeholders. I work at the intersection of the design system and research teams. Illustration of a hand holding a phone with an Accessibility Enable screen." />
+</section>
+
+<!-- SCOPE OF WORK (built version, shown on small screens) -->
 <section class="scope">
   <div class="scope-inner">
     <div class="scope-left">
