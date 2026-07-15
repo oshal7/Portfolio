@@ -81,11 +81,13 @@ nav {
 }
 .hero-title .it { font-style: italic; display: block; }
 .hero-title .bd { font-weight: 700; display: block; }
+/* phone sits lower and larger; hero's overflow:hidden crops it at the
+   bottom edge like the design */
 .hero-phone {
   position: absolute; z-index: 1;
-  right: 80px;
-  top: clamp(32px, 4.5vw, 60px);
-  width: clamp(200px, 22vw, 300px);
+  right: 60px;
+  top: clamp(150px, 16vw, 210px);
+  width: clamp(230px, 24vw, 330px);
 }
 
 /* ---- CREAM SECTIONS ---- */
@@ -138,7 +140,7 @@ nav {
    is clipped flush with the section's bottom edge */
 .scope-hand-wrap {
   position: absolute; z-index: 5;
-  top: -64px; bottom: 0;
+  top: -110px; bottom: 0;
   right: max(calc((100% - 1100px) / 2 + 24px), 24px);
   overflow: hidden;
   pointer-events: none;
