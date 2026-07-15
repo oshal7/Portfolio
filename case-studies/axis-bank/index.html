@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Axis Bank Accessibility — Oshal</title>
-<meta name="description" content="Case study: Enhancing Digital Accessibility for Axis Bank Digital Platforms." />
+<meta name="description" content="Case study: Enhancing Digital Accessibility of Axis Bank's digital products." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -21,13 +21,23 @@
   --card-grad: linear-gradient(94deg, rgba(149,0,74,.08) 14%, rgba(199,0,85,.08) 72%, rgba(236,0,93,.08) 168%);
 }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--body-bg); color: var(--text-dark); }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--body-bg); color: var(--text-dark); overflow-x: hidden; }
+img { max-width: 100%; }
+
+.fraunces { font-family: 'Fraunces', serif; font-variation-settings: "SOFT" 0, "WONK" 1; }
+
+/* soft decorative circles (from the design's faded ellipses) */
+.soft-circle {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: linear-gradient(160deg, rgba(175,39,95,.55), rgba(217,217,217,.18));
+  opacity: .1;
+}
 
 /* ---- NAV ---- */
 nav {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 48px;
+  padding: 16px 48px;
   background: rgba(250,246,239,.93); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--card-border);
 }
@@ -42,227 +52,218 @@ nav {
 
 /* ---- HERO ---- */
 .hero {
+  position: relative;
   background: var(--hero-grad);
-  min-height: 500px;
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 48px;
-  padding: 72px 80px 0;
+  height: clamp(420px, 44vw, 560px);
   overflow: hidden;
-  align-items: center;
 }
-.axis-logo-row {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 44px;
+.hero-deco { position: absolute; pointer-events: none; opacity: .5; }
+.hero-deco-top { left: -10%; top: -30px; width: 95%; height: 245px; }
+.hero-deco-bottom { left: -4%; bottom: 30px; width: 118%; height: 245px; }
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1200px; margin: 0 auto;
+  padding: clamp(40px, 5vw, 70px) 48px 0;
 }
-/* Axis Bank A-logo triangle mark */
-.axis-a-mark {
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-}
-.axis-wordmark {
-  font-family: 'Inter', sans-serif; font-weight: 800;
-  font-size: 1rem; color: white; letter-spacing: .1em;
-  text-transform: uppercase; opacity: .95;
-}
+.hero-logo { width: clamp(110px, 12vw, 150px); height: auto; display: block; margin-bottom: clamp(28px, 3.5vw, 52px); }
 .hero-title {
   font-family: 'Fraunces', serif;
-  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
-  line-height: 1.18;
-  color: white;
   font-variation-settings: "SOFT" 0, "WONK" 1;
-  text-shadow: 2px 3px 0 rgba(0,0,0,.18);
-  letter-spacing: -0.03em;
-  max-width: 680px;
+  color: white;
+  font-size: clamp(1.9rem, 3.9vw, 3.3rem);
+  line-height: 1.32;
+  letter-spacing: -0.032em;
+  font-weight: 400;
+  text-shadow: 2px 3px 0 rgba(0,0,0,.25);
+  max-width: 60%;
 }
-.hero-title em { font-style: italic; font-weight: 400; display: block; }
-.hero-title strong { font-weight: 700; font-style: normal; display: block; }
-.hero-image-col {
-  display: flex; align-items: flex-end; justify-content: center;
-  align-self: stretch; padding-top: 20px;
-}
+.hero-title .it { font-style: italic; display: block; }
+.hero-title .bd { font-weight: 700; display: block; }
 .hero-phone {
-  width: 100%; max-width: 380px; display: block;
-  object-fit: contain; object-position: bottom center;
-  filter: drop-shadow(0 24px 48px rgba(0,0,0,.28));
+  position: absolute; z-index: 1;
+  right: clamp(24px, 9vw, 130px);
+  top: clamp(32px, 4.5vw, 60px);
+  width: clamp(200px, 22vw, 300px);
 }
 
 /* ---- CREAM SECTIONS ---- */
-.cream-section { padding: 80px 0; background: var(--body-bg); }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 56px; }
-.wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 56px; }
-
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 48px; position: relative; }
 .section-title {
   font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.75rem, 2.4vw, 2.2rem);
-  color: var(--text-dark); letter-spacing: -0.03em; line-height: 1.15;
   font-variation-settings: "SOFT" 0, "WONK" 1;
-  margin-bottom: 28px;
-}
-.body-text { font-size: 1.05rem; line-height: 1.72; color: var(--text-body); }
-.body-text strong { font-weight: 700; }
-
-/* ---- ADL ROW ---- */
-.adl-row {
-  display: flex; align-items: center; gap: 44px;
-  margin-top: 0; flex-wrap: wrap;
-}
-.adl-logo {
-  flex-shrink: 0; width: 148px; height: 148px;
-  border-radius: 50%; overflow: hidden;
-  border: 2px solid var(--card-border);
-}
-.adl-logo img { width: 100%; height: 100%; object-fit: cover; }
-.adl-text { flex: 1; min-width: 240px; }
-
-/* ---- PINK GRADIENT SECTION (Graduation Project + Venn) ---- */
-.pink-section {
-  background: var(--hero-grad);
-  padding: 80px 0 70px;
-  position: relative;
-  overflow: hidden;
-}
-/* top part: text left + image right */
-.pink-top {
-  max-width: 1100px; margin: 0 auto; padding: 0 80px;
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 56px;
-  align-items: center;
-  margin-bottom: 64px;
-}
-.pink-title {
-  font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.75rem, 2.4vw, 2.2rem);
-  color: white; letter-spacing: -0.03em; line-height: 1.15;
-  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-size: clamp(1.6rem, 2.3vw, 2.1rem);
+  color: var(--text-dark); letter-spacing: -0.03em; line-height: 1.2;
   margin-bottom: 24px;
 }
-.pink-body { font-size: 1.05rem; line-height: 1.72; color: rgba(255,255,255,.86); }
-.pink-image {
-  width: 100%; display: block;
-  filter: drop-shadow(0 16px 40px rgba(0,0,0,.22));
+.body-text { font-size: 1rem; line-height: 1.72; color: var(--text-body); }
+.body-text strong { font-weight: 700; }
+
+/* Overview */
+.overview { position: relative; padding: 96px 0 72px; }
+.overview .soft-circle { width: 210px; height: 210px; left: calc(50% - 390px); top: 60px; }
+.overview-content { max-width: 640px; margin: 0 auto; position: relative; }
+
+/* About ADL */
+.adl { padding: 56px 0 88px; }
+.adl-row {
+  max-width: 760px; margin: 0 auto;
+  display: flex; align-items: center; gap: 52px;
 }
-/* venn inside the pink section */
-.venn-container {
-  display: flex; flex-direction: column; align-items: center; gap: 20px;
-  padding: 0 56px;
-}
-.venn-diagram {
+.adl-badge { flex-shrink: 0; width: clamp(130px, 16vw, 170px); height: auto; }
+.adl-text { flex: 1; min-width: 240px; }
+
+/* ---- PINK BAND: Scope of work ---- */
+.scope {
   position: relative;
-  width: 380px; height: 150px;
-  margin: 0 auto;
+  background: var(--hero-grad);
+  padding: 64px 0 56px;
 }
+.scope-inner {
+  max-width: 1000px; margin: 0 auto; padding: 0 48px;
+  position: relative;
+}
+.scope-text { max-width: 420px; }
+.scope-title {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+  color: white; letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+.scope-body { font-size: .95rem; line-height: 1.7; color: rgba(255,255,255,.88); }
+.scope-hand {
+  position: absolute; z-index: 5;
+  right: max(calc((100% - 1200px) / 2), 8px);
+  top: -12px;
+  width: clamp(240px, 34vw, 460px);
+  pointer-events: none;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,.18));
+}
+/* venn diagram */
+.venn { margin-top: 56px; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+.venn-ovals { position: relative; width: 270px; height: 108px; }
 .venn-oval {
-  position: absolute;
-  width: 210px; height: 138px;
+  position: absolute; top: 0;
+  width: 168px; height: 108px;
   border-radius: 50%;
+  background: rgba(255,255,255,.24);
+  border: 1px solid rgba(255,255,255,.58);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Inter', sans-serif; font-weight: 600;
-  font-size: .95rem; letter-spacing: -.02em; color: white;
-  text-transform: lowercase;
 }
-.venn-oval-left {
-  left: 0;
-  background: rgba(138,3,70,.65);
-  border: 1.5px solid rgba(255,255,255,.5);
+.venn-oval span {
+  font-size: .74rem; font-weight: 600; color: rgba(255,255,255,.9);
+  letter-spacing: -0.02em; text-transform: lowercase;
 }
-.venn-oval-right {
-  left: 110px;
-  background: rgba(199,0,85,.65);
-  border: 1.5px solid rgba(255,255,255,.5);
-}
-.venn-oval-left span { padding-right: 30px; }
-.venn-oval-right span { padding-left: 30px; }
-.venn-arrow-line {
-  width: 1.5px; height: 36px;
-  background: rgba(255,255,255,.55);
-}
+.venn-oval-l { left: 0; }
+.venn-oval-l span { transform: translateX(-16px); }
+.venn-oval-r { left: 102px; }
+.venn-oval-r span { transform: translateX(16px); }
+.venn-line { width: 1.5px; height: 34px; background: rgba(255,255,255,.85); margin-top: 8px; }
 .venn-caption {
-  font-family: 'Inter', sans-serif; font-weight: 600;
-  font-size: 1rem; color: white; letter-spacing: -0.03em;
-  text-align: center;
+  margin-top: 10px;
+  font-size: .72rem; font-weight: 700; color: white; letter-spacing: -0.02em;
 }
 
 /* ---- ROLES ---- */
-.roles-row {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 60px; align-items: start;
+.roles { padding: 130px 0 80px; }
+.roles-grid {
+  max-width: 860px; margin: 0 auto;
+  display: grid; grid-template-columns: 250px 1fr; gap: 64px;
+  align-items: center;
 }
+.roles-grid .section-title { margin-bottom: 0; }
 
 /* ---- OTHER PROJECTS ---- */
+.other { position: relative; padding: 40px 0 40px; }
+.other .soft-circle { width: 260px; height: 260px; left: calc(50% - 420px); top: -30px; }
+.other-head { max-width: 760px; margin: 0 auto 56px; position: relative; }
+.cards-wrap { max-width: 1060px; margin: 0 auto; padding: 0 48px; }
 .project-card {
   background: var(--card-grad);
-  border: 1px solid rgba(175,39,95,.14);
-  border-radius: 24px;
-  padding: 48px 52px;
-  margin-bottom: 24px;
+  border-radius: 26px;
+  padding: 44px 56px 56px;
+  margin-bottom: 36px;
+  display: flex; flex-direction: column; align-items: center; gap: 36px;
 }
 .card-pill {
   display: inline-flex; align-items: center;
   background: var(--body-bg);
-  border: 1.5px solid #1a1a1a;
+  border: 1px solid #1a1a1a;
   border-radius: 40px;
-  padding: 7px 22px;
+  padding: 8px 24px;
   font-size: .92rem; font-weight: 600; letter-spacing: -.015em;
   color: #1a1a1a; text-transform: lowercase;
-  margin-bottom: 32px;
+  opacity: .9;
 }
 .card-grid {
-  display: grid; grid-template-columns: 1fr 1px 1fr;
-  gap: 40px; align-items: start;
+  display: grid; grid-template-columns: 1fr 1.5px 1fr;
+  gap: 40px; align-items: start; width: 100%;
 }
-.card-divider { background: rgba(198,164,174,.38); align-self: stretch; }
+.card-divider { background: rgba(198,164,174,.4); align-self: stretch; }
 .project-title {
   font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.3rem, 1.7vw, 1.65rem);
-  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.28;
   font-variation-settings: "SOFT" 0, "WONK" 1;
+  font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.35;
   margin-bottom: 14px;
 }
-.project-desc { font-size: .98rem; line-height: 1.7; color: var(--text-body); }
+.project-desc { font-size: .95rem; line-height: 1.7; color: var(--text-body); }
 
 /* ---- NDA ---- */
-.nda-section { padding: 60px 0 96px; text-align: center; }
-.nda-lock { font-size: 4rem; display: block; margin-bottom: 20px; }
+.nda { position: relative; padding: 80px 0 110px; text-align: center; }
+.nda-circle {
+  width: 150px; height: 150px; margin: 0 auto 8px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, rgba(175,39,95,.55), rgba(217,217,217,.18));
+  opacity: .12;
+  position: relative;
+}
+.nda-lock {
+  font-size: 3.6rem; line-height: 1;
+  position: relative;
+  margin-top: -108px;
+  display: block;
+  margin-bottom: 48px;
+}
 .nda-text {
-  font-size: 1rem; line-height: 1.72; color: var(--text-muted);
-  max-width: 660px; margin: 0 auto; font-weight: 500;
+  font-size: .98rem; line-height: 1.75; color: var(--text-body);
+  max-width: 640px; margin: 0 auto; font-weight: 500;
 }
 
 /* ---- FOOTER NAV ---- */
 .case-footer {
   background: #1a1a1a; color: white;
-  padding: 52px 56px;
+  padding: 44px 48px;
   display: flex; justify-content: space-between; align-items: center;
   flex-wrap: wrap; gap: 20px;
 }
-.case-footer a {
-  color: white; text-decoration: none; font-weight: 600; font-size: .95rem;
-  opacity: .65; transition: opacity .2s;
-}
+.case-footer a { color: white; text-decoration: none; font-weight: 600; font-size: .92rem; opacity: .65; transition: opacity .2s; }
 .case-footer a:hover { opacity: 1; }
-.case-footer-label { font-size: .78rem; opacity: .35; }
+.case-footer-label { font-size: .75rem; opacity: .35; }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 860px) {
-  nav { padding: 16px 24px; }
-  .hero { grid-template-columns: 1fr; padding: 56px 28px 36px; min-height: auto; }
-  .hero-image-col { display: none; }
-  .wrap, .wrap-narrow { padding: 0 28px; }
-  .pink-top { grid-template-columns: 1fr; padding: 0 28px; margin-bottom: 48px; }
-  .pink-image { max-width: 280px; margin: 0 auto; }
-  .roles-row { grid-template-columns: 1fr; gap: 24px; }
+@media (max-width: 900px) {
+  nav { padding: 14px 24px; }
+  .hero { height: auto; padding-bottom: 0; }
+  .hero-inner { padding: 44px 28px 0; }
+  .hero-title { max-width: 100%; }
+  .hero-phone { position: static; display: block; margin: 32px auto -80px; width: 220px; }
+  .wrap, .cards-wrap, .scope-inner { padding-left: 28px; padding-right: 28px; }
+  .adl-row { flex-direction: column; text-align: center; gap: 28px; padding: 0 28px; }
+  .adl-text { text-align: left; }
+  .scope { padding-top: 140px; }
+  .scope-hand { position: static; display: block; margin: 40px auto 0; width: 260px; }
+  .scope-text { max-width: 100%; }
+  .venn { margin-left: auto; margin-right: auto; }
+  .roles { padding-top: 80px; }
+  .roles-grid { grid-template-columns: 1fr; gap: 24px; padding: 0 28px; }
+  .roles-grid .section-title { margin-bottom: 0; }
   .card-grid { grid-template-columns: 1fr; gap: 32px; }
   .card-divider { display: none; }
-  .project-card { padding: 32px 28px; }
+  .project-card { padding: 36px 30px; }
+  .overview .soft-circle, .other .soft-circle { left: 8px; }
+  .overview-content, .other-head { padding: 0 28px; }
   .case-footer { flex-direction: column; text-align: center; }
-}
-@media (max-width: 540px) {
-  .hero-title { font-size: 2rem; }
-  .section-title, .pink-title { font-size: 1.65rem; }
-  .venn-diagram { width: 320px; }
 }
 </style>
 </head>
@@ -279,106 +280,118 @@ nav {
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div>
-    <div class="axis-logo-row">
-      <!-- Axis Bank logo mark (A triangle) + wordmark -->
-      <div class="axis-a-mark">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="14,2 26,24 2,24" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
-          <line x1="7.5" y1="17" x2="20.5" y2="17" stroke="white" stroke-width="2"/>
-        </svg>
-      </div>
-      <span class="axis-wordmark">Axis Bank</span>
-    </div>
+<header class="hero">
+  <!-- decorative circuit lines from the design -->
+  <svg class="hero-deco hero-deco-top" viewBox="0 0 1989 245" fill="none" preserveAspectRatio="none">
+    <path d="M1064.54 0.5H1954.39C1973.23 0.500132 1988.5 15.7714 1988.5 34.6094C1988.5 53.4475 1973.23 68.7186 1954.39 68.7188H1167.39C1157.03 68.7188 1147.13 73.0046 1140.04 80.5596L997.034 232.975C990.134 240.328 980.5 244.5 970.416 244.5H37C16.8416 244.5 0.500008 228.158 0.5 208V202.704C0.500107 182.546 16.8417 166.204 37 166.204H877.335C887.71 166.204 897.622 161.906 904.712 154.332L1037.89 12.0557C1044.8 4.68336 1054.44 0.5 1064.54 0.5Z" stroke="url(#heroLineGrad1)" stroke-opacity="0.63"/>
+    <defs>
+      <linearGradient id="heroLineGrad1" x1="39" x2="2100" y1="237" y2="237" gradientUnits="userSpaceOnUse">
+        <stop stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <svg class="hero-deco hero-deco-bottom" viewBox="0 0 1989 245" fill="none" preserveAspectRatio="none">
+    <path d="M1064.54 0.5H1954.39C1973.23 0.500132 1988.5 15.7714 1988.5 34.6094C1988.5 53.4475 1973.23 68.7186 1954.39 68.7188H1167.39C1157.03 68.7188 1147.13 73.0046 1140.04 80.5596L997.034 232.975C990.134 240.328 980.5 244.5 970.416 244.5H37C16.8416 244.5 0.500008 228.158 0.5 208V202.704C0.500107 182.546 16.8417 166.204 37 166.204H877.335C887.71 166.204 897.622 161.906 904.712 154.332L1037.89 12.0557C1044.8 4.68336 1054.44 0.5 1064.54 0.5Z" stroke="url(#heroLineGrad2)" stroke-width="2"/>
+    <defs>
+      <linearGradient id="heroLineGrad2" x1="-215" x2="2782" y1="122" y2="122" gradientUnits="userSpaceOnUse">
+        <stop stop-color="white"/><stop offset="1" stop-color="white" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="hero-inner">
+    <!-- Real Axis Bank logo lockup (from Figma export) -->
+    <svg class="hero-logo" viewBox="0 0 249.001 61.05" fill="white" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Axis Bank">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M229.894 15.2414H233.782V23.9366L243.733 15.2414H248.694L237.274 25.0692L249.001 36.8903H243.857L234.548 27.3988L233.782 28.0764V36.8903H229.894V15.2414ZM206.196 22.5607V36.8895H202.308V14.6272L220.866 29.6929V15.2406H224.753V37.6215L206.196 22.5607ZM182.988 28.958H190.798L186.97 21.5488L182.988 28.958ZM192.356 32.0288H181.365L178.7 36.8908H174.535L186.999 14.4455L199.216 36.8908H194.992L192.356 32.0288ZM165.779 33.7637C167.209 33.7637 168.351 33.5016 169.207 32.9674C170.067 32.4431 170.493 31.632 170.493 30.5537C170.493 29.4458 170.067 28.6347 169.207 28.1203C168.351 27.596 167.209 27.3338 165.779 27.3338H162.871V33.7637H165.779ZM164.399 24.487C165.685 24.487 166.66 24.215 167.327 23.661C167.99 23.112 168.321 22.3503 168.321 21.3661C168.321 20.3867 167.99 19.6201 167.327 19.0711C166.66 18.5171 165.7 18.2451 164.429 18.2451H162.871V24.487H164.399ZM158.984 15.2414H164.187C166.819 15.2414 168.797 15.7855 170.128 16.8637C171.453 17.9469 172.116 19.3862 172.116 21.1816C172.116 21.9582 171.908 22.7248 171.493 23.4618C171.072 24.2086 170.504 24.8219 169.791 25.2869C171.171 25.6924 172.279 26.37 173.12 27.3197C173.961 28.2693 174.381 29.3871 174.381 30.6731C174.381 31.4892 174.218 32.2756 173.897 33.0373C173.57 33.7891 173.056 34.4519 172.353 35.0207C171.651 35.5944 170.746 36.0445 169.648 36.3809C168.545 36.7222 167.224 36.8903 165.676 36.8903H158.984V15.2414Z"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M139.996 20.1726C139.526 19.4159 138.962 18.8619 138.309 18.5058C137.657 18.1497 136.84 17.9667 135.861 17.9667C134.758 17.9667 133.917 18.214 133.339 18.7185C132.755 19.218 132.468 19.8462 132.468 20.6029C132.468 21.8642 133.393 22.7594 135.248 23.2985L137.849 24.0602C139.952 24.6735 141.505 25.5242 142.489 26.6173C143.483 27.7054 143.983 29.0112 143.983 30.5198C143.983 31.4793 143.79 32.3745 143.409 33.2005C143.028 34.0265 142.489 34.7437 141.787 35.3372C141.089 35.9406 140.229 36.4204 139.234 36.7617C138.235 37.1129 137.117 37.286 135.891 37.286C133.423 37.286 131.474 36.737 130.045 35.634C128.615 34.531 127.76 32.9384 127.473 30.8561L131.271 30.1538C131.494 31.5238 131.998 32.5378 132.785 33.2005C133.571 33.8633 134.61 34.1947 135.891 34.1947C137.221 34.1947 138.245 33.8732 138.952 33.2302C139.675 32.5872 140.026 31.7563 140.026 30.7374C140.026 30.1785 139.937 29.7136 139.749 29.3278C139.566 28.937 139.304 28.5957 138.967 28.299C138.636 28.0022 138.24 27.7549 137.775 27.5521C137.315 27.3493 136.821 27.1663 136.291 26.9982L133.779 26.2612C131.983 25.7369 130.658 24.995 129.802 24.0454C128.947 23.0957 128.516 21.9433 128.516 20.6029C128.516 19.7621 128.689 18.9954 129.036 18.2881C129.382 17.5858 129.876 16.9774 130.519 16.4828C131.162 15.9833 131.929 15.5876 132.814 15.3057C133.71 15.0188 134.704 14.8754 135.802 14.8754C137.676 14.8754 139.21 15.2166 140.392 15.9041C141.579 16.5818 142.464 17.5067 143.058 18.6739L139.996 20.1726ZM119.967 36.8903H123.854V15.2414H119.967V36.8903ZM104.166 25.5589L96.8801 15.2415H101.351L106.431 22.715L111.545 15.2415H115.957L108.578 25.5936L116.57 36.8904H112.094L106.342 28.5612L100.525 36.8904H96.0195L104.166 25.5589ZM79.2812 28.9627H87.0911L83.2579 21.5535L79.2812 28.9627ZM88.6428 32.0239H77.6527L74.9917 36.8908H70.832L83.2862 14.4456L95.503 36.8908H91.2791L88.6428 32.0239Z"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M35.1421 0L46.123 18.8881L21.8593 61.0478H0L35.1421 0Z"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M70.438 61.0496H48.5298L35.2227 37.8561H57.126L70.438 61.0496Z"/>
+    </svg>
+
     <h1 class="hero-title">
-      <em>Enhancing<br>Digital Accessibility of</em>
-      <strong>Axis Bank's digital products</strong>
+      <span class="it">Enhancing</span>
+      <span class="it">Digital Accessibility of</span>
+      <span class="bd">Axis Bank&rsquo;s digital products</span>
     </h1>
   </div>
-  <div class="hero-image-col">
-    <img class="hero-phone" src="assets/hero-phone.png" alt="Axis Bank app on phone showing accessibility icons: hearing loop, text search, CC, wheelchair" />
-  </div>
-</section>
+
+  <img class="hero-phone" src="assets/hero-phone.png" alt="Phone showing the Axis Bank logo surrounded by accessibility icons" />
+</header>
 
 <!-- OVERVIEW -->
-<section class="cream-section">
-  <div class="wrap-narrow">
-    <h2 class="section-title">Overview</h2>
-    <p class="body-text">
-      During my master's thesis in the Freecharge's <strong>DBAT (Digital Banking and Technology)</strong> design team at Axis Design Labs, I had the unique opportunity to collaborate with Axis Bank. My primary focus was on enhancing digital accessibility for Axis Bank's products, specifically for disabled users. In addition to this significant project, I actively contributed to various other initiatives within the Axis Design Labs, making it a rewarding experience.
-    </p>
+<section class="overview">
+  <div class="wrap">
+    <div class="soft-circle"></div>
+    <div class="overview-content">
+      <h2 class="section-title">Overview</h2>
+      <p class="body-text">
+        During my master's thesis in the Freecharge's <strong>DBAT (Digital Banking and Technology)</strong> design team at Axis Design Labs, I had the unique opportunity to collaborate with Axis Bank. My primary focus was on enhancing digital accessibility for Axis Bank's products, specifically for disabled users. In addition to this significant project, I actively contributed to various other initiatives within the Axis Design Labs, making it a rewarding experience.
+      </p>
+    </div>
   </div>
 </section>
 
 <!-- ABOUT ADL -->
-<section class="cream-section" style="padding-top: 0;">
-  <div class="wrap">
-    <div class="adl-row">
-      <div class="adl-logo">
-        <img src="assets/adl-logo.png" alt="Axis Design Labs circular badge logo" />
-      </div>
-      <div class="adl-text">
-        <h2 class="section-title">About Axis Design Labs</h2>
-        <p class="body-text">
-          Axis Design Labs is the design team responsible for various aspects of Axis Bank's digital platforms. It comprises multiple pods, including Research, Communication, Motion Design, Interaction and Design System, each playing a pivotal role in improving and innovating the bank's digital offerings. Working here allowed me to be part of a dynamic and diverse design ecosystem.
-        </p>
-      </div>
+<section class="adl">
+  <div class="adl-row">
+    <img class="adl-badge" src="assets/adl-logo.png" alt="Axis Design Lab circular badge with ADL lettering" />
+    <div class="adl-text">
+      <h2 class="section-title">About Axis Design Labs</h2>
+      <p class="body-text">
+        Axis Design Labs is the design team responsible for various aspects of Axis Bank's digital platforms. It comprises multiple pods, including Research, Communication, Motion Design, Interaction and Design System, each playing a pivotal role in improving and innovating the bank's digital offerings. Working here allowed me to be part of a dynamic and diverse design ecosystem.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- GRADUATION PROJECT + VENN — all on pink gradient -->
-<section class="pink-section">
-  <!-- Top: text + image -->
-  <div class="pink-top">
-    <div>
-      <h2 class="pink-title">Graduation Project</h2>
-      <p class="pink-body">
+<!-- SCOPE OF WORK (pink band with hand image bleeding out) -->
+<section class="scope">
+  <div class="scope-inner">
+    <div class="scope-text">
+      <h2 class="scope-title">Scope of work</h2>
+      <p class="scope-body">
         The primary focus of my work in Axis Design Labs revolved around elevating the digital accessibility of Axis Bank's products for individuals with disabilities. This encompassed the development of a strategic roadmap, involving close collaboration with business units, the design team, and external stakeholders.
       </p>
     </div>
-    <div>
-      <img class="pink-image" src="assets/accessibility-hand.png" alt="Illustrated hand holding phone showing Accessibility Enable screen" />
-    </div>
-  </div>
 
-  <!-- Venn diagram — stays on pink -->
-  <div class="venn-container">
-    <div class="venn-diagram">
-      <div class="venn-oval venn-oval-left"><span>design system</span></div>
-      <div class="venn-oval venn-oval-right"><span>research team</span></div>
+    <div class="venn">
+      <div class="venn-ovals">
+        <div class="venn-oval venn-oval-l"><span>design system</span></div>
+        <div class="venn-oval venn-oval-r"><span>research team</span></div>
+      </div>
+      <div class="venn-line"></div>
+      <p class="venn-caption">I work at the intersection of these 2 teams</p>
     </div>
-    <div class="venn-arrow-line"></div>
-    <p class="venn-caption">I work at the intersection of these 2 teams</p>
   </div>
+  <img class="scope-hand" src="assets/accessibility-hand.png" alt="Illustrated hand holding a phone with Accessibility Enable screen" />
 </section>
 
-<!-- ROLES AND RESPONSIBILITIES -->
-<section class="cream-section">
+<!-- ROLES -->
+<section class="roles">
   <div class="wrap">
-    <div class="roles-row">
-      <div>
-        <h2 class="section-title">My Roles and Responsibilities</h2>
-      </div>
-      <div>
-        <p class="body-text">
-          My role as a sole contributor encompassed a range of responsibilities, these included <strong>conducting accessibility audits, conducting desk research, facilitating discussions with subject matter experts, generating innovative solutions, implementing strategies, and ensuring effective stakeholder cooperation.</strong> The combined efforts in these areas were instrumental in the successful development of our accessibility roadmap.
-        </p>
-      </div>
+    <div class="roles-grid">
+      <h2 class="section-title">My Roles and Responsibilities</h2>
+      <p class="body-text">
+        My role as a sole contributor encompassed a range of responsibilities, these included <strong>conducting accessibility audits, conducting desk research, facilitating discussions with subject matter experts, generating innovative solutions, implementing strategies, and ensuring effective stakeholder cooperation.</strong> The combined efforts in these areas were instrumental in the successful development of our accessibility roadmap.
+      </p>
     </div>
   </div>
 </section>
 
 <!-- OTHER PROJECTS -->
-<section class="cream-section" style="padding-top: 0;">
+<section class="other">
   <div class="wrap">
-    <h2 class="section-title">Other projects that I have contributed in:</h2>
-    <p class="body-text" style="margin-bottom: 40px; max-width: 820px;">
-      Besides my primary project, I actively contributed to several other significant initiatives within Axis Design Labs, including:
-    </p>
+    <div class="soft-circle"></div>
+    <div class="other-head">
+      <h2 class="section-title">Other projects that I have contributed in:</h2>
+      <p class="body-text">
+        Besides my primary project, I actively contributed to several other significant initiatives within Axis Design Labs, including:
+      </p>
+    </div>
+  </div>
 
-    <!-- Design System Card -->
+  <div class="cards-wrap">
+    <!-- Design System card -->
     <div class="project-card">
       <div class="card-pill">In Design System team</div>
       <div class="card-grid">
@@ -394,7 +407,7 @@ nav {
       </div>
     </div>
 
-    <!-- Research Card -->
+    <!-- Research card -->
     <div class="project-card">
       <div class="card-pill">In Research team</div>
       <div class="card-grid">
@@ -413,20 +426,21 @@ nav {
 </section>
 
 <!-- NDA -->
-<section class="nda-section">
-  <div class="wrap-narrow">
+<section class="nda">
+  <div class="wrap">
+    <div class="nda-circle"></div>
     <span class="nda-lock">🔒</span>
     <p class="nda-text">
-      Due to a non-disclosure agreement, I am unable to share specific details of my recent projects publicly. I would be happy to discuss my role and the outcomes of this work in a confidential setting.
+      Due to a non-disclosure agreement, I am unable to share specific details of my recent projects publicly. I would be happy to discuss my role and the outcomes of this work in a confidential setting
     </p>
   </div>
 </section>
 
 <!-- FOOTER NAV -->
 <div class="case-footer">
-  <a href="../cohesity/">← Previous: Cohesity</a>
+  <a href="../cohesity/">&larr; Previous: Cohesity</a>
   <span class="case-footer-label">Case Studies</span>
-  <a href="../talent-ai/">Next: TalentAI →</a>
+  <a href="../talent-ai/">Next: TalentAI &rarr;</a>
 </div>
 
 </body>
