@@ -11,9 +11,6 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --pink-dark: #8a0346;
-  --pink-mid: #c70055;
-  --pink-bright: #ec005d;
   --pink-accent: #af275f;
   --body-bg: #faf6ef;
   --text-dark: #3a362a;
@@ -22,7 +19,6 @@
   --card-border: #e2dcd0;
   --hero-grad: linear-gradient(94deg, #8a0346 14%, #c70055 72%, #ec005d 168%);
   --card-grad: linear-gradient(94deg, rgba(149,0,74,.08) 14%, rgba(199,0,85,.08) 72%, rgba(236,0,93,.08) 168%);
-  --r: 20px;
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--body-bg); color: var(--text-dark); }
@@ -31,310 +27,242 @@ body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; ba
 nav {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 40px;
-  background: rgba(250,246,239,.92); backdrop-filter: blur(10px);
+  padding: 18px 48px;
+  background: rgba(250,246,239,.93); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--card-border);
 }
 .nav-logo {
-  font-family: 'Fraunces', serif; font-style: italic; font-size: 1.2rem;
+  font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem;
   color: var(--text-dark); text-decoration: none; font-weight: 600;
   font-variation-settings: "SOFT" 0, "WONK" 1;
 }
 .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
 .nav-links a { color: var(--text-body); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
 .nav-links a:hover { color: var(--pink-accent); }
-.nav-links .nav-home { font-weight: 600; }
-.nav-back {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: .875rem; font-weight: 600; color: var(--pink-accent);
-  text-decoration: none; transition: gap .2s;
-}
-.nav-back:hover { gap: 10px; }
 
 /* ---- HERO ---- */
 .hero {
   background: var(--hero-grad);
-  min-height: 520px;
+  min-height: 500px;
   display: grid;
-  grid-template-columns: 1fr 420px;
-  align-items: center;
-  gap: 40px;
-  padding: 80px 80px 0;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  padding: 72px 80px 0;
   overflow: hidden;
-  position: relative;
+  align-items: center;
 }
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 120% 60% at 20% 80%, rgba(255,255,255,.06), transparent);
-  pointer-events: none;
-}
-.hero-content { position: relative; z-index: 1; }
-.axis-logo {
+.axis-logo-row {
   display: flex; align-items: center; gap: 10px;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 }
-.axis-logo-icon {
-  width: 36px; height: 36px; background: white; border-radius: 50%;
+/* Axis Bank A-logo triangle mark */
+.axis-a-mark {
+  width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
 }
-.axis-logo-text {
-  font-family: 'Inter', sans-serif; font-weight: 700; font-size: .95rem;
-  color: white; letter-spacing: .05em; opacity: .9;
+.axis-wordmark {
+  font-family: 'Inter', sans-serif; font-weight: 800;
+  font-size: 1rem; color: white; letter-spacing: .1em;
+  text-transform: uppercase; opacity: .95;
 }
 .hero-title {
   font-family: 'Fraunces', serif;
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
-  line-height: 1.15;
+  font-size: clamp(2.2rem, 3.6vw, 3.2rem);
+  line-height: 1.18;
   color: white;
-  max-width: 700px;
   font-variation-settings: "SOFT" 0, "WONK" 1;
-  text-shadow: 2px 3px 0 rgba(0,0,0,.2);
+  text-shadow: 2px 3px 0 rgba(0,0,0,.18);
   letter-spacing: -0.03em;
+  max-width: 680px;
 }
-.hero-title em { font-style: italic; font-weight: 400; }
-.hero-title strong { font-weight: 700; font-style: normal; }
+.hero-title em { font-style: italic; font-weight: 400; display: block; }
+.hero-title strong { font-weight: 700; font-style: normal; display: block; }
 .hero-image-col {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  display: flex; align-items: flex-end; justify-content: center;
+  align-self: stretch; padding-top: 20px;
 }
-.hero-phone-img {
-  width: 100%;
-  max-width: 460px;
-  display: block;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,.3));
+.hero-phone {
+  width: 100%; max-width: 380px; display: block;
+  object-fit: contain; object-position: bottom center;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,.28));
 }
 
-/* ---- SECTION WRAPPERS ---- */
-.section { padding: 80px 0; }
-.section-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
-.section-inner-narrow { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+/* ---- CREAM SECTIONS ---- */
+.cream-section { padding: 80px 0; background: var(--body-bg); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 56px; }
+.wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 56px; }
 
-/* ---- SECTION HEADINGS ---- */
 .section-title {
   font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-size: clamp(1.75rem, 2.4vw, 2.2rem);
   color: var(--text-dark); letter-spacing: -0.03em; line-height: 1.15;
   font-variation-settings: "SOFT" 0, "WONK" 1;
   margin-bottom: 28px;
 }
-.section-title-pink {
-  font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.3;
-  font-variation-settings: "SOFT" 0, "WONK" 1;
-  margin-bottom: 16px;
-}
-.body-text {
-  font-size: 1.05rem; line-height: 1.7; color: var(--text-body);
-  font-weight: 400;
-}
+.body-text { font-size: 1.05rem; line-height: 1.72; color: var(--text-body); }
 .body-text strong { font-weight: 700; }
-.body-text-wide { max-width: 820px; }
 
-/* ---- OVERVIEW ---- */
-.overview-section { padding: 80px 0 60px; }
-
-/* ---- ADL SECTION ---- */
+/* ---- ADL ROW ---- */
 .adl-row {
-  display: flex; align-items: center; gap: 48px;
-  margin-top: 48px;
-  flex-wrap: wrap;
+  display: flex; align-items: center; gap: 44px;
+  margin-top: 0; flex-wrap: wrap;
 }
-.adl-logo-wrap {
-  flex-shrink: 0;
-  width: 160px; height: 160px; border-radius: 50%;
-  overflow: hidden;
+.adl-logo {
+  flex-shrink: 0; width: 148px; height: 148px;
+  border-radius: 50%; overflow: hidden;
   border: 2px solid var(--card-border);
 }
-.adl-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
-.adl-text { flex: 1; min-width: 260px; }
+.adl-logo img { width: 100%; height: 100%; object-fit: cover; }
+.adl-text { flex: 1; min-width: 240px; }
 
-/* ---- PINK GRAD SECTION (Graduation Project) ---- */
-.grad-section {
+/* ---- PINK GRADIENT SECTION (Graduation Project + Venn) ---- */
+.pink-section {
   background: var(--hero-grad);
-  padding: 80px 0;
+  padding: 80px 0 70px;
   position: relative;
   overflow: hidden;
 }
-.grad-section::before {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: -40px; right: -40px;
-  height: 100px;
-  background: inherit;
-  filter: blur(30px);
-  opacity: 0.5;
-}
-.grad-row {
-  max-width: 1100px; margin: 0 auto; padding: 0 40px;
+/* top part: text left + image right */
+.pink-top {
+  max-width: 1100px; margin: 0 auto; padding: 0 80px;
   display: grid;
   grid-template-columns: 1fr 420px;
-  gap: 60px;
+  gap: 56px;
   align-items: center;
+  margin-bottom: 64px;
 }
-.grad-title {
+.pink-title {
   font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-size: clamp(1.75rem, 2.4vw, 2.2rem);
   color: white; letter-spacing: -0.03em; line-height: 1.15;
   font-variation-settings: "SOFT" 0, "WONK" 1;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
-.grad-body { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,.88); }
-.grad-image {
+.pink-body { font-size: 1.05rem; line-height: 1.72; color: rgba(255,255,255,.86); }
+.pink-image {
   width: 100%; display: block;
-  border-radius: 16px;
-  filter: drop-shadow(0 16px 40px rgba(0,0,0,.25));
+  filter: drop-shadow(0 16px 40px rgba(0,0,0,.22));
 }
-
-/* ---- TEAMS VENN ---- */
-.teams-section { padding: 70px 0; }
-.venn-wrap {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 24px;
+/* venn inside the pink section */
+.venn-container {
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  padding: 0 56px;
 }
 .venn-diagram {
-  display: flex; align-items: center;
   position: relative;
-  height: 160px;
-  width: 400px;
+  width: 380px; height: 150px;
+  margin: 0 auto;
 }
-.venn-ellipse {
+.venn-oval {
   position: absolute;
-  width: 200px; height: 140px;
+  width: 210px; height: 138px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 600; font-size: .95rem; letter-spacing: -.02em;
-  color: white;
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  font-size: .95rem; letter-spacing: -.02em; color: white;
+  text-transform: lowercase;
 }
-.venn-left {
+.venn-oval-left {
   left: 0;
-  background: rgba(138,3,70,.7);
+  background: rgba(138,3,70,.65);
   border: 1.5px solid rgba(255,255,255,.5);
-  padding-right: 40px;
 }
-.venn-right {
-  left: 100px;
-  background: rgba(199,0,85,.7);
+.venn-oval-right {
+  left: 110px;
+  background: rgba(199,0,85,.65);
   border: 1.5px solid rgba(255,255,255,.5);
-  padding-left: 40px;
 }
-.venn-label {
-  font-size: 1rem; font-weight: 500; letter-spacing: -.02em;
-  text-align: center; color: var(--text-body);
-  max-width: 500px;
+.venn-oval-left span { padding-right: 30px; }
+.venn-oval-right span { padding-left: 30px; }
+.venn-arrow-line {
+  width: 1.5px; height: 36px;
+  background: rgba(255,255,255,.55);
 }
-.venn-arrow {
-  width: 2px; height: 40px;
-  background: var(--text-muted);
-  margin: 0 auto;
+.venn-caption {
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  font-size: 1rem; color: white; letter-spacing: -0.03em;
+  text-align: center;
 }
 
 /* ---- ROLES ---- */
 .roles-row {
-  display: flex; align-items: flex-start; gap: 60px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 60px; align-items: start;
 }
-.roles-title-col {
-  flex: 0 0 280px;
-}
-.roles-body-col { flex: 1; min-width: 260px; }
 
-/* ---- PROJECT CARDS ---- */
+/* ---- OTHER PROJECTS ---- */
 .project-card {
   background: var(--card-grad);
-  border: 1px solid rgba(175,39,95,.15);
+  border: 1px solid rgba(175,39,95,.14);
   border-radius: 24px;
   padding: 48px 52px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .card-pill {
   display: inline-flex; align-items: center;
   background: var(--body-bg);
-  border: 1.5px solid var(--text-dark);
+  border: 1.5px solid #1a1a1a;
   border-radius: 40px;
-  padding: 8px 22px;
-  font-size: .95rem; font-weight: 600; letter-spacing: -.02em;
-  color: var(--text-dark);
+  padding: 7px 22px;
+  font-size: .92rem; font-weight: 600; letter-spacing: -.015em;
+  color: #1a1a1a; text-transform: lowercase;
   margin-bottom: 32px;
-  text-transform: lowercase;
 }
-.card-projects {
+.card-grid {
   display: grid; grid-template-columns: 1fr 1px 1fr;
   gap: 40px; align-items: start;
 }
-.card-divider {
-  background: rgba(198,164,174,.4);
-  align-self: stretch;
-}
+.card-divider { background: rgba(198,164,174,.38); align-self: stretch; }
 .project-title {
   font-family: 'Fraunces', serif; font-weight: 600;
-  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
-  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.3;
+  font-size: clamp(1.3rem, 1.7vw, 1.65rem);
+  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.28;
   font-variation-settings: "SOFT" 0, "WONK" 1;
   margin-bottom: 14px;
 }
-.project-desc {
-  font-size: .98rem; line-height: 1.7; color: var(--text-body);
-}
+.project-desc { font-size: .98rem; line-height: 1.7; color: var(--text-body); }
 
 /* ---- NDA ---- */
-.nda-section {
-  padding: 60px 0 100px;
-  text-align: center;
-}
-.nda-lock {
-  font-size: 4rem;
-  display: block;
-  margin-bottom: 20px;
-  line-height: 1;
-}
+.nda-section { padding: 60px 0 96px; text-align: center; }
+.nda-lock { font-size: 4rem; display: block; margin-bottom: 20px; }
 .nda-text {
-  font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);
-  max-width: 700px; margin: 0 auto;
-  font-weight: 500;
+  font-size: 1rem; line-height: 1.72; color: var(--text-muted);
+  max-width: 660px; margin: 0 auto; font-weight: 500;
 }
 
 /* ---- FOOTER NAV ---- */
-.case-nav {
-  background: var(--text-dark); color: white;
-  padding: 60px 40px;
+.case-footer {
+  background: #1a1a1a; color: white;
+  padding: 52px 56px;
   display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 24px;
+  flex-wrap: wrap; gap: 20px;
 }
-.case-nav a {
+.case-footer a {
   color: white; text-decoration: none; font-weight: 600; font-size: .95rem;
-  opacity: .7; transition: opacity .2s;
+  opacity: .65; transition: opacity .2s;
 }
-.case-nav a:hover { opacity: 1; }
-.case-nav-back { display: flex; align-items: center; gap: 8px; }
-.case-nav-next { display: flex; align-items: center; gap: 8px; }
-.case-nav-center { text-align: center; font-size: .8rem; opacity: .4; }
+.case-footer a:hover { opacity: 1; }
+.case-footer-label { font-size: .78rem; opacity: .35; }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 860px) {
   nav { padding: 16px 24px; }
-  .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; min-height: auto; gap: 32px; }
+  .hero { grid-template-columns: 1fr; padding: 56px 28px 36px; min-height: auto; }
   .hero-image-col { display: none; }
-  .section-inner, .section-inner-narrow, .grad-row { padding: 0 24px; }
-  .grad-row { grid-template-columns: 1fr; }
-  .grad-image { max-width: 320px; margin: 0 auto; }
-  .adl-row { gap: 28px; }
-  .roles-row { gap: 32px; }
-  .roles-title-col { flex: none; width: 100%; }
-  .card-projects { grid-template-columns: 1fr; }
+  .wrap, .wrap-narrow { padding: 0 28px; }
+  .pink-top { grid-template-columns: 1fr; padding: 0 28px; margin-bottom: 48px; }
+  .pink-image { max-width: 280px; margin: 0 auto; }
+  .roles-row { grid-template-columns: 1fr; gap: 24px; }
+  .card-grid { grid-template-columns: 1fr; gap: 32px; }
   .card-divider { display: none; }
   .project-card { padding: 32px 28px; }
-  .case-nav { flex-direction: column; text-align: center; }
+  .case-footer { flex-direction: column; text-align: center; }
 }
 @media (max-width: 540px) {
   .hero-title { font-size: 2rem; }
-  .section-title, .grad-title { font-size: 1.7rem; }
+  .section-title, .pink-title { font-size: 1.65rem; }
+  .venn-diagram { width: 320px; }
 }
 </style>
 </head>
@@ -344,7 +272,7 @@ nav {
 <nav>
   <a class="nav-logo" href="../../">Oshal.</a>
   <ul class="nav-links">
-    <li><a href="../../" class="nav-home">Home</a></li>
+    <li><a href="../../">Home</a></li>
     <li><a href="../../side-quests/">Side Quests</a></li>
     <li><a href="../../#projects">Projects</a></li>
   </ul>
@@ -352,42 +280,46 @@ nav {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="axis-logo">
-      <!-- Axis Bank SVG logo (white) -->
-      <svg width="120" height="30" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Axis Bank">
-        <text x="0" y="38" font-family="Arial,sans-serif" font-weight="700" font-size="38" fill="white" letter-spacing="2">AXIS BANK</text>
-      </svg>
+  <div>
+    <div class="axis-logo-row">
+      <!-- Axis Bank logo mark (A triangle) + wordmark -->
+      <div class="axis-a-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="14,2 26,24 2,24" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="7.5" y1="17" x2="20.5" y2="17" stroke="white" stroke-width="2"/>
+        </svg>
+      </div>
+      <span class="axis-wordmark">Axis Bank</span>
     </div>
     <h1 class="hero-title">
-      <em>Enhancing<br>Digital Accessibility of </em><br>
+      <em>Enhancing<br>Digital Accessibility of</em>
       <strong>Axis Bank's digital products</strong>
     </h1>
   </div>
   <div class="hero-image-col">
-    <img class="hero-phone-img" src="assets/hero-phone.png" alt="Axis Bank accessibility app on phone showing hearing loop, text search, CC, and wheelchair icons" />
+    <img class="hero-phone" src="assets/hero-phone.png" alt="Axis Bank app on phone showing accessibility icons: hearing loop, text search, CC, wheelchair" />
   </div>
 </section>
 
 <!-- OVERVIEW -->
-<section class="section overview-section">
-  <div class="section-inner-narrow">
+<section class="cream-section">
+  <div class="wrap-narrow">
     <h2 class="section-title">Overview</h2>
-    <p class="body-text body-text-wide">
+    <p class="body-text">
       During my master's thesis in the Freecharge's <strong>DBAT (Digital Banking and Technology)</strong> design team at Axis Design Labs, I had the unique opportunity to collaborate with Axis Bank. My primary focus was on enhancing digital accessibility for Axis Bank's products, specifically for disabled users. In addition to this significant project, I actively contributed to various other initiatives within the Axis Design Labs, making it a rewarding experience.
     </p>
   </div>
 </section>
 
 <!-- ABOUT ADL -->
-<section class="section" style="padding-top: 0;">
-  <div class="section-inner">
-    <h2 class="section-title">About Axis Design Labs</h2>
+<section class="cream-section" style="padding-top: 0;">
+  <div class="wrap">
     <div class="adl-row">
-      <div class="adl-logo-wrap">
+      <div class="adl-logo">
         <img src="assets/adl-logo.png" alt="Axis Design Labs circular badge logo" />
       </div>
       <div class="adl-text">
+        <h2 class="section-title">About Axis Design Labs</h2>
         <p class="body-text">
           Axis Design Labs is the design team responsible for various aspects of Axis Bank's digital platforms. It comprises multiple pods, including Research, Communication, Motion Design, Interaction and Design System, each playing a pivotal role in improving and innovating the bank's digital offerings. Working here allowed me to be part of a dynamic and diverse design ecosystem.
         </p>
@@ -396,43 +328,40 @@ nav {
   </div>
 </section>
 
-<!-- GRADUATION PROJECT (pink gradient bg) -->
-<section class="grad-section">
-  <div class="grad-row">
+<!-- GRADUATION PROJECT + VENN — all on pink gradient -->
+<section class="pink-section">
+  <!-- Top: text + image -->
+  <div class="pink-top">
     <div>
-      <h2 class="grad-title">Graduation Project</h2>
-      <p class="grad-body">
+      <h2 class="pink-title">Graduation Project</h2>
+      <p class="pink-body">
         The primary focus of my work in Axis Design Labs revolved around elevating the digital accessibility of Axis Bank's products for individuals with disabilities. This encompassed the development of a strategic roadmap, involving close collaboration with business units, the design team, and external stakeholders.
       </p>
     </div>
     <div>
-      <img class="grad-image" src="assets/accessibility-hand.png" alt="Illustrated hand holding phone showing Accessibility Enable screen" />
+      <img class="pink-image" src="assets/accessibility-hand.png" alt="Illustrated hand holding phone showing Accessibility Enable screen" />
     </div>
   </div>
-</section>
 
-<!-- TEAMS INTERSECTION -->
-<section class="teams-section">
-  <div class="section-inner-narrow" style="text-align: center;">
-    <div class="venn-wrap">
-      <div style="position: relative; width: 400px; height: 160px; margin: 0 auto;">
-        <div class="venn-ellipse venn-left">Design System</div>
-        <div class="venn-ellipse venn-right">Research team</div>
-      </div>
-      <div class="venn-arrow"></div>
-      <p class="venn-label">I work at the intersection of these 2 teams</p>
+  <!-- Venn diagram — stays on pink -->
+  <div class="venn-container">
+    <div class="venn-diagram">
+      <div class="venn-oval venn-oval-left"><span>design system</span></div>
+      <div class="venn-oval venn-oval-right"><span>research team</span></div>
     </div>
+    <div class="venn-arrow-line"></div>
+    <p class="venn-caption">I work at the intersection of these 2 teams</p>
   </div>
 </section>
 
 <!-- ROLES AND RESPONSIBILITIES -->
-<section class="section" style="padding-top: 0; padding-bottom: 80px;">
-  <div class="section-inner">
+<section class="cream-section">
+  <div class="wrap">
     <div class="roles-row">
-      <div class="roles-title-col">
+      <div>
         <h2 class="section-title">My Roles and Responsibilities</h2>
       </div>
-      <div class="roles-body-col">
+      <div>
         <p class="body-text">
           My role as a sole contributor encompassed a range of responsibilities, these included <strong>conducting accessibility audits, conducting desk research, facilitating discussions with subject matter experts, generating innovative solutions, implementing strategies, and ensuring effective stakeholder cooperation.</strong> The combined efforts in these areas were instrumental in the successful development of our accessibility roadmap.
         </p>
@@ -442,8 +371,8 @@ nav {
 </section>
 
 <!-- OTHER PROJECTS -->
-<section class="section" style="padding-top: 0;">
-  <div class="section-inner">
+<section class="cream-section" style="padding-top: 0;">
+  <div class="wrap">
     <h2 class="section-title">Other projects that I have contributed in:</h2>
     <p class="body-text" style="margin-bottom: 40px; max-width: 820px;">
       Besides my primary project, I actively contributed to several other significant initiatives within Axis Design Labs, including:
@@ -452,7 +381,7 @@ nav {
     <!-- Design System Card -->
     <div class="project-card">
       <div class="card-pill">In Design System team</div>
-      <div class="card-projects">
+      <div class="card-grid">
         <div>
           <h3 class="project-title">Designing Slider Component for all Axis Bank Products</h3>
           <p class="project-desc">I took the lead in designing slider components to enhance the consistency and user experience of Axis Bank's digital products, contributing to a more seamless design system.</p>
@@ -468,7 +397,7 @@ nav {
     <!-- Research Card -->
     <div class="project-card">
       <div class="card-pill">In Research team</div>
-      <div class="card-projects">
+      <div class="card-grid">
         <div>
           <h3 class="project-title">Conducted User Interviews for Axis AMC users</h3>
           <p class="project-desc">My involvement extended to conducting user interview research for Axis AMC (Asset Management Company) users along with Sr. Researchers. I played my part in designing research plans, conducting interviews, making notes and dissecting user feedback.</p>
@@ -485,7 +414,7 @@ nav {
 
 <!-- NDA -->
 <section class="nda-section">
-  <div class="section-inner-narrow">
+  <div class="wrap-narrow">
     <span class="nda-lock">🔒</span>
     <p class="nda-text">
       Due to a non-disclosure agreement, I am unable to share specific details of my recent projects publicly. I would be happy to discuss my role and the outcomes of this work in a confidential setting.
@@ -494,10 +423,10 @@ nav {
 </section>
 
 <!-- FOOTER NAV -->
-<div class="case-nav">
-  <a href="../cohesity/" class="case-nav-back">← Previous: Cohesity</a>
-  <span class="case-nav-center">Case Studies</span>
-  <a href="../talent-ai/" class="case-nav-next">Next: TalentAI →</a>
+<div class="case-footer">
+  <a href="../cohesity/">← Previous: Cohesity</a>
+  <span class="case-footer-label">Case Studies</span>
+  <a href="../talent-ai/">Next: TalentAI →</a>
 </div>
 
 </body>
