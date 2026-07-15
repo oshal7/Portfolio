@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Axis Bank Accessibility — Oshal</title>
+<meta name="description" content="Case study: Enhancing Digital Accessibility for Axis Bank Digital Platforms." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink-dark: #8a0346;
+  --pink-mid: #c70055;
+  --pink-bright: #ec005d;
+  --pink-accent: #af275f;
+  --body-bg: #faf6ef;
+  --text-dark: #3a362a;
+  --text-body: #515151;
+  --text-muted: #636363;
+  --card-border: #e2dcd0;
+  --hero-grad: linear-gradient(94deg, #8a0346 14%, #c70055 72%, #ec005d 168%);
+  --card-grad: linear-gradient(94deg, rgba(149,0,74,.08) 14%, rgba(199,0,85,.08) 72%, rgba(236,0,93,.08) 168%);
+  --r: 20px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background: var(--body-bg); color: var(--text-dark); }
+
+/* ---- NAV ---- */
+nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 40px;
+  background: rgba(250,246,239,.92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--card-border);
+}
+.nav-logo {
+  font-family: 'Fraunces', serif; font-style: italic; font-size: 1.2rem;
+  color: var(--text-dark); text-decoration: none; font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+}
+.nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+.nav-links a { color: var(--text-body); text-decoration: none; font-size: .875rem; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--pink-accent); }
+.nav-links .nav-home { font-weight: 600; }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .875rem; font-weight: 600; color: var(--pink-accent);
+  text-decoration: none; transition: gap .2s;
+}
+.nav-back:hover { gap: 10px; }
+
+/* ---- HERO ---- */
+.hero {
+  background: var(--hero-grad);
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 40px;
+  padding: 80px 80px 0;
+  overflow: hidden;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 120% 60% at 20% 80%, rgba(255,255,255,.06), transparent);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; }
+.axis-logo {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 48px;
+}
+.axis-logo-icon {
+  width: 36px; height: 36px; background: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.axis-logo-text {
+  font-family: 'Inter', sans-serif; font-weight: 700; font-size: .95rem;
+  color: white; letter-spacing: .05em; opacity: .9;
+}
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  color: white;
+  max-width: 700px;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  text-shadow: 2px 3px 0 rgba(0,0,0,.2);
+  letter-spacing: -0.03em;
+}
+.hero-title em { font-style: italic; font-weight: 400; }
+.hero-title strong { font-weight: 700; font-style: normal; }
+.hero-image-col {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.hero-phone-img {
+  width: 100%;
+  max-width: 460px;
+  display: block;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.3));
+}
+
+/* ---- SECTION WRAPPERS ---- */
+.section { padding: 80px 0; }
+.section-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+.section-inner-narrow { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+/* ---- SECTION HEADINGS ---- */
+.section-title {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  color: var(--text-dark); letter-spacing: -0.03em; line-height: 1.15;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  margin-bottom: 28px;
+}
+.section-title-pink {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.3;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  margin-bottom: 16px;
+}
+.body-text {
+  font-size: 1.05rem; line-height: 1.7; color: var(--text-body);
+  font-weight: 400;
+}
+.body-text strong { font-weight: 700; }
+.body-text-wide { max-width: 820px; }
+
+/* ---- OVERVIEW ---- */
+.overview-section { padding: 80px 0 60px; }
+
+/* ---- ADL SECTION ---- */
+.adl-row {
+  display: flex; align-items: center; gap: 48px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+.adl-logo-wrap {
+  flex-shrink: 0;
+  width: 160px; height: 160px; border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--card-border);
+}
+.adl-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.adl-text { flex: 1; min-width: 260px; }
+
+/* ---- PINK GRAD SECTION (Graduation Project) ---- */
+.grad-section {
+  background: var(--hero-grad);
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.grad-section::before {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px; right: -40px;
+  height: 100px;
+  background: inherit;
+  filter: blur(30px);
+  opacity: 0.5;
+}
+.grad-row {
+  max-width: 1100px; margin: 0 auto; padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: center;
+}
+.grad-title {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  color: white; letter-spacing: -0.03em; line-height: 1.15;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  margin-bottom: 28px;
+}
+.grad-body { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,.88); }
+.grad-image {
+  width: 100%; display: block;
+  border-radius: 16px;
+  filter: drop-shadow(0 16px 40px rgba(0,0,0,.25));
+}
+
+/* ---- TEAMS VENN ---- */
+.teams-section { padding: 70px 0; }
+.venn-wrap {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 24px;
+}
+.venn-diagram {
+  display: flex; align-items: center;
+  position: relative;
+  height: 160px;
+  width: 400px;
+}
+.venn-ellipse {
+  position: absolute;
+  width: 200px; height: 140px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: .95rem; letter-spacing: -.02em;
+  color: white;
+}
+.venn-left {
+  left: 0;
+  background: rgba(138,3,70,.7);
+  border: 1.5px solid rgba(255,255,255,.5);
+  padding-right: 40px;
+}
+.venn-right {
+  left: 100px;
+  background: rgba(199,0,85,.7);
+  border: 1.5px solid rgba(255,255,255,.5);
+  padding-left: 40px;
+}
+.venn-label {
+  font-size: 1rem; font-weight: 500; letter-spacing: -.02em;
+  text-align: center; color: var(--text-body);
+  max-width: 500px;
+}
+.venn-arrow {
+  width: 2px; height: 40px;
+  background: var(--text-muted);
+  margin: 0 auto;
+}
+
+/* ---- ROLES ---- */
+.roles-row {
+  display: flex; align-items: flex-start; gap: 60px;
+  flex-wrap: wrap;
+}
+.roles-title-col {
+  flex: 0 0 280px;
+}
+.roles-body-col { flex: 1; min-width: 260px; }
+
+/* ---- PROJECT CARDS ---- */
+.project-card {
+  background: var(--card-grad);
+  border: 1px solid rgba(175,39,95,.15);
+  border-radius: 24px;
+  padding: 48px 52px;
+  margin-bottom: 28px;
+}
+.card-pill {
+  display: inline-flex; align-items: center;
+  background: var(--body-bg);
+  border: 1.5px solid var(--text-dark);
+  border-radius: 40px;
+  padding: 8px 22px;
+  font-size: .95rem; font-weight: 600; letter-spacing: -.02em;
+  color: var(--text-dark);
+  margin-bottom: 32px;
+  text-transform: lowercase;
+}
+.card-projects {
+  display: grid; grid-template-columns: 1fr 1px 1fr;
+  gap: 40px; align-items: start;
+}
+.card-divider {
+  background: rgba(198,164,174,.4);
+  align-self: stretch;
+}
+.project-title {
+  font-family: 'Fraunces', serif; font-weight: 600;
+  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
+  color: var(--pink-accent); letter-spacing: -0.03em; line-height: 1.3;
+  font-variation-settings: "SOFT" 0, "WONK" 1;
+  margin-bottom: 14px;
+}
+.project-desc {
+  font-size: .98rem; line-height: 1.7; color: var(--text-body);
+}
+
+/* ---- NDA ---- */
+.nda-section {
+  padding: 60px 0 100px;
+  text-align: center;
+}
+.nda-lock {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.nda-text {
+  font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);
+  max-width: 700px; margin: 0 auto;
+  font-weight: 500;
+}
+
+/* ---- FOOTER NAV ---- */
+.case-nav {
+  background: var(--text-dark); color: white;
+  padding: 60px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 24px;
+}
+.case-nav a {
+  color: white; text-decoration: none; font-weight: 600; font-size: .95rem;
+  opacity: .7; transition: opacity .2s;
+}
+.case-nav a:hover { opacity: 1; }
+.case-nav-back { display: flex; align-items: center; gap: 8px; }
+.case-nav-next { display: flex; align-items: center; gap: 8px; }
+.case-nav-center { text-align: center; font-size: .8rem; opacity: .4; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 860px) {
+  nav { padding: 16px 24px; }
+  .hero { grid-template-columns: 1fr; padding: 60px 24px 40px; min-height: auto; gap: 32px; }
+  .hero-image-col { display: none; }
+  .section-inner, .section-inner-narrow, .grad-row { padding: 0 24px; }
+  .grad-row { grid-template-columns: 1fr; }
+  .grad-image { max-width: 320px; margin: 0 auto; }
+  .adl-row { gap: 28px; }
+  .roles-row { gap: 32px; }
+  .roles-title-col { flex: none; width: 100%; }
+  .card-projects { grid-template-columns: 1fr; }
+  .card-divider { display: none; }
+  .project-card { padding: 32px 28px; }
+  .case-nav { flex-direction: column; text-align: center; }
+}
+@media (max-width: 540px) {
+  .hero-title { font-size: 2rem; }
+  .section-title, .grad-title { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="../../">Oshal.</a>
+  <ul class="nav-links">
+    <li><a href="../../" class="nav-home">Home</a></li>
+    <li><a href="../../side-quests/">Side Quests</a></li>
+    <li><a href="../../#projects">Projects</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="axis-logo">
+      <!-- Axis Bank SVG logo (white) -->
+      <svg width="120" height="30" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Axis Bank">
+        <text x="0" y="38" font-family="Arial,sans-serif" font-weight="700" font-size="38" fill="white" letter-spacing="2">AXIS BANK</text>
+      </svg>
+    </div>
+    <h1 class="hero-title">
+      <em>Enhancing<br>Digital Accessibility of </em><br>
+      <strong>Axis Bank's digital products</strong>
+    </h1>
+  </div>
+  <div class="hero-image-col">
+    <img class="hero-phone-img" src="assets/hero-phone.png" alt="Axis Bank accessibility app on phone showing hearing loop, text search, CC, and wheelchair icons" />
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="section overview-section">
+  <div class="section-inner-narrow">
+    <h2 class="section-title">Overview</h2>
+    <p class="body-text body-text-wide">
+      During my master's thesis in the Freecharge's <strong>DBAT (Digital Banking and Technology)</strong> design team at Axis Design Labs, I had the unique opportunity to collaborate with Axis Bank. My primary focus was on enhancing digital accessibility for Axis Bank's products, specifically for disabled users. In addition to this significant project, I actively contributed to various other initiatives within the Axis Design Labs, making it a rewarding experience.
+    </p>
+  </div>
+</section>
+
+<!-- ABOUT ADL -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-inner">
+    <h2 class="section-title">About Axis Design Labs</h2>
+    <div class="adl-row">
+      <div class="adl-logo-wrap">
+        <img src="assets/adl-logo.png" alt="Axis Design Labs circular badge logo" />
+      </div>
+      <div class="adl-text">
+        <p class="body-text">
+          Axis Design Labs is the design team responsible for various aspects of Axis Bank's digital platforms. It comprises multiple pods, including Research, Communication, Motion Design, Interaction and Design System, each playing a pivotal role in improving and innovating the bank's digital offerings. Working here allowed me to be part of a dynamic and diverse design ecosystem.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRADUATION PROJECT (pink gradient bg) -->
+<section class="grad-section">
+  <div class="grad-row">
+    <div>
+      <h2 class="grad-title">Graduation Project</h2>
+      <p class="grad-body">
+        The primary focus of my work in Axis Design Labs revolved around elevating the digital accessibility of Axis Bank's products for individuals with disabilities. This encompassed the development of a strategic roadmap, involving close collaboration with business units, the design team, and external stakeholders.
+      </p>
+    </div>
+    <div>
+      <img class="grad-image" src="assets/accessibility-hand.png" alt="Illustrated hand holding phone showing Accessibility Enable screen" />
+    </div>
+  </div>
+</section>
+
+<!-- TEAMS INTERSECTION -->
+<section class="teams-section">
+  <div class="section-inner-narrow" style="text-align: center;">
+    <div class="venn-wrap">
+      <div style="position: relative; width: 400px; height: 160px; margin: 0 auto;">
+        <div class="venn-ellipse venn-left">Design System</div>
+        <div class="venn-ellipse venn-right">Research team</div>
+      </div>
+      <div class="venn-arrow"></div>
+      <p class="venn-label">I work at the intersection of these 2 teams</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES AND RESPONSIBILITIES -->
+<section class="section" style="padding-top: 0; padding-bottom: 80px;">
+  <div class="section-inner">
+    <div class="roles-row">
+      <div class="roles-title-col">
+        <h2 class="section-title">My Roles and Responsibilities</h2>
+      </div>
+      <div class="roles-body-col">
+        <p class="body-text">
+          My role as a sole contributor encompassed a range of responsibilities, these included <strong>conducting accessibility audits, conducting desk research, facilitating discussions with subject matter experts, generating innovative solutions, implementing strategies, and ensuring effective stakeholder cooperation.</strong> The combined efforts in these areas were instrumental in the successful development of our accessibility roadmap.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OTHER PROJECTS -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-inner">
+    <h2 class="section-title">Other projects that I have contributed in:</h2>
+    <p class="body-text" style="margin-bottom: 40px; max-width: 820px;">
+      Besides my primary project, I actively contributed to several other significant initiatives within Axis Design Labs, including:
+    </p>
+
+    <!-- Design System Card -->
+    <div class="project-card">
+      <div class="card-pill">In Design System team</div>
+      <div class="card-projects">
+        <div>
+          <h3 class="project-title">Designing Slider Component for all Axis Bank Products</h3>
+          <p class="project-desc">I took the lead in designing slider components to enhance the consistency and user experience of Axis Bank's digital products, contributing to a more seamless design system.</p>
+        </div>
+        <div class="card-divider"></div>
+        <div>
+          <h3 class="project-title">Defining Patterns for the Subzero Design System</h3>
+          <p class="project-desc">Within the design system pod, I'm working on creating design patterns for critical design elements such as logins, forms, OTPs, loaders, Assisted Flows and MPIN, which will further improved the cohesiveness of our digital offerings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research Card -->
+    <div class="project-card">
+      <div class="card-pill">In Research team</div>
+      <div class="card-projects">
+        <div>
+          <h3 class="project-title">Conducted User Interviews for Axis AMC users</h3>
+          <p class="project-desc">My involvement extended to conducting user interview research for Axis AMC (Asset Management Company) users along with Sr. Researchers. I played my part in designing research plans, conducting interviews, making notes and dissecting user feedback.</p>
+        </div>
+        <div class="card-divider"></div>
+        <div>
+          <h3 class="project-title">Geurilla Testing for Fund Transfer Module</h3>
+          <p class="project-desc">I collaborated in the guerrilla testing efforts for the fund transfer module. This involved planning the research, crafting relevant questions, designing tasks, and executing tasks physically, thereby contributing to the enhancement of this critical banking function.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NDA -->
+<section class="nda-section">
+  <div class="section-inner-narrow">
+    <span class="nda-lock">🔒</span>
+    <p class="nda-text">
+      Due to a non-disclosure agreement, I am unable to share specific details of my recent projects publicly. I would be happy to discuss my role and the outcomes of this work in a confidential setting.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER NAV -->
+<div class="case-nav">
+  <a href="../cohesity/" class="case-nav-back">← Previous: Cohesity</a>
+  <span class="case-nav-center">Case Studies</span>
+  <a href="../talent-ai/" class="case-nav-next">Next: TalentAI →</a>
+</div>
+
+</body>
+</html>
