@@ -133,14 +133,17 @@ nav {
   margin-bottom: 20px;
 }
 .scope-body { font-size: .95rem; line-height: 1.7; color: rgba(255,255,255,.88); }
-.scope-hand {
+/* window that extends above the band but ends exactly at its bottom:
+   the image fills it, so the phone bleeds out the top and the arm
+   is clipped flush with the section's bottom edge */
+.scope-hand-wrap {
   position: absolute; z-index: 5;
-  right: 24px;
-  top: -60px;
-  height: calc(100% + 120px);
-  width: auto;
+  top: -64px; bottom: 0;
+  right: max(calc((100% - 1100px) / 2 + 24px), 24px);
+  overflow: hidden;
   pointer-events: none;
 }
+.scope-hand-wrap img { height: 100%; width: auto; display: block; }
 /* venn diagram */
 .venn { margin-top: 48px; max-width: 510px; display: flex; flex-direction: column; align-items: center; }
 .venn-ovals { position: relative; width: 335px; height: 122px; }
@@ -266,7 +269,8 @@ nav {
   .adl-row { flex-direction: column; text-align: center; gap: 28px; padding: 0 28px; }
   .adl-text { text-align: left; }
   .scope { padding-top: 60px; }
-  .scope-hand { position: static; display: block; margin: 40px auto 0; width: 260px; height: auto; }
+  .scope-hand-wrap { position: static; overflow: visible; margin: 40px auto 0; width: 260px; }
+  .scope-hand-wrap img { height: auto; width: 100%; }
   .scope-text { max-width: 100%; }
   .venn { margin-left: auto; margin-right: auto; }
   .roles { padding-top: 80px; }
@@ -376,7 +380,9 @@ nav {
       <div class="venn-stem"></div>
       <p class="venn-caption">I work at the intersection of these 2 teams</p>
     </div>
-    <img class="scope-hand" src="assets/accessibility-hand.png" alt="Illustrated hand holding a phone with Accessibility Enable screen" />
+  </div>
+  <div class="scope-hand-wrap">
+    <img src="assets/accessibility-hand.png" alt="Illustrated hand holding a phone with Accessibility Enable screen" />
   </div>
 </section>
 
