@@ -100,8 +100,10 @@ h1 em{font-style:italic;color:var(--accent)}
 .hchip.solid:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 
 /* ── now section ─────────────────────── */
-section{padding:40px 0}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:16px}
+section{padding:44px 0}
+/* clean divider between the main page sections */
+main > section + section{border-top:1px solid var(--line)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:20px}
 .nowcards{display:grid;gap:10px;margin-bottom:18px}
 .nowcard{display:block;border:1px solid var(--line);border-radius:10px;padding:16px 18px;transition:border-color .15s,background .15s}
 .nowcard:hover{border-color:var(--accent);background:var(--surface)}
@@ -132,9 +134,8 @@ details.work[open] .chev{transform:rotate(90deg);color:var(--accent)}
 .wlink:hover{color:var(--accent);border-color:var(--accent)}
 
 /* ── experiments: thumbnail rows ─────── */
-.explist{display:flex;flex-direction:column;gap:2px}
-.exprow{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
-.exprow:last-child{border-bottom:none}
+.explist{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line)}
+.exprow{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}
 .thumb{width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--surface);border:1px solid var(--line)}
 .exprow h3{font-family:var(--display);font-weight:500;font-size:15px;margin-bottom:2px}
 .exprow h3 a:hover{color:var(--accent)}
@@ -180,7 +181,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
     <nav>
       <a class="work-link" href="#work">work</a>
       <a href="#experiments">experiments</a>
-      <a class="notes-link" href="#notes">notes</a>
       <a href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view" target="_blank" rel="noopener">resume</a>
     </nav>
     <a class="talk" href="#contact">Say hi</a>
@@ -194,14 +194,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
       <div class="avatar" aria-hidden="true"><span class="ring"></span>O<img src="assets/avatar.jpg" alt="" onerror="this.remove()"></div>
       <div class="who">
         <div class="nm">Oshal Urade</div>
-        <div class="rl">designer<span class="dot">·</span>maker<span class="dot">·</span>thinker — Bengaluru</div>
+        <div class="rl">designer<span class="dot">·</span>maker<span class="dot">·</span>thinker</div>
       </div>
     </div>
 
     <h1><em>Hello,</em> I design calm interfaces for complex products.</h1>
 
     <p class="lede">I'm a multidisciplinary designer with 5+ years of experience, crafting user-centric digital experiences that are simple, elegant, and easy to navigate.</p>
-    <p class="lede2">Right now I'm on product design at <a class="orglink" href="https://www.cohesity.com" target="_blank" rel="noopener">Cohesity</a>, shaping enterprise backup &amp; recovery flows. Before that — accessibility and design systems at <a class="orglink" href="https://www.axisbank.com" target="_blank" rel="noopener">Axis Bank</a>, and product work across <a class="orglink" href="https://www.maximl.com" target="_blank" rel="noopener">Maximl</a>, <a class="orglink" href="https://www.ltimindtree.com" target="_blank" rel="noopener">LTIMindtree</a>, and <a class="orglink" href="https://www.sparklehood.com" target="_blank" rel="noopener">Sparklehood</a>.</p>
+    <p class="lede2">Currently a <b>Product Designer III</b> at <a class="orglink" href="https://www.cohesity.com" target="_blank" rel="noopener">Cohesity</a>, shaping data-protection workflows. Previously at <a class="orglink" href="https://www.axisbank.com" target="_blank" rel="noopener">Axis Bank</a>, <a class="orglink" href="https://www.maximl.com" target="_blank" rel="noopener">Maximl Labs</a>, <a class="orglink" href="https://www.ltimindtree.com" target="_blank" rel="noopener">LTIMindtree</a>, and <a class="orglink" href="https://www.sparklehood.com" target="_blank" rel="noopener">Sparklehood</a>.</p>
 
     <div class="signals">
       <div class="signal"><span class="k">5+ yrs</span><span class="v">designing products</span></div>
@@ -304,24 +304,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
       </div>
     </div>
     <div class="morerow"><a class="moreexp" href="experiments.html">more experiments →</a></div>
-  </section>
-
-  <section id="notes">
-    <p class="eyebrow">stuff I write</p>
-    <div class="notelist">
-      <a href="https://medium.com/@oshalurade/designing-mainframe-uis-overcoming-constraints-for-intuitive-user-experiences-27b0789ed12a" target="_blank" rel="noopener">
-        <b>Designing for Textual User Interfaces</b>
-        <span>Secrets from crafting user-friendly TUIs — challenges, solutions, and modern usability strategies.</span>
-      </a>
-      <a href="https://medium.com/design-bootcamp/designing-the-perfect-slider-component-f2dff91afa0a" target="_blank" rel="noopener">
-        <b>Designing the Perfect Slider Component</b>
-        <span>Built for the Subzero design system — a standardized slider across Axis Bank products.</span>
-      </a>
-      <a href="https://medium.com/design-bootcamp/unleashing-life-in-the-mundane-the-tale-of-whimsical-paper-weights-fdf98a580839" target="_blank" rel="noopener">
-        <b>Whimsical Paperweights That Inspire</b>
-        <span>From talcum powder's splash to character-filled paperweights, exhaling playfulness into mundane moments.</span>
-      </a>
-    </div>
   </section>
 
   <section class="sayhi" id="contact">
