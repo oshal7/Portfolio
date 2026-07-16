@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohesity — MongoDB Data Protection · Oshal</title>
+<meta name="description" content="Case study: simplifying data backup and recovery for MongoDB workloads on Cohesity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf8;--surface:#f3f2ec;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
+  --line:#e6e4db;--accent:#4f7a5c;--accent-soft:#e4ece5;
+  --sans:'Inter',system-ui,sans-serif;--display:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:720px;
+}
+html[data-theme="dark"]{
+  --bg:#15160f;--surface:#1c1d16;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
+  --line:#2b2c22;--accent:#8fbf9c;--accent-soft:#22301f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.68;
+  transition:background .25s,color .25s}
+::selection{background:var(--accent-soft);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+img{max-width:100%;display:block}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+.col{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* nav */
+.topnav{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:20}
+.topnav .col{display:flex;align-items:center;gap:22px;height:56px}
+.topnav .id{font-family:var(--mono);font-size:14px;color:var(--grey)}
+.topnav .id b{color:var(--ink);font-weight:500}
+.topnav nav{display:flex;gap:18px;margin-left:auto;font-size:14px;color:var(--grey)}
+.topnav nav a:hover{color:var(--ink)}
+.topnav .talk{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:6px;padding:5px 11px;color:var(--ink);white-space:nowrap}
+.topnav .talk:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:560px){.topnav nav a:not(.keepnav){display:none}}
+
+/* back link */
+.backrow{padding:26px 0 0}
+.back{font-family:var(--mono);font-size:13px;color:var(--grey)}
+.back:hover{color:var(--accent)}
+
+/* hero */
+.cs-hero{padding:30px 0 34px;border-bottom:1px solid var(--line)}
+.cs-kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent);margin-bottom:18px}
+.cs-hero h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,5vw,44px);letter-spacing:-.02em;line-height:1.12;margin-bottom:18px}
+.cs-hero .lede{color:var(--grey);font-size:17px;max-width:60ch;margin-bottom:22px}
+.cs-tags{display:flex;flex-wrap:wrap;gap:7px}
+.cs-tag{font-family:var(--mono);font-size:11.5px;color:var(--grey);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+
+/* meta grid */
+.cs-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:26px 0;border-bottom:1px solid var(--line)}
+.cs-meta .m .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--grey-2);text-transform:uppercase;margin-bottom:6px}
+.cs-meta .m .v{font-size:14px;line-height:1.45}
+@media(max-width:560px){.cs-meta{grid-template-columns:repeat(2,1fr);gap:18px}}
+
+/* section */
+.sec{padding:44px 0;border-bottom:1px solid var(--line)}
+.sec:last-of-type{border-bottom:none}
+.num{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--grey-2);margin-bottom:12px}
+.num b{color:var(--accent);font-weight:500}
+.sec h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vw,28px);letter-spacing:-.015em;line-height:1.2;margin-bottom:18px;max-width:26ch}
+.sec p{color:var(--grey);font-size:16px;margin-bottom:16px;max-width:64ch}
+.sec p strong,.sec p b{color:var(--ink);font-weight:600}
+.sec p:last-child{margin-bottom:0}
+
+/* how-might-we callout */
+.hmw{border-left:2px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:20px 22px;margin:24px 0}
+.hmw p{font-family:var(--display);font-style:italic;font-weight:500;font-size:19px;color:var(--ink);line-height:1.4;max-width:none;margin:0}
+.hmw .url{font-family:var(--mono);font-size:11.5px;color:var(--grey-2);margin-top:12px;display:block}
+
+/* discovery / finding cards */
+.finds{display:grid;gap:12px;margin:22px 0 0}
+.find{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--bg)}
+.find .ico{font-size:22px;margin-bottom:10px}
+.find h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:6px}
+.find p{font-size:14.5px;margin:0}
+
+/* process steps */
+.steps{display:grid;gap:2px;margin:22px 0 0;border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
+.step .no{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:2px}
+.step h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:4px}
+.step p{font-size:14.5px;margin:0}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 0}
+.stat{border:1px solid var(--line);border-radius:10px;padding:20px;background:var(--surface)}
+.stat .big{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;color:var(--accent);line-height:1}
+.stat .lbl{font-size:13px;color:var(--grey);margin-top:8px;line-height:1.4}
+@media(max-width:560px){.stats{grid-template-columns:1fr}}
+
+/* learnings */
+.learns{display:grid;gap:14px;margin:22px 0 0}
+.learn{display:grid;grid-template-columns:26px 1fr;gap:12px}
+.learn .arw{font-family:var(--mono);color:var(--accent);padding-top:2px}
+.learn h3{font-family:var(--display);font-weight:600;font-size:16.5px;margin-bottom:5px}
+.learn p{font-size:14.5px;margin:0}
+
+/* nda notice */
+.nda{display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line);border-radius:10px;padding:20px 22px;background:var(--surface);margin-top:8px}
+.nda .lock{font-size:22px;flex:none}
+.nda p{font-size:14.5px;color:var(--grey);margin:0}
+
+/* generic subgrid for role lists etc */
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+.pairs h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:6px}
+.pairs p{font-size:14.5px;margin:0}
+@media(max-width:560px){.pairs{grid-template-columns:1fr}}
+.tinylabel{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+
+/* chat mockup (talentai) */
+.chat{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px;margin:24px 0 0;max-width:420px}
+.chat .b{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;margin-bottom:9px}
+.chat .in{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px}
+.chat .out{background:var(--accent-soft);color:var(--ink);margin-left:auto;border-bottom-right-radius:4px}
+.chat .t{font-family:var(--mono);font-size:10px;color:var(--grey-2);margin:-4px 4px 10px}
+.chat .out + .t{text-align:right}
+
+/* next case */
+.nextcase{padding:36px 0 0}
+.nextcase .lbl{font-family:var(--mono);font-size:12px;color:var(--grey-2);margin-bottom:10px}
+.nextcase a.big{font-family:var(--display);font-weight:600;font-size:clamp(20px,3vw,26px);letter-spacing:-.015em;display:inline-block;margin-bottom:14px}
+.nextcase a.big:hover{color:var(--accent)}
+.nextcase .allwork{font-family:var(--mono);font-size:13px;color:var(--grey)}
+.nextcase .allwork:hover{color:var(--accent)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:26px 0 60px;margin-top:44px}
+.footlinks{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px;color:var(--grey);margin-bottom:16px}
+.footlinks a:hover{color:var(--accent)}
+.footbottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--grey-2);font-family:var(--mono)}
+.themebtn{font-family:var(--mono);font-size:12.5px;color:var(--grey);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:none;cursor:pointer}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── image placeholders (indexed) ───────────────────── */
+figure.shot{margin:26px 0 0}
+figure.shot + figure.shot{margin-top:16px}
+.ph{position:relative;width:100%;border:1.5px dashed var(--line);border-radius:12px;
+  background-color:var(--surface);
+  background-image:repeating-linear-gradient(135deg,transparent 0 15px,rgba(127,124,110,.05) 15px 16px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  text-align:center;padding:28px 22px;overflow:hidden}
+.ph.wide{aspect-ratio:16/9}
+.ph.banner{aspect-ratio:21/9}
+.ph.square{aspect-ratio:1/1;max-width:320px;margin-inline:auto}
+.ph.phone{aspect-ratio:9/18;max-width:230px;margin-inline:auto}
+.ph-id{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:3px 8px}
+.ph-ic{font-size:27px;opacity:.55}
+.ph-desc{font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink);max-width:38ch;opacity:.82;line-height:1.35}
+.ph-dim{font-family:var(--mono);font-size:11px;color:var(--grey-2);letter-spacing:.12em}
+figure.shot figcaption{font-family:var(--mono);font-size:12px;color:var(--grey-2);margin-top:11px;line-height:1.55}
+figure.shot figcaption b{color:var(--grey);font-weight:500}
+.shot-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 0;align-items:start}
+.shot-2 figure.shot{margin:0}
+@media(max-width:560px){.shot-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topnav">
+  <div class="col">
+    <a class="id" href="index.html">oshal<b>.log</b></a>
+    <nav>
+      <a class="keepnav" href="index.html#work">work</a>
+      <a href="index.html#experiments">experiments</a>
+      <a href="index.html#notes">notes</a>
+      <a href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view">resume</a>
+    </nav>
+    <a class="talk" href="index.html#contact">Say hi</a>
+  </div>
+</header>
+
+<main class="col">
+
+  <!-- ============================================================
+       IMAGE PLACEHOLDER INDEX  (see IMAGE-PLACEHOLDERS.md for all pages)
+       To replace: drop your file in an /assets folder next to this page,
+       then swap the <div class="ph ...">…</div> for the <img> shown in the
+       comment above each slot. Keep the surrounding <figure> + <figcaption>.
+       ------------------------------------------------------------
+       COH-01  banner 21:9  Hero — integrated MongoDB protection dashboard
+       COH-02  wide  16:9   Before-state — fragmented Cohesity + Ops Manager + scripts
+       COH-03  wide  16:9   Sprint artifacts — journey maps, five high-impact moments
+       COH-04  wide  16:9   Topology-aware replica-set visualisation
+       COH-05  wide  16:9   Point-in-time recovery timeline scrubber
+       ============================================================ -->
+
+  <div class="backrow"><a class="back" href="index.html#work">← back to work</a></div>
+
+  <header class="cs-hero">
+    <p class="cs-kicker">Enterprise UX · Cohesity Inc.</p>
+    <h1>Simplifying data backup &amp; recovery for MongoDB workloads</h1>
+    <p class="lede">Making enterprise data protection feel as natural as taking a backup — designed for database administrators managing MongoDB at scale.</p>
+    <div class="cs-tags">
+      <span class="cs-tag">Data backup</span><span class="cs-tag">Data recovery</span>
+      <span class="cs-tag">Enterprise UX</span><span class="cs-tag">Cluster UI</span><span class="cs-tag">Data management</span>
+    </div>
+  </header>
+
+  <div class="cs-meta">
+    <div class="m"><div class="k">Role</div><div class="v">Lead UX Designer</div></div>
+    <div class="m"><div class="k">Timeline</div><div class="v">Q2–Q3 2023 · 6 months</div></div>
+    <div class="m"><div class="k">Tools</div><div class="v">Figma, FigJam, UserTesting</div></div>
+    <div class="m"><div class="k">Team</div><div class="v">2 PMs, 4 Engineers, 1 Analyst</div></div>
+  </div>
+
+  <section class="sec">
+    <p class="num">00 / <b>overview</b></p>
+    <h2>A new way to protect MongoDB on Cohesity</h2>
+    <p>Cohesity's data management platform protects enterprise workloads — but MongoDB, one of the most widely used NoSQL databases, lacked native protection through Ops Manager integration. DBAs had to manage backups outside the platform, leading to fragmented workflows and increased risk.</p>
+    <p>I owned the end-to-end UX for integrating MongoDB backup and recovery directly into the Cohesity DataProtect interface — giving administrators a single pane of glass for all their data protection needs.</p>
+    <!-- COH-01 · replace with: <img src="assets/coh-01.png" alt="Integrated MongoDB protection dashboard in Cohesity DataProtect"> -->
+    <figure class="shot">
+      <div class="ph banner"><span class="ph-id">COH-01</span><span class="ph-ic">🗄️</span><span class="ph-desc">Hero shot — the integrated MongoDB protection dashboard in DataProtect</span><span class="ph-dim">21 : 9</span></div>
+      <figcaption><b>Fig 01.</b> One pane of glass for every MongoDB source.</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec">
+    <p class="num">01 / <b>the problem</b></p>
+    <h2>DBAs were context-switching between too many tools</h2>
+    <p>Enterprise administrators managing MongoDB clusters on Cohesity had no native way to apply backup or recovery policies from within the interface. Every protection operation required jumping between Cohesity and MongoDB Ops Manager — a friction-heavy, error-prone process.</p>
+    <p>This gap wasn't just a UX annoyance — it was real business risk. Missed backups, slow recovery, and unclear protection status were direct consequences of the disconnected experience.</p>
+    <div class="hmw">
+      <p>How might we let database administrators protect, monitor, and recover MongoDB workloads without ever leaving the Cohesity platform?</p>
+      <span class="url">cohesity.com / data-protect / sources</span>
+    </div>
+    <!-- COH-02 · replace with: <img src="assets/coh-02.png" alt="Before-state diagram of fragmented backup tooling"> -->
+    <figure class="shot">
+      <div class="ph wide"><span class="ph-id">COH-02</span><span class="ph-ic">🧩</span><span class="ph-desc">Before-state map — DBAs juggling Cohesity, Ops Manager, and manual scripts</span><span class="ph-dim">16 : 9</span></div>
+      <figcaption><b>Fig 02.</b> The fragmented workflow we set out to collapse.</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec">
+    <p class="num">02 / <b>research &amp; discovery</b></p>
+    <h2>Listening to the people who live in the terminal</h2>
+    <p>I ran 12 contextual interviews with senior DBAs and Cohesity platform admins across financial services and healthcare — the two verticals with the highest MongoDB adoption. Sessions included think-alouds of current backup workflows and a diary study of critical recovery incidents.</p>
+    <div class="finds">
+      <div class="find"><div class="ico">🔁</div><h3>Fragmented workflow</h3><p>Every DBA used at least 3 separate tools to complete a single backup cycle. "Cobbling together" was the most common phrase used to describe their process.</p></div>
+      <div class="find"><div class="ico">🕵️</div><h3>Invisible protection status</h3><p>No unified view of which clusters were protected, partially protected, or at risk — leading to a "hope it works" mindset around recovery.</p></div>
+      <div class="find"><div class="ico">⏱️</div><h3>Slow recovery times</h3><p>Average time to initiate a MongoDB recovery was 4.5 hours. DBAs manually pieced together backup metadata before even starting the restore.</p></div>
+    </div>
+    <p style="margin-top:20px"><strong>Three user types emerged:</strong> Platform Admin (sets policies across workloads), Database Admin (day-to-day MongoDB operations), and Data Recovery Analyst (responds to incidents) — each with distinct mental models and recovery urgency.</p>
+  </section>
+
+  <section class="sec">
+    <p class="num">03 / <b>design process</b></p>
+    <h2>From whiteboard to working prototype in 3 iterations</h2>
+    <p>I ran a 3-day design sprint with engineering and product. Starting from journey maps for each user type, we identified the five highest-impact moments in the backup-and-recovery workflow where design could meaningfully reduce friction.</p>
+    <div class="steps">
+      <div class="step"><div class="no">01</div><div><h3>Discovery &amp; source registration</h3><p>How admins first connect a MongoDB cluster — Ops Manager credential flow and auto-discovery of replica sets.</p></div></div>
+      <div class="step"><div class="no">02</div><div><h3>Protection policy assignment</h3><p>Mapping physical and logical backup options to an intuitive policy builder, without exposing technical complexity to non-expert users.</p></div></div>
+      <div class="step"><div class="no">03</div><div><h3>Monitoring &amp; status dashboard</h3><p>A live protection-health view across all sources — clear status indicators, last-run times, and SLA compliance signals.</p></div></div>
+      <div class="step"><div class="no">04</div><div><h3>Recovery workflow</h3><p>Point-in-time recovery with a timeline scrubber — designed to get a DBA from alert to recovery-initiated in under 10 minutes.</p></div></div>
+    </div>
+    <p style="margin-top:20px">Each iteration was tested with 4 participants on UserTesting, focused on task-completion rate and time-on-task for the recovery flow.</p>
+    <!-- COH-03 · replace with: <img src="assets/coh-03.png" alt="Journey maps and design sprint artifacts"> -->
+    <figure class="shot">
+      <div class="ph wide"><span class="ph-id">COH-03</span><span class="ph-ic">🗺️</span><span class="ph-desc">Sprint artifacts — journey maps and the five high-impact moments</span><span class="ph-dim">16 : 9</span></div>
+      <figcaption><b>Fig 03.</b> Mapping where design could cut the most friction.</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec">
+    <p class="num">04 / <b>final solution</b></p>
+    <h2>One platform. Full MongoDB protection.</h2>
+    <p>The final design integrated MongoDB backup and recovery as a first-class workload type in Cohesity DataProtect — consistent with existing SQL and VMware flows, but tailored to MongoDB's architecture (replica sets, sharded clusters, Ops Manager topology).</p>
+    <p>Key decisions: a <strong>topology-aware visualisation</strong> of replica sets so DBAs understood what was protected, a <strong>policy inheritance model</strong> letting platform admins set org-wide defaults, and a <strong>recovery confidence score</strong> surfacing backup age and integrity before an admin committed to a restore point.</p>
+    <!-- COH-04 · replace with: <img src="assets/coh-04.png" alt="Topology-aware replica set visualisation"> -->
+    <!-- COH-05 · replace with: <img src="assets/coh-05.png" alt="Point-in-time recovery timeline scrubber"> -->
+    <div class="shot-2">
+      <figure class="shot">
+        <div class="ph wide"><span class="ph-id">COH-04</span><span class="ph-ic">🕸️</span><span class="ph-desc">Topology-aware view of replica sets</span><span class="ph-dim">16 : 9</span></div>
+        <figcaption><b>Fig 04.</b> See exactly what's protected.</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="ph wide"><span class="ph-id">COH-05</span><span class="ph-ic">⏳</span><span class="ph-desc">Point-in-time recovery scrubber</span><span class="ph-dim">16 : 9</span></div>
+        <figcaption><b>Fig 05.</b> Alert to recovery in under 10 min.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec">
+    <p class="num">05 / <b>outcomes &amp; impact</b></p>
+    <h2>Measurable results, not just prettier screens</h2>
+    <p>Post-launch usability testing and beta feedback from 6 enterprise customers surfaced strong validation across the three core workflows.</p>
+    <div class="stats">
+      <div class="stat"><div class="big">73%</div><div class="lbl">reduction in time-to-protect for a new MongoDB cluster</div></div>
+      <div class="stat"><div class="big">&lt;8 min</div><div class="lbl">from incident alert to recovery-initiated (down from 4.5 hrs)</div></div>
+      <div class="stat"><div class="big">94%</div><div class="lbl">task-completion rate on core protection workflows</div></div>
+    </div>
+    <p style="margin-top:20px">The feature unlocked a new enterprise segment — financial-services firms running large MongoDB deployments — that had previously cited the protection gap as a blocker to adopting Cohesity.</p>
+  </section>
+
+  <section class="sec">
+    <p class="num">06 / <b>learnings</b></p>
+    <h2>What this project taught me</h2>
+    <div class="learns">
+      <div class="learn"><div class="arw">→</div><div><h3>Enterprise ≠ complex UI — it means zero margin for ambiguity</h3><p>DBAs are experts in their domain, not in our UI. Every label and status indicator had to be precise, because ambiguity in a recovery context has real business consequences.</p></div></div>
+      <div class="learn"><div class="arw">→</div><div><h3>Speak the domain language before designing anything</h3><p>The most valuable week was reading MongoDB docs and sitting with DBAs explaining replica sets. It let me design with their mental model, not against it.</p></div></div>
+      <div class="learn"><div class="arw">→</div><div><h3>Recovery flows deserve as much love as creation flows</h3><p>Most products optimise the happy path. For data protection, the "things went wrong" flow is where users are most stressed — so that's where I focused most iteration.</p></div></div>
+    </div>
+  </section>
+
+  <div class="nextcase">
+    <p class="lbl">next case study →</p>
+    <a class="big" href="case-study-axis-bank.html">Enhancing digital accessibility for Axis Bank</a><br>
+    <a class="allwork" href="index.html#work">← back to all work</a>
+  </div>
+
+</main>
+<footer>
+  <div class="col">
+    <div class="footlinks">
+      <a href="https://www.linkedin.com/in/oshal/">linkedin</a>
+      <a href="https://medium.com/@oshalurade">medium</a>
+      <a href="https://twitter.com/Oshalurade">twitter</a>
+      <a href="mailto:oshalurade@gmail.com">email</a>
+    </div>
+    <div class="footbottom">
+      <span>© 2026 oshal urade</span>
+      <button class="themebtn" id="themeToggle" type="button" aria-pressed="false">dark</button>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle'),s=null;
+  try{s=localStorage.getItem('oshal-theme');}catch(e){}
+  if(s==='dark'){root.setAttribute('data-theme','dark');btn.textContent='light';btn.setAttribute('aria-pressed','true');}
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'dark':'light';btn.setAttribute('aria-pressed',String(!d));
+    try{localStorage.setItem('oshal-theme',d?'light':'dark');}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

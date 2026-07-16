@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oshal — Designer, Maker, Thinker</title>
+<meta name="description" content="Oshal — multidisciplinary designer crafting simple, elegant, user-centric digital experiences.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf8;
+  --surface:#f3f2ec;
+  --ink:#1b1c19;
+  --grey:#82837a;
+  --grey-2:#a8a89e;
+  --line:#e6e4db;
+  --accent:#4f7a5c;
+  --accent-soft:#e4ece5;
+  --sans:'Inter',system-ui,sans-serif;
+  --display:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --maxw:660px;
+}
+html[data-theme="dark"]{
+  --bg:#15160f;
+  --surface:#1c1d16;
+  --ink:#e9e8e0;
+  --grey:#8c8d81;
+  --grey-2:#5f6058;
+  --line:#2b2c22;
+  --accent:#8fbf9c;
+  --accent-soft:#22301f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.65;
+  transition:background .25s ease,color .25s ease;
+}
+::selection{background:var(--accent-soft);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+.col{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ── nav ─────────────────────────────── */
+.topnav{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:20}
+.topnav .col{display:flex;align-items:center;gap:22px;height:56px}
+.topnav .id{font-family:var(--mono);font-size:14px;color:var(--grey)}
+.topnav .id b{color:var(--ink);font-weight:500}
+.topnav nav{display:flex;gap:18px;margin-left:auto;font-size:14px;color:var(--grey)}
+.topnav nav a:hover{color:var(--ink)}
+.topnav .talk{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:6px;padding:5px 11px;color:var(--ink);white-space:nowrap}
+.topnav .talk:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:520px){.topnav nav a:not(.work-link):not(.notes-link){display:none}}
+
+/* ── hero ────────────────────────────── */
+.hero{padding:56px 0 20px}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+.avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(150deg,var(--accent),#2f4f39);
+  display:flex;align-items:center;justify-content:center;color:#fbfbf8;font-family:var(--display);font-weight:600;font-size:23px;flex:none;position:relative}
+.avatar .ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);opacity:.35}
+.hero-top .who .nm{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.01em;line-height:1.2}
+.hero-top .who .rl{font-family:var(--mono);font-size:12.5px;color:var(--grey-2);letter-spacing:.02em;margin-top:3px}
+.hero-top .who .rl .dot{color:var(--line);margin:0 5px}
+
+/* availability pill */
+.avail{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+  color:var(--accent);background:var(--accent-soft);border:1px solid transparent;border-radius:999px;padding:6px 12px;white-space:nowrap}
+.avail .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+@media(prefers-reduced-motion:no-preference){.avail .pulse{animation:breathe 2.4s ease-in-out infinite}}
+@media(max-width:520px){.avail{margin-left:0;order:3;width:100%;justify-content:center;margin-top:4px}.hero-top{flex-wrap:wrap}}
+
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.6vw,42px);letter-spacing:-.02em;line-height:1.12;margin-bottom:18px;max-width:15ch}
+h1 em{font-style:italic;color:var(--accent)}
+.hero .lede{color:var(--ink);font-size:17px;line-height:1.6;max-width:52ch;margin-bottom:14px}
+.hero .lede2{color:var(--grey);font-size:15.5px;line-height:1.62;max-width:54ch;margin-bottom:26px}
+.hero .lede2 b{color:var(--ink);font-weight:500}
+
+/* signals strip */
+.signals{display:flex;flex-wrap:wrap;gap:10px 22px;padding:18px 0 4px;border-top:1px solid var(--line);margin-bottom:6px}
+.signal{display:flex;flex-direction:column;gap:2px}
+.signal .k{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.signal .v{font-family:var(--mono);font-size:11.5px;color:var(--grey-2);letter-spacing:.03em}
+.signal + .signal{padding-left:22px;border-left:1px solid var(--line)}
+@media(max-width:520px){.signal + .signal{padding-left:0;border-left:none}.signals{gap:14px 20px}}
+
+/* quick chips */
+.herochips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hchip{font-family:var(--mono);font-size:12px;color:var(--grey);border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:border-color .15s,color .15s}
+.hchip:hover{border-color:var(--accent);color:var(--accent)}
+.hchip.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hchip.solid:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ── now section ─────────────────────── */
+section{padding:40px 0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:16px}
+.nowcards{display:grid;gap:10px;margin-bottom:18px}
+.nowcard{display:block;border:1px solid var(--line);border-radius:10px;padding:16px 18px;transition:border-color .15s,background .15s}
+.nowcard:hover{border-color:var(--accent);background:var(--surface)}
+.nowcard b{font-family:var(--display);font-weight:500;font-size:15px;display:flex;align-items:center;gap:8px}
+.nowcard .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex:none}
+@media(prefers-reduced-motion:no-preference){.nowcard .pulse{animation:breathe 2.4s ease-in-out infinite}}
+@keyframes breathe{50%{opacity:.35}}
+.nowcard span{display:block;color:var(--grey);font-size:14px;margin-top:4px}
+.prevline{font-size:14px;color:var(--grey)}
+.prevline b{color:var(--ink);font-weight:500}
+
+/* ── work: expandable rows ───────────── */
+.worklist{border-top:1px solid var(--line)}
+details.work{border-bottom:1px solid var(--line)}
+details.work summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;align-items:flex-start;gap:12px}
+details.work summary::-webkit-details-marker{display:none}
+.chev{font-family:var(--mono);color:var(--grey-2);flex:none;transition:transform .18s ease;margin-top:2px}
+details.work[open] .chev{transform:rotate(90deg);color:var(--accent)}
+.summary-text{flex:1}
+.summary-text .name{font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:-.005em}
+.summary-text .name .co{color:var(--grey-2);font-weight:400}
+.summary-text .outcome{color:var(--grey);font-size:14px;margin-top:3px}
+.work-body{padding:0 0 22px 24px}
+.work-body p{color:var(--grey);font-size:15px;max-width:56ch;margin-bottom:12px}
+.wtags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.wtag{font-family:var(--mono);font-size:11.5px;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:2px 8px}
+.wlink{font-family:var(--mono);font-size:13.5px;color:var(--ink);border-bottom:1px solid var(--ink)}
+.wlink:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ── experiments: thumbnail rows ─────── */
+.explist{display:flex;flex-direction:column;gap:2px}
+.exprow{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.exprow:last-child{border-bottom:none}
+.thumb{width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--surface);border:1px solid var(--line)}
+.exprow h3{font-family:var(--display);font-weight:500;font-size:15px;margin-bottom:2px}
+.exprow h3 a:hover{color:var(--accent)}
+.exprow p{color:var(--grey);font-size:13.5px}
+
+/* ── notes ────────────────────────────── */
+.notelist a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+.notelist a:last-child{border-bottom:none}
+.notelist b{font-family:var(--display);font-weight:500;font-size:15.5px;display:block;margin-bottom:3px}
+.notelist a:hover b{color:var(--accent)}
+.notelist span{color:var(--grey);font-size:14px}
+
+/* ── say hi ───────────────────────────── */
+.sayhi p{color:var(--grey);font-size:15.5px;margin-bottom:14px;max-width:56ch}
+.sayhi p:last-of-type{margin-bottom:20px}
+.sayhi .signoff{font-family:var(--mono);color:var(--grey-2);font-size:13.5px;margin-bottom:26px}
+.linkline{font-size:15px}
+.linkline a{border-bottom:1px solid var(--ink)}
+.linkline a:hover{color:var(--accent);border-color:var(--accent)}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13.5px;padding:9px 16px;border-radius:7px;border:1px solid var(--line)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ── footer ───────────────────────────── */
+footer{border-top:1px solid var(--line);padding:26px 0 60px}
+.footlinks{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px;color:var(--grey);margin-bottom:16px}
+.footlinks a:hover{color:var(--accent)}
+.footbottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--grey-2);font-family:var(--mono)}
+.themebtn{font-family:var(--mono);font-size:12.5px;color:var(--grey);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:none;cursor:pointer}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="col">
+    <span class="id">oshal<b>.log</b></span>
+    <nav>
+      <a class="work-link" href="#work">work</a>
+      <a href="#experiments">experiments</a>
+      <a class="notes-link" href="#notes">notes</a>
+      <a href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view">resume</a>
+    </nav>
+    <a class="talk" href="#contact">Say hi</a>
+  </div>
+</header>
+
+<main class="col">
+
+  <section class="hero" id="top">
+    <div class="hero-top">
+      <div class="avatar" aria-hidden="true"><span class="ring"></span>O</div>
+      <div class="who">
+        <div class="nm">Oshal Urade</div>
+        <div class="rl">designer<span class="dot">·</span>maker<span class="dot">·</span>thinker — Bengaluru</div>
+      </div>
+      <span class="avail"><span class="pulse" aria-hidden="true"></span>open to side projects</span>
+    </div>
+
+    <h1><em>Hello,</em> I design calm interfaces for complex products.</h1>
+
+    <p class="lede">I'm a multidisciplinary designer with 5+ years of experience, crafting user-centric digital experiences that are simple, elegant, and easy to navigate.</p>
+    <p class="lede2">Right now I'm on product design at <b>Cohesity</b>, shaping enterprise backup &amp; recovery flows. Before that — accessibility and design systems at <b>Axis Bank</b>, and product work across <b>Maximl</b>, <b>LTIMindtree</b>, and <b>Sparklehood</b>.</p>
+
+    <div class="signals">
+      <div class="signal"><span class="k">5+ yrs</span><span class="v">designing products</span></div>
+      <div class="signal"><span class="k">Enterprise</span><span class="v">UX &amp; systems</span></div>
+      <div class="signal"><span class="k">a11y</span><span class="v">accessibility-led</span></div>
+      <div class="signal"><span class="k">0→1</span><span class="v">side projects</span></div>
+    </div>
+
+    <div class="herochips">
+      <a class="hchip solid" href="#work">See selected work ↓</a>
+      <a class="hchip" href="https://calendly.com/oshal">Schedule a call</a>
+      <a class="hchip" href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view">Resume ↗</a>
+    </div>
+  </section>
+
+  <section id="work">
+    <p class="eyebrow">selected work</p>
+    <div class="worklist">
+
+      <details class="work" open>
+        <summary>
+          <span class="chev">›</span>
+          <span class="summary-text">
+            <span class="name">Cohesity <span class="co">— data backup &amp; recovery</span></span>
+            <span class="outcome">Enterprise UX for MongoDB workloads, physical + logical data protection, shipped.</span>
+          </span>
+        </summary>
+        <div class="work-body">
+          <p>Designed the UX to integrate MongoDB workloads via Ops Manager, enabling customers to use both physical and logical data protection options on the Cohesity platform for improved backup and recovery.</p>
+          <div class="wtags"><span class="wtag">data backup</span><span class="wtag">data recovery</span><span class="wtag">cluster ui</span></div>
+          <a class="wlink" href="case-study-cohesity.html">read the case study →</a>
+        </div>
+      </details>
+
+      <details class="work">
+        <summary>
+          <span class="chev">›</span>
+          <span class="summary-text">
+            <span class="name">Axis Bank <span class="co">— digital accessibility</span></span>
+            <span class="outcome">Audits → strategic roadmap for accessibility, adopted across platforms.</span>
+          </span>
+        </summary>
+        <div class="work-body">
+          <p>Worked extensively on improving Axis Bank's digital accessibility — thorough audits, alignment with business goals, and the development of a strategic roadmap for implementation.</p>
+          <div class="wtags"><span class="wtag">thesis project</span><span class="wtag">accessibility</span><span class="wtag">design system</span></div>
+          <a class="wlink" href="case-study-axis-bank.html">read the case study →</a>
+        </div>
+      </details>
+
+      <details class="work">
+        <summary>
+          <span class="chev">›</span>
+          <span class="summary-text">
+            <span class="name">TalentAI <span class="co">— WhatsApp chatbot</span></span>
+            <span class="outcome">Conversation design + UX writing for job seekers, live in India.</span>
+          </span>
+        </summary>
+        <div class="work-body">
+          <p>Designed and developed TalentAI, a WhatsApp chatbot empowering job seekers in India with personalized job recommendations, resume reviews, and career insights.</p>
+          <div class="wtags"><span class="wtag">conversation design</span><span class="wtag">ux writing</span><span class="wtag">casux case study</span></div>
+          <a class="wlink" href="case-study-talent-ai.html">read the case study →</a>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <section id="experiments">
+    <p class="eyebrow">experiments that I love</p>
+    <div class="explist">
+      <div class="exprow">
+        <div class="thumb">🔖</div>
+        <div><h3><a href="https://www.behance.net/gallery/159035811/Boookmark-of-the-day">Bookmark of the Day</a></h3><p>Chrome extension — one saved bookmark resurfaced daily.</p></div>
+      </div>
+      <div class="exprow">
+        <div class="thumb">🗺️</div>
+        <div><h3><a href="https://www.behance.net/gallery/184100295/Saudi-Arabia-Tourism-Maps">City Maps for SAT Authority</a></h3><p>A2 tourist guide maps for Saudi Arabia's Tourism Ministry.</p></div>
+      </div>
+      <div class="exprow">
+        <div class="thumb">🆘</div>
+        <div><h3><a href="https://www.behance.net/gallery/159099731/Covid-Nagpur-SOS-App">Covid Nagpur SOS</a></h3><p>No-code app aggregating public resources during the pandemic.</p></div>
+      </div>
+      <div class="exprow">
+        <div class="thumb">🚀</div>
+        <div><h3><a href="https://vyomanaut.io/">Vyomanaut NFT</a></h3><p>Officially licensed ISRO card game — product, design, VR museum.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <p class="eyebrow">stuff I write</p>
+    <div class="notelist">
+      <a href="https://medium.com/@oshalurade/designing-mainframe-uis-overcoming-constraints-for-intuitive-user-experiences-27b0789ed12a">
+        <b>Designing for Textual User Interfaces</b>
+        <span>Secrets from crafting user-friendly TUIs — challenges, solutions, and modern usability strategies.</span>
+      </a>
+      <a href="https://medium.com/design-bootcamp/designing-the-perfect-slider-component-f2dff91afa0a">
+        <b>Designing the Perfect Slider Component</b>
+        <span>Built for the Subzero design system — a standardized slider across Axis Bank products.</span>
+      </a>
+      <a href="https://medium.com/design-bootcamp/unleashing-life-in-the-mundane-the-tale-of-whimsical-paper-weights-fdf98a580839">
+        <b>Whimsical Paperweights That Inspire</b>
+        <span>From talcum powder's splash to character-filled paperweights, exhaling playfulness into mundane moments.</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="sayhi" id="contact">
+    <p class="eyebrow">say hi</p>
+    <p>The internet has given me projects, collaborators, and some genuinely good conversations over the years.</p>
+    <p>If you're building something thoughtful, working on enterprise UX or accessibility, or just want to talk shop about design systems — I'd love to hear from you.</p>
+    <p class="signoff">see you around :)</p>
+    <div class="ctas">
+      <a class="btn primary" href="https://calendly.com/oshal">schedule a call</a>
+      <a class="btn" href="mailto:oshalurade@gmail.com?subject=Virtual%20Handshake">email me</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="col">
+    <div class="footlinks">
+      <a href="https://www.linkedin.com/in/oshal/">linkedin</a>
+      <a href="https://medium.com/@oshalurade">medium</a>
+      <a href="https://twitter.com/Oshalurade">twitter</a>
+      <a href="mailto:oshalurade@gmail.com">email</a>
+    </div>
+    <div class="footbottom">
+      <span>© 2026 oshal urade</span>
+      <button class="themebtn" id="themeToggle" type="button" aria-pressed="false">dark</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  var stored = null;
+  try { stored = localStorage.getItem('oshal-theme'); } catch(e) {}
+  if (stored === 'dark') { root.setAttribute('data-theme','dark'); btn.textContent='light'; btn.setAttribute('aria-pressed','true'); }
+  btn.addEventListener('click', function(){
+    var isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? 'dark' : 'light';
+    btn.setAttribute('aria-pressed', String(!isDark));
+    try { localStorage.setItem('oshal-theme', isDark ? 'light' : 'dark'); } catch(e) {}
+  });
+})();
+</script>
+
+</body>
+</html>
