@@ -20,15 +20,14 @@ Naming: `REC` = Recovery Readiness · `COH` = Cohesity · `TAI` = TalentAI · `A
 
 ---
 
-## Cohesity — `case-study-cohesity.html`
+## Cohesity — Connector Experiences — `case-study-cohesity.html`
 
 | ID | Ratio | Where | What to put there |
 |----|-------|-------|-------------------|
-| **COH-01** | 21:9 banner | 00 / overview | Hero — the integrated MongoDB protection dashboard in DataProtect |
-| **COH-02** | 16:9 | 01 / the problem | Before-state map — DBAs juggling Cohesity + Ops Manager + manual scripts |
-| **COH-03** | 16:9 | 03 / design process | Sprint artifacts — journey maps, the five high-impact moments |
-| **COH-04** | 16:9 | 04 / final solution (left) | Topology-aware replica-set visualisation |
-| **COH-05** | 16:9 | 04 / final solution (right) | Point-in-time recovery timeline scrubber |
+| **CON-01** | 21:9 banner | 00 / overview | The shared connector journey / DataProtect overview |
+| **CON-02** | 16:9 | 04 / GCP chapter | GCP connector — registration, validation & asset discovery |
+| **CON-03** | 16:9 | 04 / MongoDB chapter | MongoDB Ops Manager — deployment discovery & node eligibility |
+| **CON-04** | 16:9 | 04 / NAS chapter | NAS connector — share/volume selection & protection scope |
 
 ## TalentAI — `case-study-talent-ai.html`
 

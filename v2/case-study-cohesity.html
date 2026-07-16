@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cohesity — MongoDB Data Protection · Oshal</title>
-<meta name="description" content="Case study: simplifying data backup and recovery for MongoDB workloads on Cohesity.">
+<title>Cohesity — Connector Experiences · Oshal</title>
+<meta name="description" content="Case study: designing connector experiences for cloud and on-prem data protection at Cohesity — GCP, MongoDB Ops Manager, and NAS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -12,12 +12,14 @@
 :root{
   --bg:#fbfbf8;--surface:#f3f2ec;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
   --line:#e6e4db;--accent:#4f7a5c;--accent-soft:#e4ece5;
+  --gcp:#3a66c4;--mongo:#1f8a5b;--nas:#b07d19;
   --sans:'Inter',system-ui,sans-serif;--display:'Inter Tight',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:720px;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:760px;
 }
 html[data-theme="dark"]{
   --bg:#15160f;--surface:#1c1d16;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
   --line:#2b2c22;--accent:#8fbf9c;--accent-soft:#22301f;
+  --gcp:#8aa9f2;--mongo:#5cc999;--nas:#d8ac4e;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -68,61 +70,71 @@ img{max-width:100%;display:block}
 .num b{color:var(--accent);font-weight:500}
 .sec h2{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vw,28px);letter-spacing:-.015em;line-height:1.2;margin-bottom:18px;max-width:26ch;color:var(--accent)}
 .sec p{color:var(--grey);font-size:16px;margin-bottom:16px;max-width:64ch}
+.sec p.lede{color:var(--ink);font-size:17px}
 .sec p strong,.sec p b{color:var(--ink);font-weight:600}
 .sec p:last-child{margin-bottom:0}
 
-/* how-might-we callout */
-.hmw{border-left:2px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:20px 22px;margin:24px 0}
-.hmw p{font-family:var(--display);font-style:italic;font-weight:500;font-size:19px;color:var(--ink);line-height:1.4;max-width:none;margin:0}
-.hmw .url{font-family:var(--mono);font-size:11.5px;color:var(--grey-2);margin-top:12px;display:block}
+/* bullet list */
+.blist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:6px 0 0}
+.blist li{display:flex;gap:11px;align-items:flex-start;color:var(--grey);font-size:15px;line-height:1.55}
+.blist li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:8px;flex:none}
 
-/* discovery / finding cards */
-.finds{display:grid;gap:12px;margin:22px 0 0}
-.find{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--bg)}
-.find .ico{font-size:22px;margin-bottom:10px}
-.find h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:6px}
-.find p{font-size:14.5px;margin:0}
+/* HMW question grid */
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+@media(max-width:560px){.qgrid{grid-template-columns:1fr}}
+.qcard{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--surface);font-size:14.5px;line-height:1.55;color:var(--ink)}
+.qcard .qn{font-family:var(--mono);font-size:11.5px;color:var(--accent);display:block;margin-bottom:8px}
 
-/* process steps */
-.steps{display:grid;gap:2px;margin:22px 0 0;border-top:1px solid var(--line)}
-.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
-.step .no{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:2px}
-.step h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:4px}
-.step p{font-size:14.5px;margin:0}
+/* design approach pillars */
+.pillars{display:flex;flex-direction:column;gap:34px;margin-top:8px}
+.pillar{display:grid;grid-template-columns:40px 1fr;gap:18px}
+@media(max-width:560px){.pillar{grid-template-columns:1fr;gap:8px}}
+.pillar .pn{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
+.pillar h3{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;margin-bottom:9px}
+.pillar p{margin-bottom:12px}
 
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 0}
-.stat{border:1px solid var(--line);border-radius:10px;padding:20px;background:var(--surface)}
-.stat .big{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;color:var(--accent);line-height:1}
-.stat .lbl{font-size:13px;color:var(--grey);margin-top:8px;line-height:1.4}
-@media(max-width:560px){.stats{grid-template-columns:1fr}}
+/* journey stepper */
+.journey-wrap{overflow-x:auto;padding:6px 0 10px;margin-top:8px}
+.journey{display:flex;min-width:640px}
+.jstep{flex:1;text-align:center;position:relative;padding:0 4px}
+.jstep .line{position:absolute;top:16px;left:0;width:100%;height:1.5px;background:var(--accent);opacity:.4;z-index:0}
+.jstep:first-child .line{left:50%;width:50%}
+.jstep:last-child .line{width:50%}
+.jstep .n{position:relative;z-index:1;width:33px;height:33px;border-radius:50%;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12.5px;margin:0 auto 11px}
+.jstep .lbl{font-size:12px;color:var(--grey);line-height:1.35}
 
-/* learnings */
-.learns{display:grid;gap:14px;margin:22px 0 0}
-.learn{display:grid;grid-template-columns:26px 1fr;gap:12px}
-.learn .arw{font-family:var(--mono);color:var(--accent);padding-top:2px}
-.learn h3{font-family:var(--display);font-weight:600;font-size:16.5px;margin-bottom:5px}
-.learn p{font-size:14.5px;margin:0}
+/* workload chapters */
+.chapter{border:1px solid var(--line);border-radius:12px;padding:30px 32px;margin-top:22px;--wc:var(--accent)}
+@media(max-width:560px){.chapter{padding:22px 20px}}
+.chapter-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.ctag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;
+  padding:4px 10px;border-radius:5px;color:var(--wc);background:color-mix(in srgb,var(--wc) 13%,var(--bg))}
+.chapter-head h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em}
+.chapter-sub{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:22px}
+@media(max-width:560px){.chapter-sub{grid-template-columns:1fr;gap:18px}}
+.chapter-sub .lab{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey-2);display:block;margin-bottom:8px}
+.chapter-sub p{color:var(--grey);font-size:14.5px;line-height:1.55;margin-bottom:16px}
+.chapter-sub p:last-child{margin-bottom:0}
+.chapter-out{border-top:1px solid var(--line);padding-top:18px}
+.chapter-out .lab{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey-2);display:block;margin-bottom:11px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pending{font-family:var(--mono);font-size:11.5px;color:var(--grey);border:1px dashed var(--line);border-radius:6px;padding:6px 10px;display:inline-flex;align-items:center;gap:7px}
+.pending::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--grey-2)}
+.qual{margin-top:12px;font-size:14.5px;color:var(--ink);background:var(--accent-soft);border-radius:8px;padding:12px 15px;line-height:1.5}
 
-/* nda notice */
-.nda{display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line);border-radius:10px;padding:20px 22px;background:var(--surface);margin-top:8px}
-.nda .lock{font-size:22px;flex:none}
-.nda p{font-size:14.5px;color:var(--grey);margin:0}
+/* design-system grid */
+.sysgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+@media(min-width:620px){.sysgrid{grid-template-columns:repeat(4,1fr)}}
+.sysitem{border:1px solid var(--line);border-radius:9px;padding:14px 15px;background:var(--surface);font-size:13px;line-height:1.4;display:flex;flex-direction:column;gap:8px}
+.sysitem .si{font-family:var(--mono);font-size:11px;color:var(--accent)}
 
-/* generic subgrid for role lists etc */
-.pairs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
-.pairs h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:6px}
-.pairs p{font-size:14.5px;margin:0}
-@media(max-width:560px){.pairs{grid-template-columns:1fr}}
-.tinylabel{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-
-/* chat mockup (talentai) */
-.chat{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px;margin:24px 0 0;max-width:420px}
-.chat .b{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;margin-bottom:9px}
-.chat .in{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px}
-.chat .out{background:var(--accent-soft);color:var(--ink);margin-left:auto;border-bottom-right-radius:4px}
-.chat .t{font-family:var(--mono);font-size:10px;color:var(--grey-2);margin:-4px 4px 10px}
-.chat .out + .t{text-align:right}
+/* impact band */
+.impact{background:var(--accent-soft);border-radius:12px;padding:30px 32px;margin-top:8px}
+@media(max-width:560px){.impact{padding:22px 20px}}
+.impact p{color:var(--ink);font-size:16px;margin-bottom:18px}
+.impact .pills{flex-direction:column;gap:9px;align-items:flex-start}
+.impact .pending{background:var(--bg)}
 
 /* next case */
 .nextcase{padding:36px 0 0}
@@ -140,28 +152,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px;margin-top:44px}
 .themebtn{font-family:var(--mono);font-size:12.5px;color:var(--grey);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:none;cursor:pointer}
 .themebtn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* ── image placeholders (indexed) ───────────────────── */
-figure.shot{margin:26px 0 0}
-figure.shot + figure.shot{margin-top:16px}
-.ph{position:relative;width:100%;border:1.5px dashed var(--line);border-radius:12px;
-  background-color:var(--surface);
-  background-image:repeating-linear-gradient(135deg,transparent 0 15px,rgba(127,124,110,.05) 15px 16px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
-  text-align:center;padding:28px 22px;overflow:hidden}
+/* image placeholders (indexed) */
+figure.shot{margin:24px 0 0}
+.ph{position:relative;width:100%;border:1.5px dashed var(--line);border-radius:12px;background-color:var(--surface);
+  background-image:repeating-linear-gradient(135deg,transparent 0 15px,rgba(120,124,110,.05) 15px 16px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;padding:26px 22px;overflow:hidden}
 .ph.wide{aspect-ratio:16/9}
 .ph.banner{aspect-ratio:21/9}
-.ph.square{aspect-ratio:1/1;max-width:320px;margin-inline:auto}
-.ph.phone{aspect-ratio:9/18;max-width:230px;margin-inline:auto}
-.ph-id{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;
-  color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:3px 8px}
-.ph-ic{font-size:27px;opacity:.55}
-.ph-desc{font-family:var(--display);font-weight:500;font-size:15px;color:var(--ink);max-width:38ch;opacity:.82;line-height:1.35}
+.ph-id{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:3px 8px}
+.ph-ic{font-size:26px;opacity:.55}
+.ph-desc{font-family:var(--display);font-weight:500;font-size:14.5px;color:var(--ink);max-width:38ch;opacity:.82;line-height:1.35}
 .ph-dim{font-family:var(--mono);font-size:11px;color:var(--grey-2);letter-spacing:.12em}
 figure.shot figcaption{font-family:var(--mono);font-size:12px;color:var(--grey-2);margin-top:11px;line-height:1.55}
 figure.shot figcaption b{color:var(--grey);font-weight:500}
-.shot-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:26px 0 0;align-items:start}
-.shot-2 figure.shot{margin:0}
-@media(max-width:560px){.shot-2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -171,7 +174,6 @@ figure.shot figcaption b{color:var(--grey);font-weight:500}
     <nav>
       <a class="keepnav" href="index.html#work">work</a>
       <a href="index.html#experiments">experiments</a>
-      <a href="index.html#notes">notes</a>
       <a href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view" target="_blank" rel="noopener">resume</a>
     </nav>
     <a class="talk" href="index.html#contact">Say hi</a>
@@ -181,139 +183,257 @@ figure.shot figcaption b{color:var(--grey);font-weight:500}
 <main class="col">
 
   <!-- ============================================================
-       IMAGE PLACEHOLDER INDEX  (see IMAGE-PLACEHOLDERS.md for all pages)
-       To replace: drop your file in an /assets folder next to this page,
-       then swap the <div class="ph ...">…</div> for the <img> shown in the
-       comment above each slot. Keep the surrounding <figure> + <figcaption>.
-       ------------------------------------------------------------
-       COH-01  banner 21:9  Hero — integrated MongoDB protection dashboard
-       COH-02  wide  16:9   Before-state — fragmented Cohesity + Ops Manager + scripts
-       COH-03  wide  16:9   Sprint artifacts — journey maps, five high-impact moments
-       COH-04  wide  16:9   Topology-aware replica-set visualisation
-       COH-05  wide  16:9   Point-in-time recovery timeline scrubber
+       IMAGE PLACEHOLDER INDEX (see IMAGE-PLACEHOLDERS.md)
+       CON-01 banner 21:9  Overview — the shared connector journey / dashboard
+       CON-02 wide  16:9   GCP connector — registration & discovery
+       CON-03 wide  16:9   MongoDB Ops Manager — deployment discovery & eligibility
+       CON-04 wide  16:9   NAS connector — share/volume selection & protection scope
+       To use: drop assets/con-0x.png and replace the <div class="ph …">…</div>
+       with <img src="assets/con-0x.png" alt="…">. Keep <figure>+<figcaption>.
        ============================================================ -->
 
   <div class="backrow"><a class="back" href="index.html#work">← back to work</a></div>
 
   <header class="cs-hero">
-    <p class="cs-kicker">Enterprise UX · Cohesity Inc.</p>
-    <h1>Simplifying <em>data backup &amp; recovery</em> for MongoDB workloads</h1>
-    <p class="lede">Making enterprise data protection feel as natural as taking a backup — designed for database administrators managing MongoDB at scale.</p>
+    <p class="cs-kicker">Data Protection · Cohesity Inc.</p>
+    <h1>Designing <em>connector experiences</em> for cloud &amp; on-prem data protection</h1>
+    <p class="lede">How a shared connector journey brought consistency to three very different Cohesity integrations — GCP, MongoDB Ops Manager, and NAS — without flattening the domain expertise each one demands.</p>
     <div class="cs-tags">
-      <span class="cs-tag">Data backup</span><span class="cs-tag">Data recovery</span>
-      <span class="cs-tag">Enterprise UX</span><span class="cs-tag">Cluster UI</span><span class="cs-tag">Data management</span>
+      <span class="cs-tag">Connector UX</span><span class="cs-tag">Data protection</span>
+      <span class="cs-tag">GCP</span><span class="cs-tag">MongoDB</span><span class="cs-tag">NAS</span><span class="cs-tag">Design system</span>
     </div>
   </header>
 
   <div class="cs-meta">
-    <div class="m"><div class="k">Role</div><div class="v">Lead UX Designer</div></div>
-    <div class="m"><div class="k">Timeline</div><div class="v">Q2–Q3 2023 · 6 months</div></div>
-    <div class="m"><div class="k">Tools</div><div class="v">Figma, FigJam, UserTesting</div></div>
-    <div class="m"><div class="k">Team</div><div class="v">2 PMs, 4 Engineers, 1 Analyst</div></div>
+    <div class="m"><div class="k">Role</div><div class="v">UX Designer</div></div>
+    <div class="m"><div class="k">Scope</div><div class="v">GCP · MongoDB Ops Manager · NAS</div></div>
+    <div class="m"><div class="k">Audience</div><div class="v">Backup Admins</div></div>
+    <div class="m"><div class="k">Company</div><div class="v">Cohesity</div></div>
   </div>
 
-  <section class="sec">
+  <section class="sec" id="overview">
     <p class="num">00 / <b>overview</b></p>
-    <h2>A new way to protect MongoDB on Cohesity</h2>
-    <p>Cohesity's data management platform protects enterprise workloads — but MongoDB, one of the most widely used NoSQL databases, lacked native protection through Ops Manager integration. DBAs had to manage backups outside the platform, leading to fragmented workflows and increased risk.</p>
-    <p>I owned the end-to-end UX for integrating MongoDB backup and recovery directly into the Cohesity DataProtect interface — giving administrators a single pane of glass for all their data protection needs.</p>
-    <!-- COH-01 · replace with: <img src="assets/coh-01.png" alt="Integrated MongoDB protection dashboard in Cohesity DataProtect"> -->
+    <h2>One connector model, three very different workloads</h2>
+    <p class="lede">I led end-to-end experience design for GCP, MongoDB Ops Manager, and NAS workload integrations in Cohesity.</p>
+    <p>My work focused on the connector experience: helping Backup Admins connect a workload, discover protectable assets, configure policy-driven protection, and recover data with confidence. Rather than treating each integration as a separate feature, I designed a consistent experience model that could accommodate the different requirements of cloud, database, and file-storage workloads.</p>
+    <!-- CON-01 · replace with: <img src="assets/con-01.png" alt="Shared connector journey overview"> -->
     <figure class="shot">
-      <div class="ph banner"><span class="ph-id">COH-01</span><span class="ph-ic">🗄️</span><span class="ph-desc">Hero shot — the integrated MongoDB protection dashboard in DataProtect</span><span class="ph-dim">21 : 9</span></div>
-      <figcaption><b>Fig 01.</b> One pane of glass for every MongoDB source.</figcaption>
+      <div class="ph banner"><span class="ph-id">CON-01</span><span class="ph-ic">🔌</span><span class="ph-desc">Overview — the shared connector journey across cloud and on-prem workloads</span><span class="ph-dim">21 : 9</span></div>
+      <figcaption><b>Fig 01.</b> One experience model, adapted per workload.</figcaption>
     </figure>
   </section>
 
-  <section class="sec">
-    <p class="num">01 / <b>the problem</b></p>
-    <h2>DBAs were context-switching between too many tools</h2>
-    <p>Enterprise administrators managing MongoDB clusters on Cohesity had no native way to apply backup or recovery policies from within the interface. Every protection operation required jumping between Cohesity and MongoDB Ops Manager — a friction-heavy, error-prone process.</p>
-    <p>This gap wasn't just a UX annoyance — it was real business risk. Missed backups, slow recovery, and unclear protection status were direct consequences of the disconnected experience.</p>
-    <div class="hmw">
-      <p>How might we let database administrators protect, monitor, and recover MongoDB workloads without ever leaving the Cohesity platform?</p>
-      <span class="url">cohesity.com / data-protect / sources</span>
-    </div>
-    <!-- COH-02 · replace with: <img src="assets/coh-02.png" alt="Before-state diagram of fragmented backup tooling"> -->
-    <figure class="shot">
-      <div class="ph wide"><span class="ph-id">COH-02</span><span class="ph-ic">🧩</span><span class="ph-desc">Before-state map — DBAs juggling Cohesity, Ops Manager, and manual scripts</span><span class="ph-dim">16 : 9</span></div>
-      <figcaption><b>Fig 02.</b> The fragmented workflow we set out to collapse.</figcaption>
-    </figure>
+  <section class="sec" id="role">
+    <p class="num">01 / <b>my role</b></p>
+    <h2>UX Designer, end to end</h2>
+    <ul class="blist">
+      <li>Led UX from problem framing through interaction design, validation, and engineering handoff.</li>
+      <li>Partnered with product management, engineering, QA, documentation, and domain specialists.</li>
+      <li>Defined consistent patterns across source registration, discovery, protection configuration, monitoring, and recovery.</li>
+      <li>Designed workload-specific guidance, prerequisites, validation states, and error-recovery paths.</li>
+    </ul>
   </section>
 
-  <section class="sec">
-    <p class="num">02 / <b>research &amp; discovery</b></p>
-    <h2>Listening to the people who live in the terminal</h2>
-    <p>I ran 12 contextual interviews with senior DBAs and Cohesity platform admins across financial services and healthcare — the two verticals with the highest MongoDB adoption. Sessions included think-alouds of current backup workflows and a diary study of critical recovery incidents.</p>
-    <div class="finds">
-      <div class="find"><div class="ico">🔁</div><h3>Fragmented workflow</h3><p>Every DBA used at least 3 separate tools to complete a single backup cycle. "Cobbling together" was the most common phrase used to describe their process.</p></div>
-      <div class="find"><div class="ico">🕵️</div><h3>Invisible protection status</h3><p>No unified view of which clusters were protected, partially protected, or at risk — leading to a "hope it works" mindset around recovery.</p></div>
-      <div class="find"><div class="ico">⏱️</div><h3>Slow recovery times</h3><p>Average time to initiate a MongoDB recovery was 4.5 hours. DBAs manually pieced together backup metadata before even starting the restore.</p></div>
+  <section class="sec" id="challenge">
+    <p class="num">02 / <b>the challenge</b></p>
+    <h2>One coherent workflow, radically different workloads underneath</h2>
+    <p class="lede">Backup Admins protect a diverse estate across cloud and on-premises environments. Each workload has its own authentication model, topology, prerequisites, and recovery constraints — yet admins expect one coherent Cohesity workflow.</p>
+    <p>The design challenge was to make connector setup and day-two operations feel familiar without hiding the configuration detail needed for a reliable backup and recovery experience.</p>
+    <div class="qgrid">
+      <div class="qcard"><span class="qn">Q1</span>How might we guide admins through workload-specific setup without overwhelming them?</div>
+      <div class="qcard"><span class="qn">Q2</span>How might we make source discovery and protection selection predictable across integrations?</div>
+      <div class="qcard"><span class="qn">Q3</span>How might we expose prerequisite failures early, in language an admin can act on?</div>
+      <div class="qcard"><span class="qn">Q4</span>How might we preserve a consistent backup and recovery mental model while respecting each workload's capabilities?</div>
     </div>
-    <p style="margin-top:20px"><strong>Three user types emerged:</strong> Platform Admin (sets policies across workloads), Database Admin (day-to-day MongoDB operations), and Data Recovery Analyst (responds to incidents) — each with distinct mental models and recovery urgency.</p>
   </section>
 
-  <section class="sec">
-    <p class="num">03 / <b>design process</b></p>
-    <h2>From whiteboard to working prototype in 3 iterations</h2>
-    <p>I ran a 3-day design sprint with engineering and product. Starting from journey maps for each user type, we identified the five highest-impact moments in the backup-and-recovery workflow where design could meaningfully reduce friction.</p>
-    <div class="steps">
-      <div class="step"><div class="no">01</div><div><h3>Discovery &amp; source registration</h3><p>How admins first connect a MongoDB cluster — Ops Manager credential flow and auto-discovery of replica sets.</p></div></div>
-      <div class="step"><div class="no">02</div><div><h3>Protection policy assignment</h3><p>Mapping physical and logical backup options to an intuitive policy builder, without exposing technical complexity to non-expert users.</p></div></div>
-      <div class="step"><div class="no">03</div><div><h3>Monitoring &amp; status dashboard</h3><p>A live protection-health view across all sources — clear status indicators, last-run times, and SLA compliance signals.</p></div></div>
-      <div class="step"><div class="no">04</div><div><h3>Recovery workflow</h3><p>Point-in-time recovery with a timeline scrubber — designed to get a DBA from alert to recovery-initiated in under 10 minutes.</p></div></div>
+  <section class="sec" id="approach">
+    <p class="num">03 / <b>design approach</b></p>
+    <h2>Three principles held the system together</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pn">01</span>
+        <div>
+          <h3>A shared connector journey</h3>
+          <p>I established a common journey across the three integrations. This shared structure reduced relearning for administrators moving between workload types, while giving each connector room for domain-specific controls.</p>
+          <div class="journey-wrap">
+            <div class="journey">
+              <div class="jstep"><div class="line"></div><div class="n">1</div><div class="lbl">Register the source</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">2</div><div class="lbl">Validate connectivity &amp; prerequisites</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">3</div><div class="lbl">Discover assets</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">4</div><div class="lbl">Select assets to protect</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">5</div><div class="lbl">Apply a protection policy</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">6</div><div class="lbl">Monitor backup status</div></div>
+              <div class="jstep"><div class="line"></div><div class="n">7</div><div class="lbl">Recover via guided workflow</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar">
+        <span class="pn">02</span>
+        <div>
+          <h3>Progressive disclosure</h3>
+          <p>Connector setup can involve credentials, permissions, network access, agents, and workload-specific configuration. I used progressive disclosure to:</p>
+          <ul class="blist">
+            <li>Start with the minimum information required to establish a connection.</li>
+            <li>Validate each step before asking for additional configuration.</li>
+            <li>Keep advanced options available without making the default path intimidating.</li>
+            <li>Provide contextual help at the point of need.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pillar">
+        <span class="pn">03</span>
+        <div>
+          <h3>System state made visible and actionable</h3>
+          <p>I designed status and error patterns around the questions Backup Admins need answered — is the source connected, which assets were discovered, which are eligible for protection, why is an asset unavailable, what action resolves it, and is backup or recovery progressing as expected. This shifted feedback from generic technical failures toward actionable operational guidance.</p>
+        </div>
+      </div>
     </div>
-    <p style="margin-top:20px">Each iteration was tested with 4 participants on UserTesting, focused on task-completion rate and time-on-task for the recovery flow.</p>
-    <!-- COH-03 · replace with: <img src="assets/coh-03.png" alt="Journey maps and design sprint artifacts"> -->
-    <figure class="shot">
-      <div class="ph wide"><span class="ph-id">COH-03</span><span class="ph-ic">🗺️</span><span class="ph-desc">Sprint artifacts — journey maps and the five high-impact moments</span><span class="ph-dim">16 : 9</span></div>
-      <figcaption><b>Fig 03.</b> Mapping where design could cut the most friction.</figcaption>
-    </figure>
   </section>
 
-  <section class="sec">
-    <p class="num">04 / <b>final solution</b></p>
-    <h2>One platform. Full MongoDB protection.</h2>
-    <p>The final design integrated MongoDB backup and recovery as a first-class workload type in Cohesity DataProtect — consistent with existing SQL and VMware flows, but tailored to MongoDB's architecture (replica sets, sharded clusters, Ops Manager topology).</p>
-    <p>Key decisions: a <strong>topology-aware visualisation</strong> of replica sets so DBAs understood what was protected, a <strong>policy inheritance model</strong> letting platform admins set org-wide defaults, and a <strong>recovery confidence score</strong> surfacing backup age and integrity before an admin committed to a restore point.</p>
-    <!-- COH-04 · replace with: <img src="assets/coh-04.png" alt="Topology-aware replica set visualisation"> -->
-    <!-- COH-05 · replace with: <img src="assets/coh-05.png" alt="Point-in-time recovery timeline scrubber"> -->
-    <div class="shot-2">
+  <section class="sec" id="chapters">
+    <p class="num">04 / <b>workload chapters</b></p>
+    <h2>Applying the model to three distinct connectors</h2>
+    <p class="lede">Same journey, same design language — adapted to the authentication model, topology, and recovery constraints of each workload.</p>
+
+    <div class="chapter" style="--wc:var(--gcp)">
+      <div class="chapter-head"><span class="ctag">GCP</span><h3>GCP connector experience</h3></div>
+      <div class="chapter-sub">
+        <div>
+          <span class="lab">Context</span>
+          <p>GCP protection requires Backup Admins to establish a trusted connection between Cohesity and their cloud environment, then discover and protect the appropriate cloud resources.</p>
+          <span class="lab">UX contribution</span>
+          <p>I translated cloud-specific setup requirements into a predictable admin workflow, reducing ambiguity between "source connected," "assets discovered," and "assets ready to protect."</p>
+        </div>
+        <div>
+          <span class="lab">Design focus</span>
+          <ul class="blist">
+            <li>A guided registration flow for cloud account and credential setup.</li>
+            <li>Clear validation feedback for connectivity, permissions, and discovery readiness.</li>
+            <li>A structured asset-selection experience that helps admins identify the right resources to protect.</li>
+            <li>Consistent policy configuration and recovery entry points aligned with other Cohesity workloads.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- CON-02 · replace with: <img src="assets/con-02.png" alt="GCP connector registration and discovery"> -->
       <figure class="shot">
-        <div class="ph wide"><span class="ph-id">COH-04</span><span class="ph-ic">🕸️</span><span class="ph-desc">Topology-aware view of replica sets</span><span class="ph-dim">16 : 9</span></div>
-        <figcaption><b>Fig 04.</b> See exactly what's protected.</figcaption>
+        <div class="ph wide"><span class="ph-id">CON-02</span><span class="ph-ic">☁️</span><span class="ph-desc">GCP connector — registration, validation &amp; asset discovery</span><span class="ph-dim">16 : 9</span></div>
       </figure>
+      <div class="chapter-out">
+        <span class="lab">Outcome</span>
+        <div class="pills">
+          <span class="pending">Source-registration completion rate — pending</span>
+          <span class="pending">Reduction in setup-related support requests — pending</span>
+        </div>
+        <div class="qual">Created a clearer path from cloud connection to protected resources.</div>
+      </div>
+    </div>
+
+    <div class="chapter" style="--wc:var(--mongo)">
+      <div class="chapter-head"><span class="ctag">MongoDB</span><h3>MongoDB Ops Manager connector experience</h3></div>
+      <div class="chapter-sub">
+        <div>
+          <span class="lab">Context</span>
+          <p>MongoDB Ops Manager environments are operationally complex. Admins need to register the Ops Manager source, discover MongoDB deployments, configure protection, and recover reliably while accounting for topology and node availability — with support for full and incremental backups, replica-set selection, and protection groups.</p>
+          <span class="lab">UX contribution</span>
+          <p>I turned a multi-system workflow — Cohesity, Ops Manager, and MongoDB hosts — into a coherent connector journey, helping admins understand what Cohesity was validating, which prerequisite was missing, and how to move forward without deep MongoDB expertise.</p>
+        </div>
+        <div>
+          <span class="lab">Design focus</span>
+          <ul class="blist">
+            <li>A source-registration flow capturing the Ops Manager connection and required access details.</li>
+            <li>Discovery views that make the MongoDB deployment hierarchy understandable.</li>
+            <li>Protection configuration supporting workload-aware choices, including backup-node preferences.</li>
+            <li>Clear eligibility and error states for nodes that are unregistered, lack the connector, aren't snapshotable, or don't meet the selected backup preference.</li>
+            <li>Recovery guidance surfacing stricter readiness requirements, such as connector availability across target nodes.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- CON-03 · replace with: <img src="assets/con-03.png" alt="MongoDB Ops Manager discovery and eligibility"> -->
       <figure class="shot">
-        <div class="ph wide"><span class="ph-id">COH-05</span><span class="ph-ic">⏳</span><span class="ph-desc">Point-in-time recovery scrubber</span><span class="ph-dim">16 : 9</span></div>
-        <figcaption><b>Fig 05.</b> Alert to recovery in under 10 min.</figcaption>
+        <div class="ph wide"><span class="ph-id">CON-03</span><span class="ph-ic">🗄️</span><span class="ph-desc">MongoDB Ops Manager — deployment discovery &amp; node eligibility</span><span class="ph-dim">16 : 9</span></div>
       </figure>
+      <div class="chapter-out">
+        <span class="lab">Outcome</span>
+        <div class="pills">
+          <span class="pending">Time-to-register an Ops Manager source — pending</span>
+          <span class="pending">Successful first-backup rate — pending</span>
+          <span class="pending">Reduction in connector/prerequisite support cases — pending</span>
+        </div>
+        <div class="qual">Made a technically demanding backup and recovery workflow more understandable and actionable for Backup Admins.</div>
+      </div>
+    </div>
+
+    <div class="chapter" style="--wc:var(--nas)">
+      <div class="chapter-head"><span class="ctag">NAS</span><h3>NAS connector experience</h3></div>
+      <div class="chapter-sub">
+        <div>
+          <span class="lab">Context</span>
+          <p>NAS protection introduces its own scale and configuration considerations: storage sources can contain large, hierarchical file systems, and administrators need confidence that the correct shares or volumes are protected and recoverable.</p>
+          <span class="lab">UX contribution</span>
+          <p>I applied the shared connector framework to a file-storage workflow while adapting the experience to how Backup Admins think about NAS resources: source, share or volume, protection scope, and recovery destination.</p>
+        </div>
+        <div>
+          <span class="lab">Design focus</span>
+          <ul class="blist">
+            <li>A familiar registration and validation pattern aligned with the broader connector model.</li>
+            <li>Clear discovery and selection of NAS resources.</li>
+            <li>Protection configuration that helps admins understand the scope of what will be protected.</li>
+            <li>Recoverability-oriented status and recovery entry points.</li>
+            <li>Consistent patterns for prerequisites, warnings, and remediation.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- CON-04 · replace with: <img src="assets/con-04.png" alt="NAS share/volume selection and protection scope"> -->
+      <figure class="shot">
+        <div class="ph wide"><span class="ph-id">CON-04</span><span class="ph-ic">🗂️</span><span class="ph-desc">NAS connector — share/volume selection &amp; protection scope</span><span class="ph-dim">16 : 9</span></div>
+      </figure>
+      <div class="chapter-out">
+        <span class="lab">Outcome</span>
+        <div class="pills">
+          <span class="pending">Time required to configure protection — pending</span>
+          <span class="pending">Number of NAS assets successfully protected — pending</span>
+          <span class="pending">Reduction in configuration errors — pending</span>
+        </div>
+        <div class="qual">Provided a scalable and consistent protection experience for on-premises file-storage workloads.</div>
+      </div>
     </div>
   </section>
 
-  <section class="sec">
-    <p class="num">05 / <b>outcomes &amp; impact</b></p>
-    <h2>Measurable results, not just prettier screens</h2>
-    <p>Post-launch usability testing and beta feedback from 6 enterprise customers surfaced strong validation across the three core workflows.</p>
-    <div class="stats">
-      <div class="stat"><div class="big">73%</div><div class="lbl">reduction in time-to-protect for a new MongoDB cluster</div></div>
-      <div class="stat"><div class="big">&lt;8 min</div><div class="lbl">from incident alert to recovery-initiated (down from 4.5 hrs)</div></div>
-      <div class="stat"><div class="big">94%</div><div class="lbl">task-completion rate on core protection workflows</div></div>
+  <section class="sec" id="system">
+    <p class="num">05 / <b>shared design system</b></p>
+    <h2>Reusable connector patterns, one design language</h2>
+    <p class="lede">Across GCP, MongoDB Ops Manager, and NAS, I established reusable connector patterns that balanced consistency with workload-specific flexibility — administrators could rely on familiar interaction patterns while still receiving the technical context each integration needed.</p>
+    <div class="sysgrid">
+      <div class="sysitem"><span class="si">01</span>Source registration</div>
+      <div class="sysitem"><span class="si">02</span>Credential &amp; connectivity validation</div>
+      <div class="sysitem"><span class="si">03</span>Discovery feedback</div>
+      <div class="sysitem"><span class="si">04</span>Asset eligibility</div>
+      <div class="sysitem"><span class="si">05</span>Protection configuration</div>
+      <div class="sysitem"><span class="si">06</span>Backup status</div>
+      <div class="sysitem"><span class="si">07</span>Error messaging &amp; remediation</div>
+      <div class="sysitem"><span class="si">08</span>Recovery setup &amp; progress</div>
     </div>
-    <p style="margin-top:20px">The feature unlocked a new enterprise segment — financial-services firms running large MongoDB deployments — that had previously cited the protection gap as a blocker to adopting Cohesity.</p>
   </section>
 
-  <section class="sec">
-    <p class="num">06 / <b>learnings</b></p>
-    <h2>What this project taught me</h2>
-    <div class="learns">
-      <div class="learn"><div class="arw">→</div><div><h3>Enterprise ≠ complex UI — it means zero margin for ambiguity</h3><p>DBAs are experts in their domain, not in our UI. Every label and status indicator had to be precise, because ambiguity in a recovery context has real business consequences.</p></div></div>
-      <div class="learn"><div class="arw">→</div><div><h3>Speak the domain language before designing anything</h3><p>The most valuable week was reading MongoDB docs and sitting with DBAs explaining replica sets. It let me design with their mental model, not against it.</p></div></div>
-      <div class="learn"><div class="arw">→</div><div><h3>Recovery flows deserve as much love as creation flows</h3><p>Most products optimise the happy path. For data protection, the "things went wrong" flow is where users are most stressed — so that's where I focused most iteration.</p></div></div>
+  <section class="sec" id="impact">
+    <p class="num">06 / <b>impact</b></p>
+    <h2>A more unified experience across the connector portfolio</h2>
+    <div class="impact">
+      <p>This work expanded Cohesity's connector support across cloud and on-premises workloads, enabling Backup Admins to protect and recover data through a more unified experience.</p>
+      <div class="pills">
+        <span class="pending">Number of integrations launched or supported — pending</span>
+        <span class="pending">Adoption, completion, or task-success data — pending</span>
+        <span class="pending">Usability-study findings or satisfaction scores — pending</span>
+        <span class="pending">Release milestone, customer availability, or design-system reuse — pending</span>
+      </div>
     </div>
   </section>
 
   <div class="nextcase">
     <p class="lbl">next case study →</p>
-    <a class="big" href="case-study-axis-bank.html" target="_blank" rel="noopener">Enhancing digital accessibility for Axis Bank</a><br>
+    <a class="big" href="case-study-axis-bank.html">Enhancing digital accessibility for Axis Bank</a><br>
     <a class="allwork" href="index.html#work">← back to all work</a>
   </div>
 
