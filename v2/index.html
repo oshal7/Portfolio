@@ -115,39 +115,33 @@ main > section + section{border-top:1px solid var(--line)}
 .prevline{font-size:14px;color:var(--grey)}
 .prevline b{color:var(--ink);font-weight:500}
 
-/* ── work: interactive project cards ─── */
-.workgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:640px){.workgrid{grid-template-columns:1fr}}
-.pcard{--pc:var(--accent);display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;
-  overflow:hidden;background:var(--bg);transition:border-color .18s,box-shadow .18s,transform .18s}
-.pcard:hover{border-color:var(--pc);box-shadow:0 8px 26px -14px color-mix(in srgb,var(--pc) 55%,transparent);transform:translateY(-3px)}
-/* visual band — tinted in the project's colour, holds a glyph or a real screenshot */
-.pcard-visual{position:relative;aspect-ratio:16/8.5;display:flex;align-items:center;justify-content:center;
-  background:
-    radial-gradient(120% 120% at 15% 15%,color-mix(in srgb,var(--pc) 22%,var(--bg)),transparent 60%),
-    linear-gradient(135deg,color-mix(in srgb,var(--pc) 16%,var(--bg)),color-mix(in srgb,var(--pc) 7%,var(--bg)));
-  border-bottom:1px solid var(--line);overflow:hidden}
-.pcard-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.pcard-glyph{font-size:38px;filter:saturate(1.1);transition:transform .25s ease}
-.pcard:hover .pcard-glyph{transform:scale(1.08) rotate(-3deg)}
-.pcard-no{position:absolute;top:11px;left:12px;font-family:var(--mono);font-size:11px;color:var(--pc);
-  background:color-mix(in srgb,var(--pc) 14%,var(--bg));border-radius:5px;padding:2px 7px;font-weight:500}
-.pcard-arrow{position:absolute;top:10px;right:12px;width:26px;height:26px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;background:var(--pc);
-  opacity:0;transform:translate(-4px,4px);transition:opacity .2s,transform .2s}
-.pcard:hover .pcard-arrow{opacity:1;transform:none}
-.pcard-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
-.pcard-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--pc);margin-bottom:8px;text-transform:lowercase}
-.pcard-title{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1.25;margin-bottom:7px}
-.pcard-outcome{color:var(--grey);font-size:14px;line-height:1.55;margin-bottom:13px}
-.pcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
-.pcard-tags span{font-family:var(--mono);font-size:10.5px;color:var(--pc);
-  background:color-mix(in srgb,var(--pc) 12%,var(--bg));border-radius:4px;padding:2px 7px}
-.pcard-read{margin-top:auto;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--ink);
-  display:inline-flex;align-items:center;gap:6px}
-.pcard-read .ar{transition:transform .18s ease}
-.pcard:hover .pcard-read{color:var(--pc)}
-.pcard:hover .pcard-read .ar{transform:translateX(4px)}
+/* ── work: refined accordion ─────────── */
+.worklist{border-top:1px solid var(--line)}
+.witem{--pc:var(--accent);border-bottom:1px solid var(--line)}
+.witem summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:26px 1fr auto;gap:14px;
+  align-items:center;padding:19px 2px}
+.witem summary::-webkit-details-marker{display:none}
+/* collapsed row = two tiers only: title (primary) + meta (secondary) */
+.wi-idx{font-family:var(--mono);font-size:12px;color:var(--grey-2);transition:color .2s}
+.witem[open] .wi-idx,.witem:hover .wi-idx{color:var(--pc)}
+.wi-name{display:block;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.01em;line-height:1.2}
+.wi-meta{display:block;font-family:var(--mono);font-size:11.5px;color:var(--grey-2);letter-spacing:.02em;margin-top:5px;text-transform:lowercase}
+.wi-meta b{color:var(--grey);font-weight:500}
+.wi-chev{font-family:var(--mono);color:var(--grey-2);transition:transform .2s,color .2s}
+.witem[open] .wi-chev{transform:rotate(90deg);color:var(--pc)}
+/* expanded panel = visual + write-up + tags + read */
+.wi-panel{display:grid;grid-template-columns:220px 1fr;gap:26px;padding:2px 2px 26px 40px;align-items:start}
+@media(max-width:600px){.wi-panel{grid-template-columns:1fr;padding-left:2px;gap:16px}}
+.wi-visual{aspect-ratio:16/10;border-radius:11px;border:1px solid var(--line);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 120% at 80% 15%,color-mix(in srgb,var(--pc) 22%,var(--bg)),transparent 58%),linear-gradient(140deg,color-mix(in srgb,var(--pc) 14%,var(--bg)),color-mix(in srgb,var(--pc) 6%,var(--bg)))}
+.wi-visual .g{font-size:34px}
+.wi-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wi-desc{color:var(--grey);font-size:15px;line-height:1.6;margin-bottom:15px;max-width:52ch}
+.wi-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.wi-tags span{font-family:var(--mono);font-size:11px;color:var(--pc);background:color-mix(in srgb,var(--pc) 12%,var(--bg));border-radius:4px;padding:2px 8px}
+.wi-read{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--pc);display:inline-flex;align-items:center;gap:6px;transition:gap .18s}
+.wi-read:hover{gap:10px}
 
 /* ── experiments: thumbnail rows ─────── */
 .explist{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line)}
@@ -235,72 +229,75 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
   <section id="work">
     <p class="eyebrow">selected work</p>
     <!--
-      Each card's visual is a tinted panel with a glyph. To show a real
-      screenshot instead, drop a file in assets/ (e.g. assets/work-rec.png)
-      and replace the <span class="pcard-glyph">…</span> with:
-      <img src="assets/work-rec.png" alt="">  (keep everything else).
+      To show a real screenshot: drop a file in assets/ (e.g. assets/work-rec.png)
+      and replace <div class="wi-visual"><span class="g">🛡️</span></div> with
+      <div class="wi-visual"><img src="assets/work-rec.png" alt=""></div>.
     -->
-    <div class="workgrid">
+    <div class="worklist">
 
-      <a class="pcard" style="--pc:#4a68a8" href="case-study-recovery-readiness.html" target="_blank" rel="noopener">
-        <div class="pcard-visual">
-          <span class="pcard-no">01</span>
-          <span class="pcard-arrow">↗</span>
-          <span class="pcard-glyph">🛡️</span>
+      <details class="witem" open style="--pc:#4a68a8">
+        <summary>
+          <span class="wi-idx">01</span>
+          <span><span class="wi-name">Recovery Readiness</span><span class="wi-meta"><b>Cohesity</b> · data resilience</span></span>
+          <span class="wi-chev">›</span>
+        </summary>
+        <div class="wi-panel">
+          <div class="wi-visual"><span class="g">🛡️</span></div>
+          <div>
+            <p class="wi-desc">Reframed data protection around one question — "can we recover, right now?" Readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p>
+            <div class="wi-tags"><span>data resilience</span><span>readiness</span><span>dashboard</span></div>
+            <a class="wi-read" href="case-study-recovery-readiness.html" target="_blank" rel="noopener">read case study →</a>
+          </div>
         </div>
-        <div class="pcard-body">
-          <div class="pcard-kicker">cohesity · recovery readiness</div>
-          <h3 class="pcard-title">Passive protection → active resilience</h3>
-          <p class="pcard-outcome">Readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p>
-          <div class="pcard-tags"><span>data resilience</span><span>readiness</span><span>dashboard</span></div>
-          <span class="pcard-read">read case study <span class="ar">→</span></span>
-        </div>
-      </a>
+      </details>
 
-      <a class="pcard" style="--pc:#4f7a5c" href="case-study-cohesity.html" target="_blank" rel="noopener">
-        <div class="pcard-visual">
-          <span class="pcard-no">02</span>
-          <span class="pcard-arrow">↗</span>
-          <span class="pcard-glyph">🗄️</span>
+      <details class="witem" style="--pc:#4f7a5c">
+        <summary>
+          <span class="wi-idx">02</span>
+          <span><span class="wi-name">MongoDB Data Protection</span><span class="wi-meta"><b>Cohesity</b> · enterprise ux</span></span>
+          <span class="wi-chev">›</span>
+        </summary>
+        <div class="wi-panel">
+          <div class="wi-visual"><span class="g">🗄️</span></div>
+          <div>
+            <p class="wi-desc">Integrated MongoDB backup and recovery into Cohesity DataProtect — one pane of glass for physical and logical protection, shipped.</p>
+            <div class="wi-tags"><span>data backup</span><span>data recovery</span><span>cluster ui</span></div>
+            <a class="wi-read" href="case-study-cohesity.html" target="_blank" rel="noopener">read case study →</a>
+          </div>
         </div>
-        <div class="pcard-body">
-          <div class="pcard-kicker">cohesity · data backup &amp; recovery</div>
-          <h3 class="pcard-title">MongoDB protection, one pane of glass</h3>
-          <p class="pcard-outcome">Enterprise UX for MongoDB workloads — physical + logical data protection, shipped.</p>
-          <div class="pcard-tags"><span>data backup</span><span>data recovery</span><span>cluster ui</span></div>
-          <span class="pcard-read">read case study <span class="ar">→</span></span>
-        </div>
-      </a>
+      </details>
 
-      <a class="pcard" style="--pc:#af275f" href="case-study-axis-bank.html" target="_blank" rel="noopener">
-        <div class="pcard-visual">
-          <span class="pcard-no">03</span>
-          <span class="pcard-arrow">↗</span>
-          <span class="pcard-glyph">♿</span>
+      <details class="witem" style="--pc:#af275f">
+        <summary>
+          <span class="wi-idx">03</span>
+          <span><span class="wi-name">Digital Accessibility</span><span class="wi-meta"><b>Axis Bank</b> · accessibility</span></span>
+          <span class="wi-chev">›</span>
+        </summary>
+        <div class="wi-panel">
+          <div class="wi-visual"><span class="g">♿</span></div>
+          <div>
+            <p class="wi-desc">Accessibility audits aligned to business goals, rolled into a strategic roadmap adopted across the bank's digital platforms.</p>
+            <div class="wi-tags"><span>thesis project</span><span>accessibility</span><span>design system</span></div>
+            <a class="wi-read" href="case-study-axis-bank.html" target="_blank" rel="noopener">read case study →</a>
+          </div>
         </div>
-        <div class="pcard-body">
-          <div class="pcard-kicker">axis bank · digital accessibility</div>
-          <h3 class="pcard-title">Accessibility as a strategic roadmap</h3>
-          <p class="pcard-outcome">Audits → a strategic accessibility roadmap, adopted across banking platforms.</p>
-          <div class="pcard-tags"><span>thesis project</span><span>accessibility</span><span>design system</span></div>
-          <span class="pcard-read">read case study <span class="ar">→</span></span>
-        </div>
-      </a>
+      </details>
 
-      <a class="pcard" style="--pc:#1f7f6f" href="case-study-talent-ai.html" target="_blank" rel="noopener">
-        <div class="pcard-visual">
-          <span class="pcard-no">04</span>
-          <span class="pcard-arrow">↗</span>
-          <span class="pcard-glyph">💬</span>
+      <details class="witem" style="--pc:#1f7f6f">
+        <summary>
+          <span class="wi-idx">04</span>
+          <span><span class="wi-name">TalentAI</span><span class="wi-meta"><b>TalentAI</b> · conversation design</span></span>
+          <span class="wi-chev">›</span>
+        </summary>
+        <div class="wi-panel">
+          <div class="wi-visual"><span class="g">💬</span></div>
+          <div>
+            <p class="wi-desc">A WhatsApp chatbot helping first-time job seekers in India navigate an overwhelming market — conversation design and UX writing, live.</p>
+            <div class="wi-tags"><span>conversation design</span><span>ux writing</span><span>0→1</span></div>
+            <a class="wi-read" href="case-study-talent-ai.html" target="_blank" rel="noopener">read case study →</a>
+          </div>
         </div>
-        <div class="pcard-body">
-          <div class="pcard-kicker">talentai · whatsapp chatbot</div>
-          <h3 class="pcard-title">Career guidance inside a chat thread</h3>
-          <p class="pcard-outcome">Conversation design + UX writing for job seekers — live in India.</p>
-          <div class="pcard-tags"><span>conversation design</span><span>ux writing</span><span>0→1</span></div>
-          <span class="pcard-read">read case study <span class="ar">→</span></span>
-        </div>
-      </a>
+      </details>
 
     </div>
   </section>
