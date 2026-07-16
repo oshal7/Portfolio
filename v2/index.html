@@ -64,6 +64,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var
 .avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(150deg,var(--accent),#2f4f39);
   display:flex;align-items:center;justify-content:center;color:#fbfbf8;font-family:var(--display);font-weight:600;font-size:23px;flex:none;position:relative}
 .avatar .ring{position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent);opacity:.35}
+.avatar img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover}
 .hero-top .who .nm{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.01em;line-height:1.2}
 .hero-top .who .rl{font-family:var(--mono);font-size:12.5px;color:var(--grey-2);letter-spacing:.02em;margin-top:3px}
 .hero-top .who .rl .dot{color:var(--line);margin:0 5px}
@@ -136,6 +137,9 @@ details.work[open] .chev{transform:rotate(90deg);color:var(--accent)}
 .exprow h3{font-family:var(--display);font-weight:500;font-size:15px;margin-bottom:2px}
 .exprow h3 a:hover{color:var(--accent)}
 .exprow p{color:var(--grey);font-size:13.5px}
+.morerow{padding-top:16px}
+.moreexp{font-family:var(--mono);font-size:13.5px;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:8px 15px;display:inline-block}
+.moreexp:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ── notes ────────────────────────────── */
 .notelist a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -185,7 +189,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
 
   <section class="hero" id="top">
     <div class="hero-top">
-      <div class="avatar" aria-hidden="true"><span class="ring"></span>O</div>
+      <div class="avatar" aria-hidden="true"><span class="ring"></span>O<img src="assets/avatar.jpg" alt="" onerror="this.remove()"></div>
       <div class="who">
         <div class="nm">Oshal Urade</div>
         <div class="rl">designer<span class="dot">·</span>maker<span class="dot">·</span>thinker — Bengaluru</div>
@@ -217,6 +221,21 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
     <div class="worklist">
 
       <details class="work" open>
+        <summary>
+          <span class="chev">›</span>
+          <span class="summary-text">
+            <span class="name">Cohesity <span class="co">— recovery readiness</span></span>
+            <span class="outcome">Shifting the paradigm from passive data protection to active data resilience.</span>
+          </span>
+        </summary>
+        <div class="work-body">
+          <p>Reframed Cohesity's protection experience around a question every admin quietly worries about: "can we actually recover, right now?" — readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p>
+          <div class="wtags"><span class="wtag">data resilience</span><span class="wtag">recovery readiness</span><span class="wtag">dashboard design</span></div>
+          <a class="wlink" href="case-study-recovery-readiness.html">read the case study →</a>
+        </div>
+      </details>
+
+      <details class="work">
         <summary>
           <span class="chev">›</span>
           <span class="summary-text">
@@ -284,6 +303,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px}
         <div><h3><a href="https://vyomanaut.io/">Vyomanaut NFT</a></h3><p>Officially licensed ISRO card game — product, design, VR museum.</p></div>
       </div>
     </div>
+    <div class="morerow"><a class="moreexp" href="experiments.html">more experiments →</a></div>
   </section>
 
   <section id="notes">

@@ -4,7 +4,19 @@ Every image slot across the three case studies, with a stable ID. When a picture
 is ready, just tell me the **ID** (e.g. "here's COH-01") and I'll drop it in — or
 do it yourself using the two-step process at the bottom.
 
-Naming: `COH` = Cohesity · `TAI` = TalentAI · `AXB` = Axis Bank.
+Naming: `REC` = Recovery Readiness · `COH` = Cohesity · `TAI` = TalentAI · `AXB` = Axis Bank.
+
+---
+
+## Recovery Readiness — `case-study-recovery-readiness.html`
+
+| ID | Ratio | Where | What to put there |
+|----|-------|-------|-------------------|
+| **REC-01** | 21:9 banner | 00 / overview | Hero — recovery readiness dashboard with a live readiness score |
+| **REC-02** | 16:9 | 01 / context | The passive protection loop — backups run, recovery never rehearsed |
+| **REC-03** | 16:9 | 03 / design approach | Readiness framework — dimensions, score model, drill loop |
+| **REC-04** | 16:9 | 04 / final solution (left) | Readiness score & drill scheduler |
+| **REC-05** | 16:9 | 04 / final solution (right) | Recovery drill report — actual vs. promised RTO |
 
 ---
 

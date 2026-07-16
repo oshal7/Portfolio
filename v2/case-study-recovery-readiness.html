@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Axis Bank — Digital Accessibility · Oshal</title>
-<meta name="description" content="Case study: enhancing digital accessibility of Axis Bank digital products.">
+<title>Cohesity — Recovery Readiness · Oshal</title>
+<meta name="description" content="Case study: shifting Cohesity users from passive data protection to active data resilience with recovery readiness.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fbfbf8;--surface:#f3f2ec;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
-  --line:#e6e4db;--accent:#af275f;--accent-soft:#f7e0eb;
+  --bg:#fbfbf8;--surface:#f1f2f6;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
+  --line:#e3e4e0;--accent:#4a68a8;--accent-soft:#e4eaf5;
   --sans:'Inter',system-ui,sans-serif;--display:'Inter Tight',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:720px;
 }
 html[data-theme="dark"]{
-  --bg:#15160f;--surface:#1c1d16;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
-  --line:#2b2c22;--accent:#e394b8;--accent-soft:#33202a;
+  --bg:#15160f;--surface:#191c22;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
+  --line:#272a30;--accent:#93aede;--accent-soft:#1e2637;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -50,6 +50,7 @@ img{max-width:100%;display:block}
 .cs-hero{padding:30px 0 34px;border-bottom:1px solid var(--line)}
 .cs-kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent);margin-bottom:18px}
 .cs-hero h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,5vw,44px);letter-spacing:-.02em;line-height:1.12;margin-bottom:18px}
+.cs-hero h1 em{font-style:italic;color:var(--accent)}
 .cs-hero .lede{color:var(--grey);font-size:17px;max-width:60ch;margin-bottom:22px}
 .cs-tags{display:flex;flex-wrap:wrap;gap:7px}
 .cs-tag{font-family:var(--mono);font-size:11.5px;color:var(--grey);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
@@ -70,12 +71,12 @@ img{max-width:100%;display:block}
 .sec p strong,.sec p b{color:var(--ink);font-weight:600}
 .sec p:last-child{margin-bottom:0}
 
-/* how-might-we callout */
+/* callout */
 .hmw{border-left:2px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:20px 22px;margin:24px 0}
 .hmw p{font-family:var(--display);font-style:italic;font-weight:500;font-size:19px;color:var(--ink);line-height:1.4;max-width:none;margin:0}
 .hmw .url{font-family:var(--mono);font-size:11.5px;color:var(--grey-2);margin-top:12px;display:block}
 
-/* discovery / finding cards */
+/* finding cards */
 .finds{display:grid;gap:12px;margin:22px 0 0}
 .find{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--bg)}
 .find .ico{font-size:22px;margin-bottom:10px}
@@ -96,33 +97,6 @@ img{max-width:100%;display:block}
 .stat .lbl{font-size:13px;color:var(--grey);margin-top:8px;line-height:1.4}
 @media(max-width:560px){.stats{grid-template-columns:1fr}}
 
-/* learnings */
-.learns{display:grid;gap:14px;margin:22px 0 0}
-.learn{display:grid;grid-template-columns:26px 1fr;gap:12px}
-.learn .arw{font-family:var(--mono);color:var(--accent);padding-top:2px}
-.learn h3{font-family:var(--display);font-weight:600;font-size:16.5px;margin-bottom:5px}
-.learn p{font-size:14.5px;margin:0}
-
-/* nda notice */
-.nda{display:flex;gap:14px;align-items:flex-start;border:1px dashed var(--line);border-radius:10px;padding:20px 22px;background:var(--surface);margin-top:8px}
-.nda .lock{font-size:22px;flex:none}
-.nda p{font-size:14.5px;color:var(--grey);margin:0}
-
-/* generic subgrid for role lists etc */
-.pairs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
-.pairs h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:6px}
-.pairs p{font-size:14.5px;margin:0}
-@media(max-width:560px){.pairs{grid-template-columns:1fr}}
-.tinylabel{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-
-/* chat mockup (talentai) */
-.chat{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:18px;margin:24px 0 0;max-width:420px}
-.chat .b{max-width:82%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;margin-bottom:9px}
-.chat .in{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px}
-.chat .out{background:var(--accent-soft);color:var(--ink);margin-left:auto;border-bottom-right-radius:4px}
-.chat .t{font-family:var(--mono);font-size:10px;color:var(--grey-2);margin:-4px 4px 10px}
-.chat .out + .t{text-align:right}
-
 /* next case */
 .nextcase{padding:36px 0 0}
 .nextcase .lbl{font-family:var(--mono);font-size:12px;color:var(--grey-2);margin-bottom:10px}
@@ -139,18 +113,16 @@ footer{border-top:1px solid var(--line);padding:26px 0 60px;margin-top:44px}
 .themebtn{font-family:var(--mono);font-size:12.5px;color:var(--grey);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:none;cursor:pointer}
 .themebtn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* ── image placeholders (indexed) ───────────────────── */
+/* image placeholders (indexed) */
 figure.shot{margin:26px 0 0}
 figure.shot + figure.shot{margin-top:16px}
 .ph{position:relative;width:100%;border:1.5px dashed var(--line);border-radius:12px;
   background-color:var(--surface);
-  background-image:repeating-linear-gradient(135deg,transparent 0 15px,rgba(127,124,110,.05) 15px 16px);
+  background-image:repeating-linear-gradient(135deg,transparent 0 15px,rgba(110,118,140,.05) 15px 16px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
   text-align:center;padding:28px 22px;overflow:hidden}
 .ph.wide{aspect-ratio:16/9}
 .ph.banner{aspect-ratio:21/9}
-.ph.square{aspect-ratio:1/1;max-width:320px;margin-inline:auto}
-.ph.phone{aspect-ratio:9/18;max-width:230px;margin-inline:auto}
 .ph-id{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;
   color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:3px 8px}
 .ph-ic{font-size:27px;opacity:.55}
@@ -185,112 +157,122 @@ figure.shot figcaption b{color:var(--grey);font-weight:500}
        then swap the <div class="ph ...">…</div> for the <img> shown in the
        comment above each slot. Keep the surrounding <figure> + <figcaption>.
        ------------------------------------------------------------
-       AXB-01  banner 21:9  Hero — Axis Bank app framed by accessibility affordances
-       AXB-02  square 1:1    Axis Design Labs (ADL) badge
-       AXB-03  wide  16:9   Scope illustration — design system × research intersection
-       AXB-04  wide  16:9   Slider component for the Subzero design system
+       REC-01  banner 21:9  Hero — recovery readiness dashboard with readiness score
+       REC-02  wide  16:9   Context — the passive protection loop diagram
+       REC-03  wide  16:9   Design approach — readiness framework / journey artifacts
+       REC-04  wide  16:9   Final solution — readiness score & drill scheduler
+       REC-05  wide  16:9   Final solution — recovery drill report view
        ============================================================ -->
 
   <div class="backrow"><a class="back" href="index.html#work">← back to work</a></div>
 
   <header class="cs-hero">
-    <p class="cs-kicker">Accessibility · Design Systems · Axis Bank</p>
-    <h1>Enhancing digital accessibility of Axis Bank's products</h1>
-    <p class="lede">A master's thesis project inside Axis Design Labs — building a strategic roadmap to make Axis Bank's digital banking products usable for people with disabilities.</p>
+    <p class="cs-kicker">Enterprise UX · Cohesity Inc.</p>
+    <h1>Recovery readiness — from <em>passive protection</em> to <em>active resilience</em></h1>
+    <p class="lede">Backups that exist are not the same as recoveries that work. This project shifted how Cohesity users think about data protection — from "we take backups" to "we know we can recover."</p>
     <div class="cs-tags">
-      <span class="cs-tag">Thesis project</span><span class="cs-tag">Accessibility</span>
-      <span class="cs-tag">Design system</span><span class="cs-tag">Audits</span><span class="cs-tag">Research</span>
+      <span class="cs-tag">Data resilience</span><span class="cs-tag">Recovery readiness</span>
+      <span class="cs-tag">Enterprise UX</span><span class="cs-tag">Dashboard design</span><span class="cs-tag">Paradigm shift</span>
     </div>
   </header>
 
   <div class="cs-meta">
-    <div class="m"><div class="k">Role</div><div class="v">Accessibility Designer (sole contributor)</div></div>
-    <div class="m"><div class="k">Context</div><div class="v">Master's thesis · Axis Design Labs (DBAT)</div></div>
-    <div class="m"><div class="k">Focus</div><div class="v">Digital accessibility for disabled users</div></div>
-    <div class="m"><div class="k">Teams</div><div class="v">Design System × Research</div></div>
+    <div class="m"><div class="k">Role</div><div class="v">Product Designer</div></div>
+    <div class="m"><div class="k">Timeline</div><div class="v">2024 · ongoing</div></div>
+    <div class="m"><div class="k">Tools</div><div class="v">Figma, FigJam, UserTesting</div></div>
+    <div class="m"><div class="k">Team</div><div class="v">PM, Engineering, UX Research</div></div>
   </div>
 
   <section class="sec">
     <p class="num">00 / <b>overview</b></p>
-    <h2>An accessibility mandate inside Axis Design Labs</h2>
-    <p>During my master's thesis with the <strong>DBAT (Digital Banking &amp; Technology)</strong> design team at Axis Design Labs, I collaborated directly with Axis Bank. My primary focus was enhancing digital accessibility across the bank's products, specifically for users with disabilities — while also contributing to several other initiatives within the Labs.</p>
-    <!-- AXB-01 · replace with: <img src="assets/axb-01.png" alt="Axis Bank app surrounded by accessibility icons"> -->
+    <h2>Knowing you can recover, before you have to</h2>
+    <p>Cohesity protects some of the world's most critical enterprise data. But protection has historically been <strong>passive</strong> — policies run, snapshots accumulate, and the first real test of the system happens on the worst possible day: during an actual incident.</p>
+    <p>Recovery Readiness reframes the product experience around <strong>active resilience</strong> — continuously answering the question every administrator quietly worries about: <strong>"If something goes wrong right now, how fast and how completely can we recover?"</strong></p>
+    <!-- REC-01 · replace with: <img src="assets/rec-01.png" alt="Recovery readiness dashboard with readiness score"> -->
     <figure class="shot">
-      <div class="ph banner"><span class="ph-id">AXB-01</span><span class="ph-ic">♿</span><span class="ph-desc">Hero — Axis Bank app framed by accessibility affordances</span><span class="ph-dim">21 : 9</span></div>
-      <figcaption><b>Fig 01.</b> Accessibility as a first-class banking concern.</figcaption>
+      <div class="ph banner"><span class="ph-id">REC-01</span><span class="ph-ic">🛡️</span><span class="ph-desc">Hero — the recovery readiness dashboard with a live readiness score</span><span class="ph-dim">21 : 9</span></div>
+      <figcaption><b>Fig 01.</b> Readiness as a first-class signal, not an afterthought.</figcaption>
     </figure>
   </section>
 
   <section class="sec">
-    <p class="num">01 / <b>the environment</b></p>
-    <h2>Working across a multi-pod design ecosystem</h2>
-    <p>Axis Design Labs is the design team behind Axis Bank's digital platforms. It's organised into multiple pods — Research, Communication, Motion Design, Interaction, and Design System — each shaping and innovating the bank's digital offerings. Being embedded here meant working inside a dynamic, cross-disciplinary environment rather than a single siloed team.</p>
-    <!-- AXB-02 · replace with: <img src="assets/axb-02.png" alt="Axis Design Labs badge"> -->
+    <p class="num">01 / <b>context</b></p>
+    <h2>Backups were a checkbox. Recovery was a leap of faith.</h2>
+    <p>In the existing model, success was measured by backup completion: green checkmarks, met SLAs, storage consumed. Teams could go months — sometimes years — without ever exercising a real recovery.</p>
+    <p>Meanwhile the stakes kept rising. Ransomware turned recovery from an occasional IT event into a board-level concern. Compliance frameworks began asking not "do you have backups?" but <strong>"when did you last prove you could restore?"</strong> The industry was moving from data protection to data resilience — and the product experience needed to move with it.</p>
+    <!-- REC-02 · replace with: <img src="assets/rec-02.png" alt="Diagram of the passive protection loop"> -->
     <figure class="shot">
-      <div class="ph square"><span class="ph-id">AXB-02</span><span class="ph-ic">🔷</span><span class="ph-desc">Axis Design Labs (ADL) badge</span><span class="ph-dim">1 : 1</span></div>
-      <figcaption><b>Fig 02.</b> The multi-pod team I was embedded in.</figcaption>
+      <div class="ph wide"><span class="ph-id">REC-02</span><span class="ph-ic">🔄</span><span class="ph-desc">The passive loop — backups run, alerts pile up, recovery never rehearsed</span><span class="ph-dim">16 : 9</span></div>
+      <figcaption><b>Fig 02.</b> Protection theatre: everything green until the day it matters.</figcaption>
     </figure>
   </section>
 
   <section class="sec">
-    <p class="num">02 / <b>scope of work</b></p>
-    <h2>Elevating accessibility through a strategic roadmap</h2>
-    <p>My core work centred on raising the digital accessibility of Axis Bank's products for people with disabilities. This meant developing a <strong>strategic roadmap</strong> — in close collaboration with business units, the design team, and external stakeholders. I operated at the intersection of two pods:</p>
-    <div class="pairs">
-      <div><h3>Design System team</h3><p>Embedding accessibility into shared components and patterns, so it scaled by default rather than being bolted on per product.</p></div>
-      <div><h3>Research team</h3><p>Grounding the roadmap in real user needs — audits, desk research, and conversations with subject-matter experts.</p></div>
+    <p class="num">02 / <b>the problem</b></p>
+    <h2>Green dashboards were hiding real risk</h2>
+    <p>Research sessions with administrators surfaced an uncomfortable pattern: teams with fully "healthy" backup dashboards still failed recovery drills. Stale credentials, changed network topologies, missing dependencies, and untested runbooks meant that <strong>backup success was a poor proxy for recovery success</strong>.</p>
+    <div class="finds">
+      <div class="find"><div class="ico">🟢</div><h3>False confidence</h3><p>Administrators equated backup completion with recoverability. The dashboard rewarded the wrong behavior — collecting snapshots instead of proving restores.</p></div>
+      <div class="find"><div class="ico">🧪</div><h3>Recovery was never rehearsed</h3><p>Full recovery drills were rare, manual, and disruptive — so most teams simply didn't run them. The first end-to-end restore was often during a live incident.</p></div>
+      <div class="find"><div class="ico">⏱️</div><h3>Unknown recovery time</h3><p>Nobody could confidently state their actual RTO. Estimates existed on paper; reality diverged the moment infrastructure changed.</p></div>
     </div>
-    <!-- AXB-03 · replace with: <img src="assets/axb-03.png" alt="Scope of work illustration"> -->
-    <figure class="shot">
-      <div class="ph wide"><span class="ph-id">AXB-03</span><span class="ph-ic">✋</span><span class="ph-desc">Scope illustration — working at the intersection of design system &amp; research</span><span class="ph-dim">16 : 9</span></div>
-      <figcaption><b>Fig 03.</b> Where the accessibility work sat.</figcaption>
-    </figure>
+    <div class="hmw">
+      <p>How might we make recovery readiness continuously visible and testable — so that resilience becomes a daily practice instead of a yearly fire drill?</p>
+      <span class="url">cohesity.com / resilience / readiness</span>
+    </div>
   </section>
 
   <section class="sec">
-    <p class="num">03 / <b>roles &amp; responsibilities</b></p>
-    <h2>What I owned as sole contributor</h2>
-    <p>As the single contributor on the accessibility initiative, my responsibilities spanned research, strategy, and stakeholder work — the combination that made the roadmap possible.</p>
+    <p class="num">03 / <b>design approach</b></p>
+    <h2>Design the question, not just the dashboard</h2>
+    <p>The core design move was shifting the primary object of the experience from <strong>backups</strong> (what the system does) to <strong>readiness</strong> (what the user actually needs to know). Everything else followed from that reframe.</p>
     <div class="steps">
-      <div class="step"><div class="no">01</div><div><h3>Accessibility audits</h3><p>Systematically evaluating existing products against accessibility standards to establish a baseline and surface priority gaps.</p></div></div>
-      <div class="step"><div class="no">02</div><div><h3>Desk research &amp; SME discussions</h3><p>Studying best practices and facilitating conversations with subject-matter experts to shape a credible, informed approach.</p></div></div>
-      <div class="step"><div class="no">03</div><div><h3>Solution generation</h3><p>Turning audit findings into actionable, innovative solutions that fit within Axis Bank's design system and constraints.</p></div></div>
-      <div class="step"><div class="no">04</div><div><h3>Strategy &amp; stakeholder cooperation</h3><p>Implementing strategies and keeping business, design, and external stakeholders aligned toward a shared accessibility roadmap.</p></div></div>
+      <div class="step"><div class="no">01</div><div><h3>Define what "ready" means</h3><p>Worked with recovery engineers and customers to break readiness into measurable dimensions — backup integrity, environment drift, dependency mapping, and drill recency.</p></div></div>
+      <div class="step"><div class="no">02</div><div><h3>Make readiness a score, not a log</h3><p>Distilled those dimensions into a single, explainable readiness signal per workload — with clear drill-downs into exactly what's dragging it and how to fix it.</p></div></div>
+      <div class="step"><div class="no">03</div><div><h3>Rehearsal without disruption</h3><p>Designed non-disruptive recovery drills — isolated, scheduled test recoveries that validate the full path without touching production.</p></div></div>
+      <div class="step"><div class="no">04</div><div><h3>Turn incidents into muscle memory</h3><p>Drill results feed runbooks and readiness history, so every rehearsal makes the real recovery faster and calmer.</p></div></div>
     </div>
-  </section>
-
-  <section class="sec">
-    <p class="num">04 / <b>other contributions</b></p>
-    <h2>Beyond the primary accessibility project</h2>
-    <p class="tinylabel">In the Design System team</p>
-    <div class="pairs" style="margin-bottom:22px">
-      <div><h3>Slider component for all Axis Bank products</h3><p>Led the design of slider components to improve consistency and user experience across the bank's digital products, feeding a more seamless design system.</p></div>
-      <div><h3>Patterns for the Subzero design system</h3><p>Created design patterns for critical elements — logins, forms, OTPs, loaders, assisted flows, and MPIN — improving cohesiveness across offerings.</p></div>
-    </div>
-    <!-- AXB-04 · replace with: <img src="assets/axb-04.png" alt="Slider component for the Subzero design system"> -->
+    <!-- REC-03 · replace with: <img src="assets/rec-03.png" alt="Readiness framework and journey artifacts"> -->
     <figure class="shot">
-      <div class="ph wide"><span class="ph-id">AXB-04</span><span class="ph-ic">🎛️</span><span class="ph-desc">Slider component — states and specs for the Subzero design system</span><span class="ph-dim">16 : 9</span></div>
-      <figcaption><b>Fig 04.</b> A design-system contribution beyond the core project.</figcaption>
+      <div class="ph wide"><span class="ph-id">REC-03</span><span class="ph-ic">🧭</span><span class="ph-desc">The readiness framework — dimensions, score model, and drill loop</span><span class="ph-dim">16 : 9</span></div>
+      <figcaption><b>Fig 03.</b> From "are we backed up?" to "are we ready?"</figcaption>
     </figure>
-    <p class="tinylabel">In the Research team</p>
-    <div class="pairs">
-      <div><h3>User interviews for Axis AMC users</h3><p>Conducted interview research for Axis AMC (Asset Management Company) users alongside senior researchers — designing research plans, running interviews, and synthesising feedback.</p></div>
-      <div><h3>Guerrilla testing for fund transfer</h3><p>Collaborated on guerrilla testing for the fund-transfer module — planning research, crafting questions, designing tasks, and executing them in the field.</p></div>
+  </section>
+
+  <section class="sec">
+    <p class="num">04 / <b>final solution</b></p>
+    <h2>Resilience you can see, schedule, and prove</h2>
+    <p>The final experience centers on a <strong>readiness score</strong> for every critical workload — continuously computed, always explainable. Administrators see at a glance which workloads are provably recoverable, which are drifting, and exactly what to do about it.</p>
+    <p>A <strong>drill scheduler</strong> makes rehearsal routine: pick a workload, pick a window, and the platform runs an isolated test recovery — then reports actual recovery time against the promised RTO. <strong>Readiness history</strong> turns every drill into evidence for audits, leadership, and the team's own confidence.</p>
+    <!-- REC-04 · replace with: <img src="assets/rec-04.png" alt="Readiness score and drill scheduler"> -->
+    <!-- REC-05 · replace with: <img src="assets/rec-05.png" alt="Recovery drill report view"> -->
+    <div class="shot-2">
+      <figure class="shot">
+        <div class="ph wide"><span class="ph-id">REC-04</span><span class="ph-ic">📊</span><span class="ph-desc">Readiness score &amp; drill scheduler</span><span class="ph-dim">16 : 9</span></div>
+        <figcaption><b>Fig 04.</b> Rehearsal becomes routine.</figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="ph wide"><span class="ph-id">REC-05</span><span class="ph-ic">📋</span><span class="ph-desc">Drill report — actual vs. promised recovery time</span><span class="ph-dim">16 : 9</span></div>
+        <figcaption><b>Fig 05.</b> Proof, not hope.</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="sec">
-    <p class="num">05 / <b>a note on confidentiality</b></p>
-    <h2>Happy to walk through this in private</h2>
-    <div class="nda">
-      <span class="lock">🔒</span>
-      <p>Due to a non-disclosure agreement, I can't share specific screens or detailed outcomes of this work publicly. I'd be glad to talk through my role, process, and the results in a confidential setting — <a href="mailto:oshalurade@gmail.com?subject=Axis%20Bank%20accessibility%20walkthrough" style="color:var(--accent);border-bottom:1px solid var(--accent)">reach out for a walkthrough</a>.</p>
+    <p class="num">05 / <b>outcome &amp; impact</b></p>
+    <h2>From "we think so" to "we know so"</h2>
+    <p>Early validation with enterprise customers showed the reframe landing exactly where it needed to — in how teams talk about and practice recovery.</p>
+    <div class="stats">
+      <div class="stat"><div class="big">Score</div><div class="lbl">readiness became the first thing admins check — ahead of backup status</div></div>
+      <div class="stat"><div class="big">Drills</div><div class="lbl">non-disruptive rehearsals moved recovery testing from yearly to routine</div></div>
+      <div class="stat"><div class="big">RTO</div><div class="lbl">teams report actual, drill-verified recovery times instead of estimates</div></div>
     </div>
+    <p style="margin-top:20px">Beyond the metrics, the biggest shift is cultural: recovery stopped being a hypothetical. Teams using readiness scores and drills walk into incidents with a rehearsed plan — <strong>resilience as a practice, not a promise</strong>.</p>
   </section>
 
   <div class="nextcase">
     <p class="lbl">next case study →</p>
-    <a class="big" href="case-study-talent-ai.html">Improving job search with WhatsApp chatbots</a><br>
+    <a class="big" href="case-study-cohesity.html">Simplifying data backup &amp; recovery for MongoDB workloads</a><br>
     <a class="allwork" href="index.html#work">← back to all work</a>
   </div>
 

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiments — Oshal</title>
+<meta name="description" content="Side quests and experiments — the software Oshal keeps building when no one's watching.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf8;--surface:#f3f2ec;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
+  --line:#e6e4db;--accent:#4f7a5c;--accent-soft:#e4ece5;
+  --sans:'Inter',system-ui,sans-serif;--display:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:860px;
+}
+html[data-theme="dark"]{
+  --bg:#15160f;--surface:#1c1d16;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
+  --line:#2b2c22;--accent:#8fbf9c;--accent-soft:#22301f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;
+  transition:background .25s,color .25s}
+::selection{background:var(--accent-soft);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.col{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* nav */
+.topnav{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:20}
+.topnav .col{display:flex;align-items:center;gap:22px;height:56px}
+.topnav .id{font-family:var(--mono);font-size:14px;color:var(--grey)}
+.topnav .id b{color:var(--ink);font-weight:500}
+.topnav nav{display:flex;gap:18px;margin-left:auto;font-size:14px;color:var(--grey)}
+.topnav nav a:hover{color:var(--ink)}
+.topnav .talk{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:6px;padding:5px 11px;color:var(--ink);white-space:nowrap}
+.topnav .talk:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:560px){.topnav nav a:not(.keepnav){display:none}}
+
+/* hero */
+.hero{padding:52px 0 14px}
+.backrow{padding:26px 0 0}
+.back{font-family:var(--mono);font-size:13px;color:var(--grey)}
+.back:hover{color:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:14px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,38px);letter-spacing:-.02em;line-height:1.14;margin-bottom:16px;max-width:22ch}
+h1 em{font-style:italic;color:var(--accent)}
+.hero p{color:var(--grey);font-size:16px;max-width:56ch;margin-bottom:8px}
+.hero .metaline{font-family:var(--mono);font-size:12.5px;color:var(--grey-2);margin-top:14px}
+.hero .metaline b{color:var(--accent);font-weight:500}
+
+/* grid of quests */
+.quests{padding:36px 0 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.quests{grid-template-columns:1fr}}
+.quest{position:relative;border:1px solid var(--line);border-radius:12px;padding:20px 20px 18px;background:var(--bg);
+  display:flex;flex-direction:column;gap:10px;transition:border-color .15s,background .15s}
+.quest:hover{border-color:var(--accent);background:var(--surface)}
+.quest .head{display:flex;align-items:center;gap:10px}
+.quest .emoji{width:40px;height:40px;border-radius:9px;background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+.quest:hover .emoji{background:var(--bg)}
+.quest .no{font-family:var(--mono);font-size:11.5px;color:var(--grey-2);margin-left:auto}
+.quest h2{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
+.quest h2 a:hover{color:var(--accent)}
+.quest .desc{color:var(--grey);font-size:13.5px;line-height:1.6}
+.quest .desc p{margin-bottom:2px}
+.quest .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.quest .tag{font-family:var(--mono);font-size:10.5px;color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:2px 7px}
+
+/* more soon */
+.soon{border:1.5px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;
+  color:var(--grey-2);font-family:var(--mono);font-size:12.5px;min-height:120px}
+
+/* other experiments */
+.others{padding:28px 0 40px}
+.explist{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line)}
+.exprow{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.thumb{width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;background:var(--surface);border:1px solid var(--line)}
+.exprow h3{font-family:var(--display);font-weight:500;font-size:15px;margin-bottom:2px}
+.exprow h3 a:hover{color:var(--accent)}
+.exprow p{color:var(--grey);font-size:13.5px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:26px 0 60px;margin-top:20px}
+.footlinks{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px;color:var(--grey);margin-bottom:16px}
+.footlinks a:hover{color:var(--accent)}
+.footbottom{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--grey-2);font-family:var(--mono)}
+.themebtn{font-family:var(--mono);font-size:12.5px;color:var(--grey);border:1px solid var(--line);border-radius:6px;padding:5px 11px;background:none;cursor:pointer}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="topnav">
+  <div class="col">
+    <a class="id" href="index.html">oshal<b>.log</b></a>
+    <nav>
+      <a class="keepnav" href="index.html#work">work</a>
+      <a class="keepnav" href="experiments.html" style="color:var(--ink)">experiments</a>
+      <a href="index.html#notes">notes</a>
+      <a href="https://drive.google.com/file/d/1jniVRTFUZssxxlyFtqAGdK4ua0nc7c51/view">resume</a>
+    </nav>
+    <a class="talk" href="index.html#contact">Say hi</a>
+  </div>
+</header>
+
+<main class="col">
+
+  <div class="backrow"><a class="back" href="index.html#experiments">← back home</a></div>
+
+  <section class="hero">
+    <p class="eyebrow">side quests</p>
+    <h1>Things I keep <em>building</em> when no one's watching.</h1>
+    <p>Softwares, extensions, games, and tools — shipped for fun, curiosity, and the occasional real problem. This page grows as the quests do.</p>
+    <p class="metaline"><b>11</b> quests logged · always <b>+1</b> in progress</p>
+  </section>
+
+  <section class="quests">
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🍅</span><span class="no">01</span></div>
+      <h2>Pixel Time Chef Pomodoro</h2>
+      <div class="desc">
+        <p>A pixel-art Pomodoro timer where a chef cooks while you focus.</p>
+        <p>Built to make deep work feel fun and delightfully visual.</p>
+        <p>Used by students and freelancers who want flavor in their flow.</p>
+      </div>
+      <div class="tags"><span class="tag">productivity</span><span class="tag">pixel art</span><span class="tag">timer</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">📝</span><span class="no">02</span></div>
+      <h2>NewTab Scratch Pad</h2>
+      <div class="desc">
+        <p>Replace your new tab with a distraction-free scratch pad.</p>
+        <p>Jot thoughts, paste links, or brainstorm without switching apps.</p>
+        <p>Auto-saves locally — your ideas stay even when the tab closes.</p>
+      </div>
+      <div class="tags"><span class="tag">extension</span><span class="tag">notes</span><span class="tag">productivity</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🛰️</span><span class="no">03</span></div>
+      <h2>Orbit Satellite Tracker</h2>
+      <div class="desc">
+        <p>Visualize real-time satellite positions on an interactive globe.</p>
+        <p>Built for space nerds and curious minds who look up at the sky.</p>
+        <p>Pulls live TLE data to show exactly what's orbiting Earth right now.</p>
+      </div>
+      <div class="tags"><span class="tag">space</span><span class="tag">data viz</span><span class="tag">real-time</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🔧</span><span class="no">04</span></div>
+      <h2>Spares</h2>
+      <div class="desc">
+        <p>A lightweight app to track and manage spare parts inventory.</p>
+        <p>Designed for repair shops, hobbyists, and hardware tinkerers.</p>
+        <p>Simple search and tagging keeps clutter out of your workflow.</p>
+      </div>
+      <div class="tags"><span class="tag">utility</span><span class="tag">inventory</span><span class="tag">tool</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🃏</span><span class="no">05</span></div>
+      <h2>Card Circle</h2>
+      <div class="desc">
+        <p>Digital business card exchange for small groups and events.</p>
+        <p>Share your circle, collect others — no paper, no friction.</p>
+        <p>Built for networking moments that feel human, not transactional.</p>
+      </div>
+      <div class="tags"><span class="tag">networking</span><span class="tag">social</span><span class="tag">events</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">☑️</span><span class="no">06</span></div>
+      <h2>Checkbox Game</h2>
+      <div class="desc">
+        <p>A tiny game hidden inside a row of humble checkboxes.</p>
+        <p>Proves that delight lives in the smallest UI interactions.</p>
+        <p>Built in a weekend as an experiment in micro-interaction design.</p>
+      </div>
+      <div class="tags"><span class="tag">game</span><span class="tag">experiment</span><span class="tag">micro-ui</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">♿</span><span class="no">07</span></div>
+      <h2>Accessibility Simulator</h2>
+      <div class="desc">
+        <p>Simulate color blindness and visual impairments on any webpage.</p>
+        <p>A tool for designers to build with empathy baked in from the start.</p>
+        <p>One-click overlays show how 1 in 12 people actually see your design.</p>
+      </div>
+      <div class="tags"><span class="tag">a11y</span><span class="tag">design tool</span><span class="tag">extension</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🔖</span><span class="no">08</span></div>
+      <h2><a href="https://www.behance.net/gallery/159035811/Boookmark-of-the-day">Bookmark of the Day</a></h2>
+      <div class="desc">
+        <p>A browser extension that surfaces one saved bookmark every day.</p>
+        <p>Rediscover forgotten links you once thought were worth saving.</p>
+        <p>Turns your bookmark pile into a daily dose of serendipity.</p>
+      </div>
+      <div class="tags"><span class="tag">extension</span><span class="tag">discovery</span><span class="tag">habit</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🎨</span><span class="no">09</span></div>
+      <h2>UI Universe Comics</h2>
+      <div class="desc">
+        <p>Design concepts explained through illustrated comic-style panels.</p>
+        <p>Makes UX principles approachable for designers and non-designers alike.</p>
+        <p>An ongoing series mixing visual storytelling with systems thinking.</p>
+      </div>
+      <div class="tags"><span class="tag">education</span><span class="tag">comics</span><span class="tag">ux</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">🎴</span><span class="no">10</span></div>
+      <h2>Cabo Online Game</h2>
+      <div class="desc">
+        <p>Cabo — the beloved card game — playable online with friends.</p>
+        <p>Built to keep game nights alive even when you're miles apart.</p>
+        <p>Multiplayer, real-time, and faithful to every rule of the original.</p>
+      </div>
+      <div class="tags"><span class="tag">game</span><span class="tag">multiplayer</span><span class="tag">real-time</span></div>
+    </div>
+
+    <div class="quest">
+      <div class="head"><span class="emoji">💸</span><span class="no">11</span></div>
+      <h2>Offline Money Tracker</h2>
+      <div class="desc">
+        <p>A personal finance tracker that works entirely offline.</p>
+        <p>Inbuilt AI categorizes spending and spots patterns over time.</p>
+        <p>No account needed — your financial data never leaves your device.</p>
+      </div>
+      <div class="tags"><span class="tag">finance</span><span class="tag">ai</span><span class="tag">privacy-first</span></div>
+    </div>
+
+    <div class="soon">more quests loading…</div>
+
+  </section>
+
+  <section class="others">
+    <p class="eyebrow">earlier experiments</p>
+    <div class="explist">
+      <div class="exprow">
+        <div class="thumb">🗺️</div>
+        <div><h3><a href="https://www.behance.net/gallery/184100295/Saudi-Arabia-Tourism-Maps">City Maps for SAT Authority</a></h3><p>A2 tourist guide maps for Saudi Arabia's Tourism Ministry.</p></div>
+      </div>
+      <div class="exprow">
+        <div class="thumb">🆘</div>
+        <div><h3><a href="https://www.behance.net/gallery/159099731/Covid-Nagpur-SOS-App">Covid Nagpur SOS</a></h3><p>No-code app aggregating public resources during the pandemic.</p></div>
+      </div>
+      <div class="exprow">
+        <div class="thumb">🚀</div>
+        <div><h3><a href="https://vyomanaut.io/">Vyomanaut NFT</a></h3><p>Officially licensed ISRO card game — product, design, VR museum.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer>
+  <div class="col">
+    <div class="footlinks">
+      <a href="https://www.linkedin.com/in/oshal/">linkedin</a>
+      <a href="https://medium.com/@oshalurade">medium</a>
+      <a href="https://twitter.com/Oshalurade">twitter</a>
+      <a href="mailto:oshalurade@gmail.com">email</a>
+    </div>
+    <div class="footbottom">
+      <span>© 2026 oshal urade</span>
+      <button class="themebtn" id="themeToggle" type="button" aria-pressed="false">dark</button>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('themeToggle'),s=null;
+  try{s=localStorage.getItem('oshal-theme');}catch(e){}
+  if(s==='dark'){root.setAttribute('data-theme','dark');btn.textContent='light';btn.setAttribute('aria-pressed','true');}
+  btn.addEventListener('click',function(){
+    var d=root.getAttribute('data-theme')==='dark';
+    root.setAttribute('data-theme',d?'light':'dark');
+    btn.textContent=d?'dark':'light';btn.setAttribute('aria-pressed',String(!d));
+    try{localStorage.setItem('oshal-theme',d?'light':'dark');}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
