@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work section — design options · Oshal</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,500;0,600;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfbf8;--surface:#f3f2ec;--ink:#1b1c19;--grey:#82837a;--grey-2:#a8a89e;
+  --line:#e6e4db;--accent:#4f7a5c;--accent-soft:#e4ece5;
+  --sans:'Inter',system-ui,sans-serif;--display:'Inter Tight',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;--maxw:900px;
+}
+html[data-theme="dark"]{
+  --bg:#15160f;--surface:#1c1d16;--ink:#e9e8e0;--grey:#8c8d81;--grey-2:#5f6058;
+  --line:#2b2c22;--accent:#8fbf9c;--accent-soft:#22301f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.col{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* lab chrome */
+.labtop{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:30}
+.labtop .col{display:flex;align-items:center;gap:14px;height:56px}
+.labtop .id{font-family:var(--mono);font-size:14px;color:var(--grey)}
+.labtop .id b{color:var(--ink);font-weight:500}
+.labtop .back{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--grey)}
+.labtop .back:hover{color:var(--accent)}
+.labhero{padding:44px 0 8px}
+.labhero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:12px}
+.labhero h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:-.02em;margin-bottom:12px}
+.labhero p{color:var(--grey);font-size:15.5px;max-width:60ch}
+
+/* option wrapper */
+.opt{padding:40px 0;border-top:1px solid var(--line)}
+.opt-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.opt-tag{font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;background:var(--ink);border-radius:5px;padding:3px 9px}
+.opt-head h2{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.01em}
+.opt-note{color:var(--grey);font-size:14px;margin-bottom:26px;max-width:64ch}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--grey-2);text-transform:lowercase;margin-bottom:18px}
+
+/* ============ OPTION 1 — cards grid ============ */
+.o1-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.o1-grid{grid-template-columns:1fr}}
+.pcard{--pc:var(--accent);display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg);transition:border-color .18s,box-shadow .18s,transform .18s}
+.pcard:hover{border-color:var(--pc);box-shadow:0 8px 26px -14px color-mix(in srgb,var(--pc) 55%,transparent);transform:translateY(-3px)}
+.pcard-visual{position:relative;aspect-ratio:16/8.5;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 120% at 15% 15%,color-mix(in srgb,var(--pc) 22%,var(--bg)),transparent 60%),linear-gradient(135deg,color-mix(in srgb,var(--pc) 16%,var(--bg)),color-mix(in srgb,var(--pc) 7%,var(--bg)));border-bottom:1px solid var(--line)}
+.pcard-glyph{font-size:38px;transition:transform .25s ease}
+.pcard:hover .pcard-glyph{transform:scale(1.08) rotate(-3deg)}
+.pcard-no{position:absolute;top:11px;left:12px;font-family:var(--mono);font-size:11px;color:var(--pc);background:color-mix(in srgb,var(--pc) 14%,var(--bg));border-radius:5px;padding:2px 7px;font-weight:500}
+.pcard-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.pcard-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--pc);margin-bottom:8px;text-transform:lowercase}
+.pcard-title{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1.25;margin-bottom:7px}
+.pcard-outcome{color:var(--grey);font-size:14px;line-height:1.55;margin-bottom:13px}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:15px}
+.pcard-tags span{font-family:var(--mono);font-size:10.5px;color:var(--pc);background:color-mix(in srgb,var(--pc) 12%,var(--bg));border-radius:4px;padding:2px 7px}
+.pcard-read{margin-top:auto;font-family:var(--mono);font-size:12.5px;font-weight:500;color:var(--ink);display:inline-flex;gap:6px}
+.pcard:hover .pcard-read{color:var(--pc)}
+
+/* ============ OPTION 2 — editorial feature rows ============ */
+.o2-row{--pc:var(--accent);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:34px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line)}
+.o2-row:first-child{border-top:1px solid var(--line)}
+.o2-row:nth-child(even) .o2-visual{order:2}
+@media(max-width:680px){.o2-row{grid-template-columns:1fr;gap:18px}.o2-row:nth-child(even) .o2-visual{order:0}}
+.o2-visual{position:relative;aspect-ratio:16/10;border-radius:14px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);
+  background:radial-gradient(120% 120% at 80% 20%,color-mix(in srgb,var(--pc) 24%,var(--bg)),transparent 55%),linear-gradient(135deg,color-mix(in srgb,var(--pc) 15%,var(--bg)),color-mix(in srgb,var(--pc) 6%,var(--bg)));transition:transform .2s}
+.o2-row:hover .o2-visual{transform:translateY(-3px)}
+.o2-visual .g{font-size:46px}
+.o2-visual .n{position:absolute;top:12px;left:14px;font-family:var(--mono);font-size:11px;color:var(--pc);font-weight:500}
+.o2-kicker{font-family:var(--mono);font-size:11.5px;color:var(--pc);text-transform:lowercase;letter-spacing:.04em;margin-bottom:9px}
+.o2-title{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.6vw,26px);letter-spacing:-.02em;line-height:1.15;margin-bottom:10px}
+.o2-out{color:var(--grey);font-size:15px;line-height:1.55;margin-bottom:14px;max-width:44ch}
+.o2-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.o2-tags span{font-family:var(--mono);font-size:11px;color:var(--pc);background:color-mix(in srgb,var(--pc) 12%,var(--bg));border-radius:4px;padding:2px 8px}
+.o2-read{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink);border-bottom:1.5px solid var(--pc);padding-bottom:2px}
+.o2-row:hover .o2-read{color:var(--pc)}
+
+/* ============ OPTION 3 — bento asymmetric ============ */
+.o3-grid{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px}
+@media(max-width:640px){.o3-grid{grid-template-columns:1fr}}
+.o3-card{--pc:var(--accent);position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;
+  background:radial-gradient(130% 120% at 85% 12%,color-mix(in srgb,var(--pc) 26%,var(--bg)),transparent 58%),linear-gradient(150deg,color-mix(in srgb,var(--pc) 13%,var(--bg)),color-mix(in srgb,var(--pc) 5%,var(--bg)));transition:transform .18s,box-shadow .18s}
+.o3-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px -16px color-mix(in srgb,var(--pc) 60%,transparent)}
+.o3-card.big{grid-column:span 2;min-height:230px}
+@media(max-width:640px){.o3-card.big{grid-column:span 1}}
+.o3-card .g{position:absolute;top:18px;right:20px;font-size:34px;opacity:.9}
+.o3-card.big .g{font-size:52px}
+.o3-card .kick{font-family:var(--mono);font-size:11px;color:var(--pc);text-transform:lowercase;letter-spacing:.04em;margin-bottom:7px}
+.o3-card .tt{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.01em;line-height:1.2;margin-bottom:6px}
+.o3-card.big .tt{font-size:23px}
+.o3-card .ou{color:var(--grey);font-size:13.5px;line-height:1.5;margin-bottom:12px;max-width:40ch}
+.o3-card .rd{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);display:inline-flex;gap:6px}
+.o3-card:hover .rd{color:var(--pc)}
+
+/* ============ OPTION 4 — interactive index + preview ============ */
+.o4-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:start}
+@media(max-width:680px){.o4-wrap{grid-template-columns:1fr}.o4-preview{display:none}}
+.o4-list{border-top:1px solid var(--line)}
+.o4-item{--pc:var(--accent);display:grid;grid-template-columns:26px 1fr auto;gap:14px;align-items:center;padding:18px 6px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s,padding-left .18s}
+.o4-item:hover,.o4-item.active{background:color-mix(in srgb,var(--pc) 7%,var(--bg));padding-left:14px}
+.o4-item .idx{font-family:var(--mono);font-size:12px;color:var(--grey-2)}
+.o4-item.active .idx,.o4-item:hover .idx{color:var(--pc)}
+.o4-item .nm{display:block;font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.o4-item .ty{display:block;font-family:var(--mono);font-size:11px;color:var(--grey);margin-top:3px;text-transform:lowercase}
+.o4-item .go{font-family:var(--mono);font-size:16px;color:var(--grey-2);transition:transform .18s,color .18s}
+.o4-item:hover .go,.o4-item.active .go{color:var(--pc);transform:translateX(3px)}
+.o4-preview{position:sticky;top:78px;--pc:var(--accent)}
+.o4-pv-visual{position:relative;aspect-ratio:16/11;border-radius:16px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(120% 120% at 80% 18%,color-mix(in srgb,var(--pc) 24%,var(--bg)),transparent 58%),linear-gradient(140deg,color-mix(in srgb,var(--pc) 14%,var(--bg)),color-mix(in srgb,var(--pc) 6%,var(--bg)));transition:background .35s}
+.o4-pv-visual .g{font-size:56px;transition:transform .35s}
+.o4-pv-body{padding:16px 4px 0}
+.o4-pv-kick{font-family:var(--mono);font-size:11px;color:var(--pc);text-transform:lowercase;letter-spacing:.04em;margin-bottom:7px;transition:color .3s}
+.o4-pv-title{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;line-height:1.2;margin-bottom:8px}
+.o4-pv-out{color:var(--grey);font-size:14px;line-height:1.55;margin-bottom:12px}
+.o4-pv-tags{display:flex;flex-wrap:wrap;gap:6px}
+.o4-pv-tags span{font-family:var(--mono);font-size:10.5px;color:var(--pc);background:color-mix(in srgb,var(--pc) 12%,var(--bg));border-radius:4px;padding:2px 7px;transition:color .3s,background .3s}
+
+footer{border-top:1px solid var(--line);padding:30px 0 70px;margin-top:20px;font-family:var(--mono);font-size:12.5px;color:var(--grey-2)}
+</style>
+</head>
+<body>
+<header class="labtop">
+  <div class="col">
+    <span class="id">oshal<b>.log</b> / lab</span>
+    <a class="back" href="index.html">← back to site</a>
+  </div>
+</header>
+
+<main class="col">
+  <section class="labhero">
+    <p class="eyebrow">design lab · selected work</p>
+    <h1>Four directions for the work section</h1>
+    <p>Same four projects, four different layouts. Hover the cards and rows to feel the interactions. Tell me the option number (or a mix) you'd like on the homepage.</p>
+  </section>
+
+  <!-- OPTION 1 -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag">Option 1</span><h2>Project cards</h2></div>
+    <p class="opt-note">The version currently live. A tidy 2×2 grid — tinted visual panel, glyph, always-visible read link. Balanced and scannable.</p>
+    <div class="o1-grid">
+      <a class="pcard" style="--pc:#4a68a8" href="case-study-recovery-readiness.html" target="_blank" rel="noopener"><div class="pcard-visual"><span class="pcard-no">01</span><span class="pcard-glyph">🛡️</span></div><div class="pcard-body"><div class="pcard-kicker">cohesity · recovery readiness</div><h3 class="pcard-title">Passive protection → active resilience</h3><p class="pcard-outcome">Readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p><div class="pcard-tags"><span>data resilience</span><span>readiness</span></div><span class="pcard-read">read case study →</span></div></a>
+      <a class="pcard" style="--pc:#4f7a5c" href="case-study-cohesity.html" target="_blank" rel="noopener"><div class="pcard-visual"><span class="pcard-no">02</span><span class="pcard-glyph">🗄️</span></div><div class="pcard-body"><div class="pcard-kicker">cohesity · data backup &amp; recovery</div><h3 class="pcard-title">MongoDB protection, one pane of glass</h3><p class="pcard-outcome">Enterprise UX for MongoDB workloads — physical + logical protection, shipped.</p><div class="pcard-tags"><span>data backup</span><span>cluster ui</span></div><span class="pcard-read">read case study →</span></div></a>
+      <a class="pcard" style="--pc:#af275f" href="case-study-axis-bank.html" target="_blank" rel="noopener"><div class="pcard-visual"><span class="pcard-no">03</span><span class="pcard-glyph">♿</span></div><div class="pcard-body"><div class="pcard-kicker">axis bank · digital accessibility</div><h3 class="pcard-title">Accessibility as a strategic roadmap</h3><p class="pcard-outcome">Audits → a strategic accessibility roadmap, adopted across banking platforms.</p><div class="pcard-tags"><span>accessibility</span><span>design system</span></div><span class="pcard-read">read case study →</span></div></a>
+      <a class="pcard" style="--pc:#1f7f6f" href="case-study-talent-ai.html" target="_blank" rel="noopener"><div class="pcard-visual"><span class="pcard-no">04</span><span class="pcard-glyph">💬</span></div><div class="pcard-body"><div class="pcard-kicker">talentai · whatsapp chatbot</div><h3 class="pcard-title">Career guidance inside a chat thread</h3><p class="pcard-outcome">Conversation design + UX writing for job seekers — live in India.</p><div class="pcard-tags"><span>conversation design</span><span>0→1</span></div><span class="pcard-read">read case study →</span></div></a>
+    </div>
+  </section>
+
+  <!-- OPTION 2 -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag">Option 2</span><h2>Editorial feature rows</h2></div>
+    <p class="opt-note">Big, magazine-style. Each project gets a full-width row with a large visual that alternates sides. Fewer, more premium — great when each project deserves the spotlight.</p>
+    <div class="o2-list">
+      <a class="o2-row" style="--pc:#4a68a8" href="case-study-recovery-readiness.html" target="_blank" rel="noopener"><div class="o2-visual"><span class="n">01</span><span class="g">🛡️</span></div><div><div class="o2-kicker">cohesity · recovery readiness</div><div class="o2-title">Passive protection → active resilience</div><p class="o2-out">Readiness scores, non-disruptive recovery drills, and drill-verified RTOs — resilience you can prove.</p><div class="o2-tags"><span>data resilience</span><span>readiness</span><span>dashboard</span></div><span class="o2-read">read case study →</span></div></a>
+      <a class="o2-row" style="--pc:#4f7a5c" href="case-study-cohesity.html" target="_blank" rel="noopener"><div class="o2-visual"><span class="n">02</span><span class="g">🗄️</span></div><div><div class="o2-kicker">cohesity · data backup &amp; recovery</div><div class="o2-title">MongoDB protection, one pane of glass</div><p class="o2-out">Enterprise UX integrating MongoDB via Ops Manager — physical + logical data protection, shipped.</p><div class="o2-tags"><span>data backup</span><span>data recovery</span><span>cluster ui</span></div><span class="o2-read">read case study →</span></div></a>
+      <a class="o2-row" style="--pc:#af275f" href="case-study-axis-bank.html" target="_blank" rel="noopener"><div class="o2-visual"><span class="n">03</span><span class="g">♿</span></div><div><div class="o2-kicker">axis bank · digital accessibility</div><div class="o2-title">Accessibility as a strategic roadmap</div><p class="o2-out">Audits → a strategic accessibility roadmap, adopted across the bank's digital platforms.</p><div class="o2-tags"><span>thesis project</span><span>accessibility</span><span>design system</span></div><span class="o2-read">read case study →</span></div></a>
+      <a class="o2-row" style="--pc:#1f7f6f" href="case-study-talent-ai.html" target="_blank" rel="noopener"><div class="o2-visual"><span class="n">04</span><span class="g">💬</span></div><div><div class="o2-kicker">talentai · whatsapp chatbot</div><div class="o2-title">Career guidance inside a chat thread</div><p class="o2-out">Conversation design + UX writing helping job seekers navigate an overwhelming market — live in India.</p><div class="o2-tags"><span>conversation design</span><span>ux writing</span><span>0→1</span></div><span class="o2-read">read case study →</span></div></a>
+    </div>
+  </section>
+
+  <!-- OPTION 3 -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag">Option 3</span><h2>Bento grid</h2></div>
+    <p class="opt-note">Asymmetric and modern. The lead project spans full width as a hero tile; the rest sit in a tighter grid. Colour-forward and dense.</p>
+    <div class="o3-grid">
+      <a class="o3-card big" style="--pc:#4a68a8" href="case-study-recovery-readiness.html" target="_blank" rel="noopener"><span class="g">🛡️</span><div class="kick">cohesity · recovery readiness</div><div class="tt">Passive protection → active resilience</div><p class="ou">Readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p><span class="rd">read case study →</span></a>
+      <a class="o3-card" style="--pc:#4f7a5c" href="case-study-cohesity.html" target="_blank" rel="noopener"><span class="g">🗄️</span><div class="kick">cohesity · backup</div><div class="tt">MongoDB, one pane of glass</div><span class="rd">read case study →</span></a>
+      <a class="o3-card" style="--pc:#af275f" href="case-study-axis-bank.html" target="_blank" rel="noopener"><span class="g">♿</span><div class="kick">axis bank · accessibility</div><div class="tt">A strategic accessibility roadmap</div><span class="rd">read case study →</span></a>
+      <a class="o3-card" style="--pc:#1f7f6f" href="case-study-talent-ai.html" target="_blank" rel="noopener"><span class="g">💬</span><div class="kick">talentai · whatsapp</div><div class="tt">Career guidance in a chat thread</div><span class="rd">read case study →</span></a>
+      <a class="o3-card" style="--pc:#8a6d3b" href="experiments.html" target="_blank" rel="noopener"><span class="g">🧪</span><div class="kick">side quests</div><div class="tt">11 experiments &amp; counting</div><span class="rd">explore the lab →</span></a>
+    </div>
+  </section>
+
+  <!-- OPTION 4 -->
+  <section class="opt">
+    <div class="opt-head"><span class="opt-tag">Option 4</span><h2>Interactive index + live preview</h2></div>
+    <p class="opt-note">Typographic and gallery-like. A clean numbered list on the left; hovering a row updates the live preview on the right (colour, glyph, copy, tags). Very interactive and discoverable.</p>
+    <div class="o4-wrap">
+      <div class="o4-list" id="o4list">
+        <a class="o4-item active" style="--pc:#4a68a8" href="case-study-recovery-readiness.html" target="_blank" rel="noopener"
+           data-pc="#4a68a8" data-g="🛡️" data-kick="cohesity · recovery readiness" data-title="Passive protection → active resilience" data-out="Readiness scores, non-disruptive recovery drills, and drill-verified RTOs." data-tags="data resilience,readiness,dashboard">
+          <span class="idx">01</span><span><span class="nm">Recovery Readiness</span><span class="ty">cohesity · data resilience</span></span><span class="go">↗</span></a>
+        <a class="o4-item" style="--pc:#4f7a5c" href="case-study-cohesity.html" target="_blank" rel="noopener"
+           data-pc="#4f7a5c" data-g="🗄️" data-kick="cohesity · data backup &amp; recovery" data-title="MongoDB protection, one pane of glass" data-out="Enterprise UX for MongoDB workloads — physical + logical data protection, shipped." data-tags="data backup,data recovery,cluster ui">
+          <span class="idx">02</span><span><span class="nm">MongoDB Data Protection</span><span class="ty">cohesity · enterprise ux</span></span><span class="go">↗</span></a>
+        <a class="o4-item" style="--pc:#af275f" href="case-study-axis-bank.html" target="_blank" rel="noopener"
+           data-pc="#af275f" data-g="♿" data-kick="axis bank · digital accessibility" data-title="Accessibility as a strategic roadmap" data-out="Audits → a strategic accessibility roadmap, adopted across banking platforms." data-tags="thesis project,accessibility,design system">
+          <span class="idx">03</span><span><span class="nm">Digital Accessibility</span><span class="ty">axis bank · a11y</span></span><span class="go">↗</span></a>
+        <a class="o4-item" style="--pc:#1f7f6f" href="case-study-talent-ai.html" target="_blank" rel="noopener"
+           data-pc="#1f7f6f" data-g="💬" data-kick="talentai · whatsapp chatbot" data-title="Career guidance inside a chat thread" data-out="Conversation design + UX writing for job seekers — live in India." data-tags="conversation design,ux writing,0→1">
+          <span class="idx">04</span><span><span class="nm">TalentAI</span><span class="ty">talentai · conversation design</span></span><span class="go">↗</span></a>
+      </div>
+      <div class="o4-preview" id="o4preview">
+        <div class="o4-pv-visual"><span class="g" id="pvg">🛡️</span></div>
+        <div class="o4-pv-body">
+          <div class="o4-pv-kick" id="pvk">cohesity · recovery readiness</div>
+          <div class="o4-pv-title" id="pvt">Passive protection → active resilience</div>
+          <p class="o4-pv-out" id="pvo">Readiness scores, non-disruptive recovery drills, and drill-verified RTOs.</p>
+          <div class="o4-pv-tags" id="pvtags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>design lab · not linked from the live site · pick an option and I'll wire it into the homepage</footer>
+</main>
+
+<script>
+(function(){
+  var list=document.getElementById('o4list'), pv=document.getElementById('o4preview');
+  var pvg=document.getElementById('pvg'),pvk=document.getElementById('pvk'),pvt=document.getElementById('pvt'),pvo=document.getElementById('pvo'),pvtags=document.getElementById('pvtags');
+  function render(el){
+    var d=el.dataset;
+    pv.style.setProperty('--pc',d.pc);
+    pvg.textContent=d.g; pvk.innerHTML=d.kick; pvt.textContent=d.title; pvo.textContent=d.out;
+    pvtags.innerHTML=d.tags.split(',').map(function(t){return '<span>'+t+'</span>'}).join('');
+    Array.prototype.forEach.call(list.children,function(c){c.classList.remove('active')});
+    el.classList.add('active');
+  }
+  Array.prototype.forEach.call(list.children,function(item){
+    item.addEventListener('mouseenter',function(){render(item)});
+    item.addEventListener('focus',function(){render(item)});
+  });
+})();
+</script>
+</body>
+</html>
